@@ -203,6 +203,76 @@
       text-underline-offset: 3px;
     }
 
+    /* ---- WEEKLY SUMMARIES ---- */
+    .weekly-summaries-section {
+      background: var(--white);
+      padding: 5rem 4rem 6rem;
+    }
+    .weekly-summaries__inner { max-width: 900px; margin: 0 auto; }
+    .weekly-summaries__header { text-align: center; margin-bottom: 3.5rem; }
+    .weekly-summaries__list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .week-summary {
+      display: flex;
+      gap: 2.5rem;
+      align-items: flex-start;
+      padding: 2rem 0;
+      border-bottom: 1px solid #f0e8ee;
+      scroll-margin-top: 100px;
+      transition: background 0.3s;
+    }
+    .week-summary:first-child { border-top: 1px solid #f0e8ee; }
+    .week-summary:target {
+      background: linear-gradient(90deg, #fde8f030 0%, transparent 100%);
+      border-radius: 4px;
+    }
+    .week-summary__number {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3rem;
+      font-weight: 600;
+      color: #dbb8d4;
+      line-height: 1;
+      min-width: 3rem;
+      flex-shrink: 0;
+      letter-spacing: -0.02em;
+    }
+    .week-summary__content { flex: 1; padding-top: 0.3rem; }
+    .week-summary__label {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #b07aa0;
+      margin-bottom: 0.6rem;
+    }
+    .week-summary__text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem;
+      font-weight: 300;
+      font-style: italic;
+      color: #6b5a65;
+      line-height: 1.85;
+    }
+    @media (max-width: 600px) {
+      .weekly-summaries-section { padding: 4rem 1.5rem; }
+      .week-summary { gap: 1.2rem; }
+      .week-summary__number { font-size: 2rem; min-width: 2rem; }
+    }
+
+    /* ---- Week label links ---- */
+    .week-card__label a {
+      color: inherit;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      text-decoration-color: #dbb8d4;
+      transition: color 0.2s;
+    }
+    .week-card__label a:hover { color: #b07aa0; }
+
     /* Modal for full video playback */
     .week-modal {
       display: none;
@@ -341,10 +411,10 @@
               <div class="week-card__play-icon">▶</div>
             </div>
           </div>
-          <p class="week-card__label">WEEK 1: PICKING THE VIDEO</p>
+          <p class="week-card__label"><a href="#week-summary-1">WEEK 1: PICKING THE VIDEO</a></p>
         </div>
 
-          <!-- Week 2 — replace WEEK2_ID with your actual video ID -->
+          <!-- Week 2 -->
           <div class="week-card reveal">
             <div class="week-card__thumb" data-yt-id="qkbZKouHjVU">
               <img src="https://img.youtube.com/vi/qkbZKouHjVU/mqdefault.jpg" alt="Week 2 thumbnail" />
@@ -352,7 +422,7 @@
                 <div class="week-card__play-icon">▶</div>
               </div>
             </div>
-            <p class="week-card__label">WEEK 2: FIRST 10 SECONDS</p>
+            <p class="week-card__label"><a href="#week-summary-2">WEEK 2: FIRST 10 SECONDS</a></p>
           </div>
 
           <!-- Week 3 -->
@@ -361,7 +431,7 @@
               <img src="https://img.youtube.com/vi/WEEK3_ID/mqdefault.jpg" alt="Week 3 thumbnail" />
               <div class="week-card__play-overlay"><div class="week-card__play-icon">▶</div></div>
             </div>
-            <p class="week-card__label">WEEK 3:</p>
+            <p class="week-card__label"><a href="#week-summary-3">WEEK 3:</a></p>
           </div>
 
           <!-- Week 4 -->
@@ -370,7 +440,7 @@
               <img src="https://img.youtube.com/vi/WEEK4_ID/mqdefault.jpg" alt="Week 4 thumbnail" />
               <div class="week-card__play-overlay"><div class="week-card__play-icon">▶</div></div>
             </div>
-            <p class="week-card__label">WEEK 4:</p>
+            <p class="week-card__label"><a href="#week-summary-4">WEEK 4:</a></p>
           </div>
 
           <!-- Week 5 -->
@@ -379,7 +449,7 @@
               <img src="https://img.youtube.com/vi/WEEK5_ID/mqdefault.jpg" alt="Week 5 thumbnail" />
               <div class="week-card__play-overlay"><div class="week-card__play-icon">▶</div></div>
             </div>
-            <p class="week-card__label">WEEK 5:</p>
+            <p class="week-card__label"><a href="#week-summary-5">WEEK 5:</a></p>
           </div>
 
           <!-- Week 6 -->
@@ -388,7 +458,7 @@
               <img src="https://img.youtube.com/vi/WEEK6_ID/mqdefault.jpg" alt="Week 6 thumbnail" />
               <div class="week-card__play-overlay"><div class="week-card__play-icon">▶</div></div>
             </div>
-            <p class="week-card__label">WEEK 6:</p>
+            <p class="week-card__label"><a href="#week-summary-6">WEEK 6:</a></p>
           </div>
 
           <!-- Week 7 -->
@@ -397,7 +467,7 @@
               <img src="https://img.youtube.com/vi/WEEK7_ID/mqdefault.jpg" alt="Week 7 thumbnail" />
               <div class="week-card__play-overlay"><div class="week-card__play-icon">▶</div></div>
             </div>
-            <p class="week-card__label">WEEK 7:</p>
+            <p class="week-card__label"><a href="#week-summary-7">WEEK 7:</a></p>
           </div>
 
           <!-- Week 8 -->
@@ -406,7 +476,7 @@
               <img src="https://img.youtube.com/vi/WEEK8_ID/mqdefault.jpg" alt="Week 8 thumbnail" />
               <div class="week-card__play-overlay"><div class="week-card__play-icon">▶</div></div>
             </div>
-            <p class="week-card__label">WEEK 8:</p>
+            <p class="week-card__label"><a href="#week-summary-8">WEEK 8:</a></p>
           </div>
 
           <!-- Week 9 -->
@@ -415,7 +485,7 @@
               <img src="https://img.youtube.com/vi/WEEK9_ID/mqdefault.jpg" alt="Week 9 thumbnail" />
               <div class="week-card__play-overlay"><div class="week-card__play-icon">▶</div></div>
             </div>
-            <p class="week-card__label">WEEK 9:</p>
+            <p class="week-card__label"><a href="#week-summary-9">WEEK 9:</a></p>
           </div>
 
           <!-- Week 10 -->
@@ -424,7 +494,7 @@
               <img src="https://img.youtube.com/vi/WEEK10_ID/mqdefault.jpg" alt="Week 10 thumbnail" />
               <div class="week-card__play-overlay"><div class="week-card__play-icon">▶</div></div>
             </div>
-            <p class="week-card__label">WEEK 10:</p>
+            <p class="week-card__label"><a href="#week-summary-10">WEEK 10:</a></p>
           </div>
 
           <!-- Week 11 -->
@@ -433,7 +503,7 @@
               <img src="https://img.youtube.com/vi/WEEK11_ID/mqdefault.jpg" alt="Week 11 thumbnail" />
               <div class="week-card__play-overlay"><div class="week-card__play-icon">▶</div></div>
             </div>
-            <p class="week-card__label">WEEK 11:</p>
+            <p class="week-card__label"><a href="#week-summary-11">WEEK 11:</a></p>
           </div>
 
           <!-- Week 12 -->
@@ -442,10 +512,120 @@
               <img src="https://img.youtube.com/vi/WEEK12_ID/mqdefault.jpg" alt="Week 12 thumbnail" />
               <div class="week-card__play-overlay"><div class="week-card__play-icon">▶</div></div>
             </div>
-            <p class="week-card__label">WEEK 12:</p>
+            <p class="week-card__label"><a href="#week-summary-12">WEEK 12:</a></p>
           </div>
 
         </div><!-- /weekly-grid -->
+      </div>
+    </section>
+
+    <!-- WEEKLY SUMMARIES -->
+    <section class="weekly-summaries-section" aria-label="Weekly summaries">
+      <div class="weekly-summaries__inner">
+        <div class="weekly-summaries__header reveal">
+          <p class="section-label" style="justify-content:center;">Week by Week</p>
+          <h2 class="section-title">Progress <em>Journal</em></h2>
+        </div>
+
+        <div class="weekly-summaries__list">
+
+          <div class="week-summary reveal" id="week-summary-1">
+            <div class="week-summary__number">01</div>
+            <div class="week-summary__content">
+              <p class="week-summary__label">Week 1 — Picking the Video</p>
+              <p class="week-summary__text">Write your summary for Week 1 here. Describe what you did, what you chose, and why.</p>
+            </div>
+          </div>
+
+          <div class="week-summary reveal" id="week-summary-2">
+            <div class="week-summary__number">02</div>
+            <div class="week-summary__content">
+              <p class="week-summary__label">Week 2 — First 10 Seconds</p>
+              <p class="week-summary__text">Write your summary for Week 2 here. Describe your process tracing the first few seconds.</p>
+            </div>
+          </div>
+
+          <div class="week-summary reveal" id="week-summary-3">
+            <div class="week-summary__number">03</div>
+            <div class="week-summary__content">
+              <p class="week-summary__label">Week 3 —</p>
+              <p class="week-summary__text">Write your summary for Week 3 here.</p>
+            </div>
+          </div>
+
+          <div class="week-summary reveal" id="week-summary-4">
+            <div class="week-summary__number">04</div>
+            <div class="week-summary__content">
+              <p class="week-summary__label">Week 4 —</p>
+              <p class="week-summary__text">Write your summary for Week 4 here.</p>
+            </div>
+          </div>
+
+          <div class="week-summary reveal" id="week-summary-5">
+            <div class="week-summary__number">05</div>
+            <div class="week-summary__content">
+              <p class="week-summary__label">Week 5 —</p>
+              <p class="week-summary__text">Write your summary for Week 5 here.</p>
+            </div>
+          </div>
+
+          <div class="week-summary reveal" id="week-summary-6">
+            <div class="week-summary__number">06</div>
+            <div class="week-summary__content">
+              <p class="week-summary__label">Week 6 —</p>
+              <p class="week-summary__text">Write your summary for Week 6 here.</p>
+            </div>
+          </div>
+
+          <div class="week-summary reveal" id="week-summary-7">
+            <div class="week-summary__number">07</div>
+            <div class="week-summary__content">
+              <p class="week-summary__label">Week 7 —</p>
+              <p class="week-summary__text">Write your summary for Week 7 here.</p>
+            </div>
+          </div>
+
+          <div class="week-summary reveal" id="week-summary-8">
+            <div class="week-summary__number">08</div>
+            <div class="week-summary__content">
+              <p class="week-summary__label">Week 8 —</p>
+              <p class="week-summary__text">Write your summary for Week 8 here.</p>
+            </div>
+          </div>
+
+          <div class="week-summary reveal" id="week-summary-9">
+            <div class="week-summary__number">09</div>
+            <div class="week-summary__content">
+              <p class="week-summary__label">Week 9 —</p>
+              <p class="week-summary__text">Write your summary for Week 9 here.</p>
+            </div>
+          </div>
+
+          <div class="week-summary reveal" id="week-summary-10">
+            <div class="week-summary__number">10</div>
+            <div class="week-summary__content">
+              <p class="week-summary__label">Week 10 —</p>
+              <p class="week-summary__text">Write your summary for Week 10 here.</p>
+            </div>
+          </div>
+
+          <div class="week-summary reveal" id="week-summary-11">
+            <div class="week-summary__number">11</div>
+            <div class="week-summary__content">
+              <p class="week-summary__label">Week 11 —</p>
+              <p class="week-summary__text">Write your summary for Week 11 here.</p>
+            </div>
+          </div>
+
+          <div class="week-summary reveal" id="week-summary-12">
+            <div class="week-summary__number">12</div>
+            <div class="week-summary__content">
+              <p class="week-summary__label">Week 12 —</p>
+              <p class="week-summary__text">Write your summary for Week 12 here.</p>
+            </div>
+          </div>
+
+        </div>
       </div>
     </section>
 
@@ -459,18 +639,7 @@
       </div>
     </div>
 
-    <!-- REFLECTION -->
-    <section aria-label="Project reflection" style="background:var(--white); padding: 5rem 4rem;">
-      <div style="max-width:900px; margin:0 auto;">
-        <div class="reflection-box reveal">
-          <p class="reflection-box__label">My Reflection</p>
-          <p>Rotoscoping taught me that patience is an art form in itself. Tracing each frame by hand forced me to slow down and truly observe how bodies move — the weight in a step, the arc of an arm. I discovered that the imperfections in each traced line are what make the animation feel alive and human. If I could redo this, I'd experiment more with stylizing the lines rather than aiming for perfect accuracy.</p>
-        </div>
-        <div style="text-align:center; margin-top:3rem;" class="reveal">
-          <a href="solar-system.html" class="btn btn--primary">See Also: Solar System →</a>
-        </div>
-      </div>
-    </section>
+
 
   </main>
 
