@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Rotoscope — Frame-by-frame animation project by The Inbetween" />
+  <title>Rotoscope — The Inbetween</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Josefin+Sans:wght@200;300;400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* ---- ROTOSCOPE-SPECIFIC STYLES ---- */
+
+    /* Intro section */
+    .roto-intro { background: var(--white); padding: 5rem 4rem; }
+    .roto-intro__inner { max-width: 900px; margin: 0 auto; }
+    .roto-intro__text {
+      font-size: 1.05rem; font-family: var(--font-display);
+      font-weight: 300; font-style: italic;
+      color: var(--text-mid); line-height: 1.9; max-width: 720px;
+    }
+
+    /* ---- FINAL VIDEO ---- */
+    .final-video-section {
+      background: linear-gradient(135deg, #fde8f0 0%, #f5e6f8 40%, #fdf3e0 100%);
+      padding: 0;
+      position: relative;
+      display: flex;
+      align-items: stretch;
+    }
+    .final-video-section__side {
+      width: 120px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .final-video-section__side span {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 4.5rem;
+      font-weight: 600;
+      color: #c9a0c0;
+      letter-spacing: 0.08em;
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+      white-space: nowrap;
+    }
+    .final-video-section__side--left span { transform: rotate(180deg); }
+    .final-video-section__center {
+      flex: 1;
+      padding: 2.5rem 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    /* The white iframe box */
+    .final-video-box {
+      background: #fff;
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      box-shadow: 0 8px 40px rgba(180,120,160,0.15);
+    }
+    .final-video-box iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    .final-video-box__placeholder {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.6rem;
+      pointer-events: none;
+    }
+    .final-video-box__placeholder.hidden { display: none; }
+    .final-video-box__placeholder p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      font-weight: 300;
+      color: #bbb;
+      text-align: center;
+      line-height: 1.4;
+    }
+
+    /* ---- WEEKLY PROGRESS ---- */
+    .weekly-section {
+      background: #fdf6f9;
+      padding: 5rem 3rem 7rem;
+    }
+    .weekly-section__inner { max-width: 1400px; margin: 0 auto; }
+    .weekly-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+    /* 4-per-row grid */
+    .weekly-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2.5rem;
+    }
+    /* Simple card: just thumbnail + label */
+    .week-card {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+    /* The video/thumbnail box — taller */
+    .week-card__thumb {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      background: #e8e0d8;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    }
+    .week-card__thumb img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    /* Overlay with play icon */
+    .week-card__play-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.2s;
+      z-index: 2;
+    }
+    .week-card__thumb:hover .week-card__play-overlay { opacity: 1; }
+    .week-card__play-icon {
+      width: 56px; height: 56px;
+      background: rgba(255,255,255,0.92);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem;
+    }
+    /* Empty state (no video yet) */
+    .week-card__empty {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      color: #bbb;
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      font-family: 'Josefin Sans', sans-serif;
+    }
+    .week-card__empty svg { opacity: 0.35; }
+    /* Week label below */
+    .week-card__label {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 300;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #888;
+    }
+    .week-card__label a {
+      text-decoration: underline;
+      color: inherit;
+      text-underline-offset: 3px;
+    }
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .week-card__url-row button:hover { background: #444; }
+    /* Week label below */
+    .week-card__label {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 300;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #555;
+    }
+    .week-card__label a {
+      text-decoration: underline;
+      color: inherit;
+      text-underline-offset: 3px;
+    }
+
+    /* Modal for full video playback */
+    .week-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.88);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+    }
+    .week-modal.open { display: flex; }
+    .week-modal__inner {
+      width: 90vw;
+      max-width: 960px;
+      position: relative;
+    }
+    .week-modal__iframe-wrap {
+      width: 100%;
+      aspect-ratio: 16/9;
+      background: #000;
+    }
+    .week-modal__iframe-wrap iframe {
+      width: 100%; height: 100%; border: none;
+    }
+    .week-modal__close {
+      position: absolute;
+      top: -2.5rem; right: 0;
+      background: none; border: none;
+      color: #fff; font-size: 1.5rem;
+      cursor: pointer; line-height: 1;
+    }
+
+    @media (max-width: 900px) {
+      .roto-intro { padding: 4rem 2rem; }
+      .final-video-section__side { width: 70px; }
+      .final-video-section__side span { font-size: 3rem; }
+      .weekly-section { padding: 4rem 1.5rem 5rem; }
+      .weekly-grid { grid-template-columns: repeat(2, 1fr); gap: 1.2rem; }
+    }
+    @media (max-width: 480px) {
+      .weekly-grid { grid-template-columns: 1fr; }
+      .final-video-section__side { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar" role="navigation" aria-label="Main navigation">
+    <a href="index.html" class="navbar__logo" aria-label="The Inbetween home">
+      The <span class="accent-pink">In</span><span class="accent-gold">between</span>
+    </a>
+    <ul class="navbar__links" id="navLinks" role="list">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="rotoscope.html" class="active">Rotoscope</a></li>
+      <li><a href="solar-system.html">Solar System</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <button class="navbar__hamburger" id="hamburger"
+      aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="navLinks">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <main class="inner-page" aria-label="Rotoscope project page">
+
+    <!-- HERO -->
+    <div class="inner-hero inner-hero--rotoscope">
+      <div class="inner-hero__deco inner-hero__deco--1" aria-hidden="true"></div>
+      <div class="inner-hero__deco inner-hero__deco--2" aria-hidden="true"></div>
+      <div class="inner-hero__content">
+        <p class="inner-hero__tag">Animation Project</p>
+        <h1 class="inner-hero__title">Roto<em>scope</em></h1>
+        <p class="inner-hero__subtitle">
+          Frame by frame, life becomes animation — tracing the human form into something both real and surreal.
+        </p>
+      </div>
+    </div>
+
+    <!-- INTRO -->
+    <section class="roto-intro" aria-label="Project introduction">
+      <div class="roto-intro__inner">
+        <a href="index.html" class="back-btn" aria-label="Back to home">Back to Home</a>
+        <p class="section-label" style="margin-bottom:1.5rem;">About the Project</p>
+        <p class="roto-intro__text reveal">
+          Rotoscoping is the art of tracing over live-action footage, frame by frame, to create fluid and lifelike animation. This project challenged us to slow down, observe deeply, and find beauty in the smallest movement — the arc of an arm, the shift of weight in a step. Over twelve weeks, we documented every stage of the process.
+        </p>
+      </div>
+    </section>
+
+    <!-- FINAL VIDEO -->
+    <section class="final-video-section" aria-label="Final animation">
+      <!-- Left vertical text -->
+      <div class="final-video-section__side final-video-section__side--left" aria-hidden="true">
+        <span>ROTOSCOPING</span>
+      </div>
+
+      <!-- Center: white box only, no url bar -->
+      <div class="final-video-section__center">
+        <div class="final-video-box" id="final-video-box">
+          <div class="final-video-box__placeholder" id="final-placeholder">
+            <p>FINAL VIDEO<br>PLACEHOLDER</p>
+          </div>
+          <!-- REPLACE YOUR_VIDEO_ID below with your actual YouTube video ID -->
+          <iframe
+            id="final-iframe"
+            src="https://www.youtube.com/embed/YOUR_VIDEO_ID?rel=0"
+            title="Final rotoscope animation"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          ></iframe>
+        </div>
+      </div>
+
+      <!-- Right vertical text -->
+      <div class="final-video-section__side final-video-section__side--right" aria-hidden="true">
+        <span>ROTOSCOPING</span>
+      </div>
+    </section>
+
+    <!-- WEEKLY PROGRESS -->
+    <section class="weekly-section" aria-label="Weekly progress documentation">
+      <div class="weekly-section__inner">
+        <div class="weekly-header reveal">
+          <p class="section-label" style="justify-content:center;">Documentation</p>
+          <h2 class="section-title">Weekly <em>Progress</em></h2>
+        </div>
+
+        <div class="weekly-grid">
+
+          <div class="week-card reveal">
+          <div class="week-card__thumb" data-yt-id="wRulGH7WCIE">
+            <img src="https://img.youtube.com/vi/wRulGH7WCIE/mqdefault.jpg" alt="Week 1 thumbnail" />
+            <div class="week-card__play-overlay">
+              <div class="week-card__play-icon">▶</div>
+            </div>
+          </div>
+          <p class="week-card__label">WEEK 1: PICKING THE VIDEO</p>
+        </div>
+
+          <!-- Week 2 — replace WEEK2_ID with your actual video ID -->
+          <div class="week-card reveal">
+            <div class="week-card__thumb" data-yt-id="WEEK2_ID">
+              <img src="https://img.youtube.com/vi/WEEK2_ID/mqdefault.jpg" alt="Week 2 thumbnail" />
+              <div class="week-card__play-overlay"><div class="week-card__play-icon">▶</div></div>
+            </div>
+            <p class="week-card__label">WEEK 2:</p>
+          </div>
+
+          <!-- Week 3 -->
+          <div class="week-card reveal">
+            <div class="week-card__thumb" data-yt-id="WEEK3_ID">
+              <img src="https://img.youtube.com/vi/WEEK3_ID/mqdefault.jpg" alt="Week 3 thumbnail" />
+              <div class="week-card__play-overlay"><div class="week-card__play-icon">▶</div></div>
+            </div>
+            <p class="week-card__label">WEEK 3:</p>
+          </div>
+
+          <!-- Week 4 -->
+          <div class="week-card reveal">
+            <div class="week-card__thumb" data-yt-id="WEEK4_ID">
+              <img src="https://img.youtube.com/vi/WEEK4_ID/mqdefault.jpg" alt="Week 4 thumbnail" />
+              <div class="week-card__play-overlay"><div class="week-card__play-icon">▶</div></div>
+            </div>
+            <p class="week-card__label">WEEK 4:</p>
+          </div>
+
+          <!-- Week 5 -->
+          <div class="week-card reveal">
+            <div class="week-card__thumb" data-yt-id="WEEK5_ID">
+              <img src="https://img.youtube.com/vi/WEEK5_ID/mqdefault.jpg" alt="Week 5 thumbnail" />
+              <div class="week-card__play-overlay"><div class="week-card__play-icon">▶</div></div>
+            </div>
+            <p class="week-card__label">WEEK 5:</p>
+          </div>
+
+          <!-- Week 6 -->
+          <div class="week-card reveal">
+            <div class="week-card__thumb" data-yt-id="WEEK6_ID">
+              <img src="https://img.youtube.com/vi/WEEK6_ID/mqdefault.jpg" alt="Week 6 thumbnail" />
+              <div class="week-card__play-overlay"><div class="week-card__play-icon">▶</div></div>
+            </div>
+            <p class="week-card__label">WEEK 6:</p>
+          </div>
+
+          <!-- Week 7 -->
+          <div class="week-card reveal">
+            <div class="week-card__thumb" data-yt-id="WEEK7_ID">
+              <img src="https://img.youtube.com/vi/WEEK7_ID/mqdefault.jpg" alt="Week 7 thumbnail" />
+              <div class="week-card__play-overlay"><div class="week-card__play-icon">▶</div></div>
+            </div>
+            <p class="week-card__label">WEEK 7:</p>
+          </div>
+
+          <!-- Week 8 -->
+          <div class="week-card reveal">
+            <div class="week-card__thumb" data-yt-id="WEEK8_ID">
+              <img src="https://img.youtube.com/vi/WEEK8_ID/mqdefault.jpg" alt="Week 8 thumbnail" />
+              <div class="week-card__play-overlay"><div class="week-card__play-icon">▶</div></div>
+            </div>
+            <p class="week-card__label">WEEK 8:</p>
+          </div>
+
+          <!-- Week 9 -->
+          <div class="week-card reveal">
+            <div class="week-card__thumb" data-yt-id="WEEK9_ID">
+              <img src="https://img.youtube.com/vi/WEEK9_ID/mqdefault.jpg" alt="Week 9 thumbnail" />
+              <div class="week-card__play-overlay"><div class="week-card__play-icon">▶</div></div>
+            </div>
+            <p class="week-card__label">WEEK 9:</p>
+          </div>
+
+          <!-- Week 10 -->
+          <div class="week-card reveal">
+            <div class="week-card__thumb" data-yt-id="WEEK10_ID">
+              <img src="https://img.youtube.com/vi/WEEK10_ID/mqdefault.jpg" alt="Week 10 thumbnail" />
+              <div class="week-card__play-overlay"><div class="week-card__play-icon">▶</div></div>
+            </div>
+            <p class="week-card__label">WEEK 10:</p>
+          </div>
+
+          <!-- Week 11 -->
+          <div class="week-card reveal">
+            <div class="week-card__thumb" data-yt-id="WEEK11_ID">
+              <img src="https://img.youtube.com/vi/WEEK11_ID/mqdefault.jpg" alt="Week 11 thumbnail" />
+              <div class="week-card__play-overlay"><div class="week-card__play-icon">▶</div></div>
+            </div>
+            <p class="week-card__label">WEEK 11:</p>
+          </div>
+
+          <!-- Week 12 -->
+          <div class="week-card reveal">
+            <div class="week-card__thumb" data-yt-id="WEEK12_ID">
+              <img src="https://img.youtube.com/vi/WEEK12_ID/mqdefault.jpg" alt="Week 12 thumbnail" />
+              <div class="week-card__play-overlay"><div class="week-card__play-icon">▶</div></div>
+            </div>
+            <p class="week-card__label">WEEK 12:</p>
+          </div>
+
+        </div><!-- /weekly-grid -->
+      </div>
+    </section>
+
+    <!-- Video Modal -->
+    <div class="week-modal" id="week-modal" role="dialog" aria-modal="true" aria-label="Video player">
+      <div class="week-modal__inner">
+        <button class="week-modal__close" id="modal-close" aria-label="Close video">✕</button>
+        <div class="week-modal__iframe-wrap">
+          <iframe id="modal-iframe" title="Week video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+
+    <!-- REFLECTION -->
+    <section aria-label="Project reflection" style="background:var(--white); padding: 5rem 4rem;">
+      <div style="max-width:900px; margin:0 auto;">
+        <div class="reflection-box reveal">
+          <p class="reflection-box__label">My Reflection</p>
+          <p>Rotoscoping taught me that patience is an art form in itself. Tracing each frame by hand forced me to slow down and truly observe how bodies move — the weight in a step, the arc of an arm. I discovered that the imperfections in each traced line are what make the animation feel alive and human. If I could redo this, I'd experiment more with stylizing the lines rather than aiming for perfect accuracy.</p>
+        </div>
+        <div style="text-align:center; margin-top:3rem;" class="reveal">
+          <a href="solar-system.html" class="btn btn--primary">See Also: Solar System →</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer role="contentinfo">
+    <div class="footer__logo">The <span class="accent">Inbetween</span></div>
+    <nav class="footer__nav" aria-label="Footer navigation">
+      <a href="index.html">Home</a>
+      <a href="projects.html">Projects</a>
+      <a href="rotoscope.html">Rotoscope</a>
+      <a href="solar-system.html">Solar System</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <p class="footer__copy">&copy; 2025 The Inbetween &mdash; Multimedia Arts Student Showcase. All rights reserved.</p>
+  </footer>
+
+  <script src="nav.js"></script>
+  <script>
+    'use strict';
+
+    /* ---- MODAL: click thumbnail to watch video ---- */
+    var modal = document.getElementById('week-modal');
+    var modalIframe = document.getElementById('modal-iframe');
+
+    document.getElementById('modal-close').addEventListener('click', function() {
+      modal.classList.remove('open');
+      modalIframe.src = '';
+    });
+    modal.addEventListener('click', function(e) {
+      if (e.target === modal) { modal.classList.remove('open'); modalIframe.src = ''; }
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') { modal.classList.remove('open'); modalIframe.src = ''; }
+    });
+
+    document.querySelectorAll('.week-card__thumb').forEach(function(thumb) {
+  thumb.addEventListener('click', function() {
+    var id = thumb.getAttribute('data-yt-id');
+    if (!id || id.indexOf('_ID') !== -1) return;
+
+    modalIframe.src = 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0';
+    modal.classList.add('open');
+
+      });
+    });
+  </script>
+
+</body>
+</html>

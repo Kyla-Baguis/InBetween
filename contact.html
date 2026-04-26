@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Contact — The Inbetween Student Showcase" />
+  <title>Contact — The Inbetween</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Josefin+Sans:wght@200;300;400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar" role="navigation" aria-label="Main navigation">
+    <a href="index.html" class="navbar__logo" aria-label="The Inbetween home">
+      The <span class="accent-pink">In</span><span class="accent-gold">between</span>
+    </a>
+    <ul class="navbar__links" id="navLinks" role="list">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="rotoscope.html">Rotoscope</a></li>
+      <li><a href="solar-system.html">Solar System</a></li>
+      <li><a href="contact.html" class="active">Contact</a></li>
+    </ul>
+    <button class="navbar__hamburger" id="hamburger"
+      aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="navLinks">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <main class="inner-page contact-page" aria-label="Contact page">
+
+    <!-- HERO -->
+    <div class="inner-hero" style="background: radial-gradient(ellipse at 70% 40%, rgba(201,168,60,0.22) 0%, transparent 55%), linear-gradient(145deg, var(--pink-whisper) 0%, var(--gold-pale) 40%, var(--purple-pale) 100%); min-height:40vh;">
+      <div class="inner-hero__deco inner-hero__deco--1" aria-hidden="true"></div>
+      <div class="inner-hero__content">
+        <p class="inner-hero__tag">Say Hello</p>
+        <h1 class="inner-hero__title">Let's <em>Connect</em></h1>
+        <p class="inner-hero__subtitle">Have feedback, questions, or just love what you see?</p>
+      </div>
+    </div>
+
+    <!-- CONTACT BODY -->
+    <div class="inner-body">
+      <a href="index.html" class="back-btn" aria-label="Back to home">Back to Home</a>
+
+      <div class="contact-info reveal">
+        <p class="inner-section__label">Reach Out</p>
+        <h2 class="inner-section__title" style="font-family:var(--font-display); font-size:2rem; font-weight:300; margin-bottom:1.2rem;">We'd love to <em>hear</em> from you</h2>
+        <p style="font-size:0.87rem; font-weight:200; color:var(--text-mid); line-height:1.95; margin-bottom:1.5rem;">Whether you're a fellow student, a teacher, or just someone who appreciates the art of animation — we're happy to connect. Drop us a message below.</p>
+        <div class="contact-info__item">
+          <span>✦</span>
+          <span>Multimedia Arts Class, 2025</span>
+        </div>
+        <div class="contact-info__item">
+          <span>✦</span>
+          <span>The Inbetween — Student Showcase</span>
+        </div>
+        <div class="contact-info__item">
+          <span>✦</span>
+          <span>Passion for Animation &amp; Design</span>
+        </div>
+      </div>
+
+      <div class="reveal">
+        <form class="contact__form" novalidate id="contactForm" aria-label="Contact form">
+          <label for="c-name" class="sr-only">Your Name</label>
+          <input type="text" id="c-name" name="name" class="contact__input"
+            placeholder="Your Name" required autocomplete="name" aria-required="true" />
+
+          <label for="c-email" class="sr-only">Your Email</label>
+          <input type="email" id="c-email" name="email" class="contact__input"
+            placeholder="Your Email" required autocomplete="email" aria-required="true" />
+
+          <label for="c-message" class="sr-only">Your Message</label>
+          <textarea id="c-message" name="message" class="contact__input contact__textarea"
+            placeholder="Your Message" required aria-required="true"></textarea>
+
+          <button type="submit" class="btn btn--primary" id="submitBtn">Send Message</button>
+          <p id="formFeedback" class="form-feedback" role="alert" aria-live="polite"></p>
+        </form>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer role="contentinfo">
+    <div class="footer__logo">The <span class="accent">Inbetween</span></div>
+    <nav class="footer__nav" aria-label="Footer navigation">
+      <a href="index.html">Home</a>
+      <a href="projects.html">Projects</a>
+      <a href="rotoscope.html">Rotoscope</a>
+      <a href="solar-system.html">Solar System</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <p class="footer__copy">&copy; 2025 The Inbetween &mdash; Multimedia Arts Student Showcase. All rights reserved.</p>
+  </footer>
+
+  <script src="nav.js"></script>
+  <script>
+    'use strict';
+    /* ---- Contact form validation ---- */
+    (function () {
+      var form     = document.getElementById('contactForm');
+      var feedback = document.getElementById('formFeedback');
+      if (!form || !feedback) { return; }
+      var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      form.addEventListener('submit', function (event) {
+        event.preventDefault();
+        var nameEl    = document.getElementById('c-name');
+        var emailEl   = document.getElementById('c-email');
+        var messageEl = document.getElementById('c-message');
+        var errors = [];
+        if (!nameEl.value.trim()) { errors.push('Please enter your name.'); }
+        if (!emailEl.value.trim()) { errors.push('Please enter your email address.'); }
+        else if (!emailPattern.test(emailEl.value.trim())) { errors.push('Please enter a valid email address.'); }
+        if (!messageEl.value.trim()) { errors.push('Please enter your message.'); }
+        if (errors.length > 0) {
+          feedback.style.color = 'var(--pink-deep)';
+          feedback.textContent = errors[0];
+          return;
+        }
+        feedback.style.color = 'var(--purple-rich)';
+        feedback.textContent = '✦ Thank you! Your message has been received.';
+        form.reset();
+      });
+    }());
+  </script>
+
+</body>
+</html>

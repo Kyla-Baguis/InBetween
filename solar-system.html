@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Solar System — Animated simulation project by The Inbetween" />
+  <title>Solar System — The Inbetween</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Josefin+Sans:wght@200;300;400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* ---- SOLAR-SPECIFIC STYLES ---- */
+
+    /* Intro section */
+    .solar-intro {
+      background: var(--white);
+      padding: 5rem 4rem;
+    }
+    .solar-intro__inner {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .solar-intro__text {
+      font-size: 1.05rem;
+      font-family: var(--font-display);
+      font-weight: 300;
+      font-style: italic;
+      color: var(--text-mid);
+      line-height: 1.9;
+      max-width: 720px;
+    }
+
+    /* Final video placeholder */
+    .final-video-section {
+      background: linear-gradient(160deg, var(--gold-pale) 0%, var(--purple-pale) 50%, var(--pink-whisper) 100%);
+      padding: 5rem 4rem;
+    }
+    .final-video-section__inner {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .video-placeholder {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: linear-gradient(135deg, var(--gold-pale) 0%, var(--purple-soft) 60%, var(--pink-blush) 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      border: 1px dashed var(--purple-soft);
+      position: relative;
+      overflow: hidden;
+      margin-top: 2rem;
+    }
+    .video-placeholder::before {
+      content: '';
+      position: absolute;
+      width: 300px; height: 300px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(184,158,224,0.3) 0%, transparent 70%);
+      bottom: -80px; left: -60px;
+    }
+    .video-placeholder__icon {
+      font-size: 3.5rem;
+      opacity: 0.55;
+      position: relative;
+      z-index: 1;
+    }
+    .video-placeholder__label {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      font-weight: 300;
+      font-style: italic;
+      color: var(--text-mid);
+      position: relative;
+      z-index: 1;
+    }
+    .video-placeholder__sub {
+      font-size: 0.65rem;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--text-soft);
+      position: relative;
+      z-index: 1;
+    }
+    /* Real video embed support */
+    .video-placeholder iframe,
+    .video-placeholder video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    /* ---- PROCESS SECTION ---- */
+    .process-section {
+      background: var(--pink-whisper);
+      padding: 5rem 4rem;
+    }
+    .process-section__inner {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .process-steps {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+      margin-top: 2.5rem;
+    }
+    .process-step {
+      background: var(--white);
+      padding: 2rem 2.2rem;
+      box-shadow: var(--shadow-soft);
+      border-top: 2px solid var(--pink-soft);
+    }
+    .process-step:nth-child(2) { border-top-color: var(--gold-warm); }
+    .process-step:nth-child(3) { border-top-color: var(--purple-mid); }
+    .process-step:nth-child(4) { border-top-color: var(--pink-rose); }
+    .process-step__num {
+      font-family: var(--font-display);
+      font-size: 2.5rem;
+      font-weight: 300;
+      line-height: 1;
+      color: var(--pink-deep);
+      margin-bottom: 0.8rem;
+    }
+    .process-step:nth-child(2) .process-step__num { color: var(--gold-rich); }
+    .process-step:nth-child(3) .process-step__num { color: var(--purple-rich); }
+    .process-step:nth-child(4) .process-step__num { color: var(--pink-rose); }
+    .process-step__title {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-weight: 400;
+      color: var(--text-dark);
+      margin-bottom: 0.6rem;
+    }
+    .process-step p {
+      font-size: 0.83rem;
+      font-weight: 200;
+      color: var(--text-mid);
+      line-height: 1.8;
+    }
+
+    @media (max-width: 900px) {
+      .solar-intro { padding: 4rem 2rem; }
+      .final-video-section { padding: 4rem 2rem; }
+      .process-section { padding: 4rem 2rem; }
+      .process-steps { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar" role="navigation" aria-label="Main navigation">
+    <a href="index.html" class="navbar__logo" aria-label="The Inbetween home">
+      The <span class="accent-pink">In</span><span class="accent-gold">between</span>
+    </a>
+    <ul class="navbar__links" id="navLinks" role="list">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="rotoscope.html">Rotoscope</a></li>
+      <li><a href="solar-system.html" class="active">Solar System</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <button class="navbar__hamburger" id="hamburger"
+      aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="navLinks">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <main class="inner-page" aria-label="Solar System project page">
+
+    <!-- HERO -->
+    <div class="inner-hero inner-hero--solar">
+      <div class="inner-hero__deco inner-hero__deco--1" aria-hidden="true"></div>
+      <div class="inner-hero__deco inner-hero__deco--2" aria-hidden="true"></div>
+      <div class="inner-hero__content">
+        <p class="inner-hero__tag">Simulation Project</p>
+        <h1 class="inner-hero__title">Solar <em>System</em></h1>
+        <p class="inner-hero__subtitle">
+          An animated journey through our cosmic neighborhood — orbits, scales, and the quiet poetry of planets in motion.
+        </p>
+      </div>
+    </div>
+
+    <!-- INTRO -->
+    <section class="solar-intro" aria-label="Project introduction">
+      <div class="solar-intro__inner">
+        <a href="index.html" class="back-btn" aria-label="Back to home">Back to Home</a>
+        <p class="section-label" style="margin-bottom:1.5rem;">About the Project</p>
+        <p class="solar-intro__text reveal">
+          Our Solar System project is an animated simulation that visualizes the eight planets orbiting the Sun — with attention to relative orbital speeds, planetary sizes, and the characteristic colors and textures of each world. The goal was to create something both scientifically informed and aesthetically captivating — a simulation that teaches while it delights.
+        </p>
+      </div>
+    </section>
+
+    <!-- FINAL VIDEO -->
+    <section class="final-video-section" aria-label="Final animation">
+      <div class="final-video-section__inner">
+        <div class="reveal">
+          <p class="section-label">Completed Work</p>
+          <h2 class="section-title">The Final <span class="em-gold">Animation</span></h2>
+          <p class="section-text">The finished Solar System simulation — planets in orbit, textures rendered, the cosmos brought to life.</p>
+        </div>
+        <!--
+          TO EMBED YOUR VIDEO: Replace the div below with either:
+          Option A (YouTube): <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID" allowfullscreen></iframe>
+          Option B (local file): <video src="your-video.mp4" controls></video>
+        -->
+        <div class="video-placeholder reveal" role="img" aria-label="Final solar system animation placeholder">
+          <div class="video-placeholder__icon" aria-hidden="true">🪐</div>
+          <p class="video-placeholder__label">Final Solar System Animation</p>
+          <p class="video-placeholder__sub">Upload or embed your completed video here</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROCESS -->
+    <section class="process-section" aria-label="How we built it">
+      <div class="process-section__inner">
+        <div class="reveal">
+          <p class="inner-section__label">Process</p>
+          <h2 class="inner-section__title">How We <span class="em-gold">Built It</span></h2>
+        </div>
+        <div class="process-steps">
+          <div class="process-step reveal">
+            <div class="process-step__num">01</div>
+            <h3 class="process-step__title">Research</h3>
+            <p>We studied the real orbital periods and relative sizes of each planet to ensure our simulation was grounded in accurate proportions, even if simplified for visual clarity.</p>
+          </div>
+          <div class="process-step reveal">
+            <div class="process-step__num">02</div>
+            <h3 class="process-step__title">Layout</h3>
+            <p>We designed the overall composition — placing the Sun at the center and establishing the elliptical paths each planet would follow throughout the animation.</p>
+          </div>
+          <div class="process-step reveal">
+            <div class="process-step__num">03</div>
+            <h3 class="process-step__title">Animation</h3>
+            <p>Each planet was animated along its orbital path at a speed proportional to its real period — Mercury races while Neptune drifts slowly at the edges of the frame.</p>
+          </div>
+          <div class="process-step reveal">
+            <div class="process-step__num">04</div>
+            <h3 class="process-step__title">Visual Detailing</h3>
+            <p>We added textures, color gradients, and lighting effects to give each planet its distinctive look — from Jupiter's swirling bands to Saturn's iconic rings.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- REFLECTION & TAKEAWAYS -->
+    <section aria-label="Project reflection" style="background:var(--white); padding: 5rem 4rem;">
+      <div style="max-width:900px; margin:0 auto;">
+
+        <div class="reflection-box reveal" aria-label="Project reflection">
+          <p class="reflection-box__label">My Reflection</p>
+          <p>Building the Solar System animation opened my eyes to the humbling scale of our universe. Getting the orbital speeds and proportional sizes right required real research, and I realized how animation can be both scientifically grounded and aesthetically beautiful. The biggest challenge was making space feel vast without making it feel empty — finding the balance between accuracy and visual engagement. This project made me see animation as a tool not just for storytelling, but for education and wonder.</p>
+        </div>
+
+        <div class="inner-section reveal" style="margin-top:3rem;">
+          <p class="inner-section__label">Takeaways</p>
+          <h2 class="inner-section__title">What I <span class="em-purple">Learned</span></h2>
+          <div class="takeaways">
+            <div class="takeaway-card">
+              <div class="takeaway-card__icon">🔭</div>
+              <div class="takeaway-card__title">Scale & Proportion</div>
+              <p>Understanding the true scale of the solar system — and how to represent it visually — was both humbling and creatively challenging.</p>
+            </div>
+            <div class="takeaway-card">
+              <div class="takeaway-card__icon">⚙️</div>
+              <div class="takeaway-card__title">Technical Precision</div>
+              <p>Animating with accurate orbital mechanics taught me how to balance scientific data with the needs of a compelling visual composition.</p>
+            </div>
+            <div class="takeaway-card">
+              <div class="takeaway-card__icon">🌌</div>
+              <div class="takeaway-card__title">Wonder</div>
+              <p>This project reminded me that animation's greatest power is making the abstract tangible — turning numbers and data into something you can feel.</p>
+            </div>
+          </div>
+        </div>
+
+        <div style="text-align:center; margin-top:3rem;" class="reveal">
+          <a href="rotoscope.html" class="btn btn--primary">See Also: Rotoscope →</a>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer role="contentinfo">
+    <div class="footer__logo">The <span class="accent">Inbetween</span></div>
+    <nav class="footer__nav" aria-label="Footer navigation">
+      <a href="index.html">Home</a>
+      <a href="projects.html">Projects</a>
+      <a href="rotoscope.html">Rotoscope</a>
+      <a href="solar-system.html">Solar System</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <p class="footer__copy">&copy; 2025 The Inbetween &mdash; Multimedia Arts Student Showcase. All rights reserved.</p>
+  </footer>
+
+  <script src="nav.js"></script>
+
+</body>
+</html>
