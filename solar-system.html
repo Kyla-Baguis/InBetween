@@ -166,50 +166,110 @@
       background: #fdf6f9;
       padding: 5rem 4rem 6rem;
     }
-    .celestial-section__inner { max-width: 1100px; margin: 0 auto; }
+    .celestial-section__inner { max-width: 1200px; margin: 0 auto; }
 
     .celestial-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      display: flex;
+      flex-direction: column;
       gap: 1.5rem;
       margin-top: 2.5rem;
     }
 
+    /* Landscape card: media left, content right */
     .celestial-card {
       background: var(--white);
-      padding: 1.8rem 2rem;
       box-shadow: 0 2px 20px rgba(180,120,160,0.08);
-      border-top: 3px solid transparent;
+      border-left: 4px solid transparent;
       transition: transform 0.2s, box-shadow 0.2s;
       position: relative;
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      min-height: 200px;
     }
     .celestial-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 6px 30px rgba(180,120,160,0.14);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 30px rgba(180,120,160,0.15);
     }
 
-    /* Planet accent colors */
-    .celestial-card[data-planet="Sun"]     { border-top-color: #f5c842; }
-    .celestial-card[data-planet="Mercury"] { border-top-color: #b0a8a0; }
-    .celestial-card[data-planet="Venus"]   { border-top-color: #e8c878; }
-    .celestial-card[data-planet="Earth"]   { border-top-color: #4a90d9; }
-    .celestial-card[data-planet="Mars"]    { border-top-color: #c1440e; }
-    .celestial-card[data-planet="Jupiter"] { border-top-color: #c88b5a; }
-    .celestial-card[data-planet="Saturn"]  { border-top-color: #d4b896; }
-    .celestial-card[data-planet="Uranus"]  { border-top-color: #7de8e8; }
-    .celestial-card[data-planet="Neptune"] { border-top-color: #3f54ba; }
+    /* Planet accent colors — now on left border */
+    .celestial-card[data-planet="Sun"]     { border-left-color: #f5c842; }
+    .celestial-card[data-planet="Mercury"] { border-left-color: #b0a8a0; }
+    .celestial-card[data-planet="Venus"]   { border-left-color: #e8c878; }
+    .celestial-card[data-planet="Earth"]   { border-left-color: #4a90d9; }
+    .celestial-card[data-planet="Mars"]    { border-left-color: #c1440e; }
+    .celestial-card[data-planet="Jupiter"] { border-left-color: #c88b5a; }
+    .celestial-card[data-planet="Saturn"]  { border-left-color: #d4b896; }
+    .celestial-card[data-planet="Uranus"]  { border-left-color: #7de8e8; }
+    .celestial-card[data-planet="Neptune"] { border-left-color: #3f54ba; }
 
-    .celestial-card__icon {
-      font-size: 2.2rem;
-      margin-bottom: 0.8rem;
-      display: block;
+    /* Left media area — placeholder for Blender render/video */
+    .celestial-card__media {
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, #f5eef8 0%, #ece4f5 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .celestial-card[data-planet="Sun"]     .celestial-card__media { background: linear-gradient(135deg, #fff8e0, #fdf0b0); }
+    .celestial-card[data-planet="Mercury"] .celestial-card__media { background: linear-gradient(135deg, #f0eeec, #ddd8d0); }
+    .celestial-card[data-planet="Venus"]   .celestial-card__media { background: linear-gradient(135deg, #fdf5dc, #f5e8b0); }
+    .celestial-card[data-planet="Earth"]   .celestial-card__media { background: linear-gradient(135deg, #e8f4f8, #c8e0f0); }
+    .celestial-card[data-planet="Mars"]    .celestial-card__media { background: linear-gradient(135deg, #fae8e0, #f0c8b0); }
+    .celestial-card[data-planet="Jupiter"] .celestial-card__media { background: linear-gradient(135deg, #f8ede0, #eedad0); }
+    .celestial-card[data-planet="Saturn"]  .celestial-card__media { background: linear-gradient(135deg, #f8f0e4, #ecdfc8); }
+    .celestial-card[data-planet="Uranus"]  .celestial-card__media { background: linear-gradient(135deg, #e0f8f8, #b8eeee); }
+    .celestial-card[data-planet="Neptune"] .celestial-card__media { background: linear-gradient(135deg, #e0e8f8, #b0c0e8); }
+
+    /* The media slot — drop your Blender image/video/gif here */
+    .celestial-card__media img,
+    .celestial-card__media video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    /* Placeholder emoji shown until you add media */
+    .celestial-card__media-placeholder {
+      font-size: 4rem;
+      opacity: 0.4;
+      pointer-events: none;
+      user-select: none;
+    }
+    .celestial-card__media-label {
+      position: absolute;
+      bottom: 0.5rem;
+      left: 0;
+      right: 0;
+      text-align: center;
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 0.52rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(100,80,100,0.5);
+    }
+
+    /* Right content area */
+    .celestial-card__body {
+      padding: 1.6rem 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .celestial-card__header {
+      display: flex;
+      align-items: baseline;
+      gap: 0.8rem;
+      margin-bottom: 0.3rem;
     }
     .celestial-card__name {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 1.3rem;
+      font-size: 1.4rem;
       font-weight: 600;
       color: #4a3545;
-      margin-bottom: 0.2rem;
     }
     .celestial-card__type {
       font-family: 'Josefin Sans', sans-serif;
@@ -217,7 +277,6 @@
       letter-spacing: 0.2em;
       text-transform: uppercase;
       color: #b07aa0;
-      margin-bottom: 0.8rem;
     }
     .celestial-card__desc {
       font-family: 'Cormorant Garamond', serif;
@@ -232,20 +291,21 @@
       list-style: none;
       padding: 0; margin: 0;
       border-top: 1px solid #f0e8ee;
-      padding-top: 0.8rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.3rem;
+      padding-top: 0.7rem;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.3rem 1rem;
     }
     .celestial-card__facts li {
       font-family: 'Josefin Sans', sans-serif;
-      font-size: 0.65rem;
-      letter-spacing: 0.08em;
+      font-size: 0.62rem;
+      letter-spacing: 0.06em;
       color: #7a6a74;
       display: flex;
-      justify-content: space-between;
+      flex-direction: column;
+      gap: 0.15rem;
     }
-    .celestial-card__facts li span:first-child { color: #a07090; font-weight: 300; }
+    .celestial-card__facts li span:first-child { color: #a07090; font-weight: 300; font-size: 0.55rem; letter-spacing: 0.12em; text-transform: uppercase; }
     .celestial-card__facts li span:last-child { font-weight: 400; color: #4a3545; }
 
     /* Highlight ring when calculator matches */
@@ -255,48 +315,58 @@
     }
     .celestial-card__calc-result {
       display: none;
-      margin-top: 1rem;
-      background: linear-gradient(135deg, #fde8f010, #f5e6f820);
+      margin-top: 0.8rem;
+      background: linear-gradient(135deg, rgba(253,232,240,0.5), rgba(245,230,248,0.4));
       border: 1px solid #dbb8d4;
       padding: 0.8rem 1rem;
       border-radius: 2px;
     }
     .celestial-card__calc-result.visible { display: block; }
-    .celestial-card__calc-result p {
+    .celestial-card__calc-result__title {
       font-family: 'Josefin Sans', sans-serif;
-      font-size: 0.62rem;
-      letter-spacing: 0.1em;
+      font-size: 0.55rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #b07aa0;
+      margin-bottom: 0.5rem;
+    }
+    .celestial-card__calc-result__grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.4rem 1rem;
+    }
+    .calc-stat { display: flex; flex-direction: column; gap: 0.1rem; }
+    .calc-stat__label {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 0.5rem;
+      letter-spacing: 0.15em;
       text-transform: uppercase;
       color: #a07090;
-      margin-bottom: 0.2rem;
     }
-    .celestial-card__calc-result strong {
+    .calc-stat__value {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 1.1rem;
+      font-size: 1rem;
       font-weight: 600;
       color: #4a3545;
+      line-height: 1.1;
     }
-
-    /* Sun card spans full width */
-    .celestial-card--sun {
-      grid-column: 1 / -1;
-      display: grid;
-      grid-template-columns: auto 1fr;
-      gap: 0 2rem;
-      align-items: start;
+    .calc-stat__unit {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.7rem;
+      font-style: italic;
+      color: #9a7090;
     }
-    .celestial-card--sun .celestial-card__icon { font-size: 3rem; margin-top: 0.3rem; }
-    .celestial-card--sun .celestial-card__facts { flex-direction: row; flex-wrap: wrap; gap: 0.5rem 2rem; }
 
     @media (max-width: 900px) {
       .solar-intro, .final-video-section, .calculator-section, .celestial-section { padding: 4rem 1.5rem; }
-      .celestial-grid { grid-template-columns: repeat(2, 1fr); }
-      .celestial-card--sun { grid-template-columns: 1fr; }
-      .calc-results { grid-template-columns: 1fr 1fr; }
+      .celestial-card { grid-template-columns: 200px 1fr; }
+      .celestial-card__facts { grid-template-columns: repeat(2, 1fr); }
+      .celestial-card__calc-result__grid { grid-template-columns: repeat(2, 1fr); }
     }
-    @media (max-width: 560px) {
-      .celestial-grid { grid-template-columns: 1fr; }
-      .calc-results { grid-template-columns: 1fr; }
+    @media (max-width: 640px) {
+      .celestial-card { grid-template-columns: 1fr; }
+      .celestial-card__media { height: 160px; }
+      .celestial-card__facts { grid-template-columns: repeat(2, 1fr); }
       .calc-box { padding: 1.5rem; }
     }
   </style>
@@ -374,12 +444,12 @@
         <div class="reveal">
           <p class="section-label">Interactive Tool</p>
           <h2 class="section-title">Calculate Time & <em>Motion</em></h2>
-          <p class="section-text">Enter your age on Earth and select a planet — see how old you'd be there, how many times it has orbited the Sun, and more.</p>
+          <p class="section-text">Enter your age on Earth — every planet card below will instantly show how old you'd be there, how many orbits it's completed, and more.</p>
         </div>
 
         <div class="calc-box reveal">
           <div class="calc-input-row">
-            <div class="calc-field">
+            <div class="calc-field" style="display:none">
               <label for="calc-planet">Planet</label>
               <select id="calc-planet">
                 <option value="Mercury">Mercury</option>
@@ -394,33 +464,11 @@
             </div>
             <div class="calc-field">
               <label for="calc-age">Your Age on Earth (years)</label>
-              <input type="number" id="calc-age" min="1" max="150" value="2" placeholder="e.g. 16" />
+              <input type="number" id="calc-age" min="1" max="150" placeholder="e.g. 16" />
             </div>
-            <button class="calc-btn" id="calc-run">Calculate →</button>
+            <button class="calc-btn" id="calc-run">Calculate All →</button>
           </div>
-
-          <div class="calc-results" id="calc-results">
-            <div class="calc-result-card">
-              <div class="calc-result-card__label">Age on Planet</div>
-              <div class="calc-result-card__value" id="res-age">—</div>
-              <div class="calc-result-card__unit">planetary years</div>
-            </div>
-            <div class="calc-result-card">
-              <div class="calc-result-card__label">Revolutions Around Sun</div>
-              <div class="calc-result-card__value" id="res-rev">—</div>
-              <div class="calc-result-card__unit">full orbits completed</div>
-            </div>
-            <div class="calc-result-card">
-              <div class="calc-result-card__label">Orbital Period</div>
-              <div class="calc-result-card__value" id="res-period">—</div>
-              <div class="calc-result-card__unit">Earth days per orbit</div>
-            </div>
-            <div class="calc-result-card">
-              <div class="calc-result-card__label">Distance from Sun</div>
-              <div class="calc-result-card__value" id="res-dist">—</div>
-              <div class="calc-result-card__unit">million km (avg)</div>
-            </div>
-          </div>
+          <p style="font-family:'Cormorant Garamond',serif;font-size:0.95rem;font-style:italic;color:#9a7090;margin-top:-0.5rem;">All planet cards below will update with your results.</p>
         </div>
       </div>
     </section>
@@ -437,139 +485,202 @@
         <div class="celestial-grid">
 
           <!-- SUN -->
-          <div class="celestial-card celestial-card--sun reveal" data-planet="Sun">
-            <span class="celestial-card__icon">☀️</span>
-            <div>
-              <div class="celestial-card__name">The Sun</div>
-              <div class="celestial-card__type">Star · Center of the Solar System</div>
+          <div class="celestial-card reveal" data-planet="Sun">
+            <div class="celestial-card__media">
+              <!-- Replace with: <img src="your-sun-render.png" alt="Sun"> or <video src="sun.mp4" autoplay loop muted></video> -->
+              <span class="celestial-card__media-placeholder">☀️</span>
+              <span class="celestial-card__media-label">Add Blender render here</span>
+            </div>
+            <div class="celestial-card__body">
+              <div class="celestial-card__header">
+                <div class="celestial-card__name">The Sun</div>
+                <div class="celestial-card__type">Star · Center of the Solar System</div>
+              </div>
               <p class="celestial-card__desc">The Sun is the gravitational anchor of our entire solar system — a massive ball of hot plasma generating energy through nuclear fusion at its core. It accounts for 99.86% of the solar system's total mass and its gravity keeps all eight planets locked in their orbital paths.</p>
               <ul class="celestial-card__facts">
                 <li><span>Diameter</span><span>1,392,700 km</span></li>
                 <li><span>Surface Temp</span><span>5,500 °C</span></li>
-                <li><span>Distance from Earth</span><span>149.6 million km</span></li>
-                <li><span>Age</span><span>~4.6 billion years</span></li>
+                <li><span>Dist. from Earth</span><span>149.6 M km</span></li>
+                <li><span>Age</span><span>~4.6 billion yrs</span></li>
               </ul>
             </div>
           </div>
 
           <!-- MERCURY -->
           <div class="celestial-card reveal" data-planet="Mercury" id="card-Mercury">
-            <span class="celestial-card__icon">⚫</span>
-            <div class="celestial-card__name">Mercury</div>
-            <div class="celestial-card__type">Terrestrial Planet · 1st from Sun</div>
-            <p class="celestial-card__desc">The smallest planet and the closest to the Sun, Mercury races through space with the shortest year of any planet. It has almost no atmosphere, leaving its surface scarred by craters and subject to extreme temperature swings.</p>
-            <ul class="celestial-card__facts">
-              <li><span>Orbital Period</span><span>87.97 Earth days</span></li>
-              <li><span>Distance from Sun</span><span>57.9 million km</span></li>
-              <li><span>Diameter</span><span>4,879 km</span></li>
-              <li><span>Moons</span><span>0</span></li>
-            </ul>
-            <div class="celestial-card__calc-result" id="calc-Mercury"></div>
+            <div class="celestial-card__media">
+              <!-- Replace with: <img src="mercury.png" alt="Mercury"> -->
+              <span class="celestial-card__media-placeholder">⚫</span>
+              <span class="celestial-card__media-label">Add Blender render here</span>
+            </div>
+            <div class="celestial-card__body">
+              <div class="celestial-card__header">
+                <div class="celestial-card__name">Mercury</div>
+                <div class="celestial-card__type">Terrestrial Planet · 1st from Sun</div>
+              </div>
+              <p class="celestial-card__desc">The smallest planet and the closest to the Sun, Mercury races through space with the shortest year of any planet. It has almost no atmosphere, leaving its surface scarred by craters and subject to extreme temperature swings.</p>
+              <ul class="celestial-card__facts">
+                <li><span>Orbital Period</span><span>87.97 days</span></li>
+                <li><span>Dist. from Sun</span><span>57.9 M km</span></li>
+                <li><span>Diameter</span><span>4,879 km</span></li>
+                <li><span>Moons</span><span>0</span></li>
+              </ul>
+              <div class="celestial-card__calc-result" id="calc-Mercury"></div>
+            </div>
           </div>
 
           <!-- VENUS -->
           <div class="celestial-card reveal" data-planet="Venus" id="card-Venus">
-            <span class="celestial-card__icon">🟡</span>
-            <div class="celestial-card__name">Venus</div>
-            <div class="celestial-card__type">Terrestrial Planet · 2nd from Sun</div>
-            <p class="celestial-card__desc">Often called Earth's twin due to similar size, Venus is shrouded in thick clouds of sulfuric acid and has a runaway greenhouse effect that makes it the hottest planet in the solar system — hotter even than Mercury.</p>
-            <ul class="celestial-card__facts">
-              <li><span>Orbital Period</span><span>224.7 Earth days</span></li>
-              <li><span>Distance from Sun</span><span>108.2 million km</span></li>
-              <li><span>Diameter</span><span>12,104 km</span></li>
-              <li><span>Moons</span><span>0</span></li>
-            </ul>
-            <div class="celestial-card__calc-result" id="calc-Venus"></div>
+            <div class="celestial-card__media">
+              <span class="celestial-card__media-placeholder">🟡</span>
+              <span class="celestial-card__media-label">Add Blender render here</span>
+            </div>
+            <div class="celestial-card__body">
+              <div class="celestial-card__header">
+                <div class="celestial-card__name">Venus</div>
+                <div class="celestial-card__type">Terrestrial Planet · 2nd from Sun</div>
+              </div>
+              <p class="celestial-card__desc">Often called Earth's twin due to similar size, Venus is shrouded in thick clouds of sulfuric acid and has a runaway greenhouse effect that makes it the hottest planet in the solar system — hotter even than Mercury.</p>
+              <ul class="celestial-card__facts">
+                <li><span>Orbital Period</span><span>224.7 days</span></li>
+                <li><span>Dist. from Sun</span><span>108.2 M km</span></li>
+                <li><span>Diameter</span><span>12,104 km</span></li>
+                <li><span>Moons</span><span>0</span></li>
+              </ul>
+              <div class="celestial-card__calc-result" id="calc-Venus"></div>
+            </div>
           </div>
 
           <!-- EARTH -->
           <div class="celestial-card reveal" data-planet="Earth" id="card-Earth">
-            <span class="celestial-card__icon">🌍</span>
-            <div class="celestial-card__name">Earth</div>
-            <div class="celestial-card__type">Terrestrial Planet · 3rd from Sun</div>
-            <p class="celestial-card__desc">Our home planet — the only known world to harbor life. Earth's liquid water, protective magnetic field, and oxygen-rich atmosphere create the perfect conditions for biology to flourish. One revolution takes exactly 365.25 days.</p>
-            <ul class="celestial-card__facts">
-              <li><span>Orbital Period</span><span>365.25 Earth days</span></li>
-              <li><span>Distance from Sun</span><span>149.6 million km</span></li>
-              <li><span>Diameter</span><span>12,742 km</span></li>
-              <li><span>Moons</span><span>1 (The Moon)</span></li>
-            </ul>
-            <div class="celestial-card__calc-result" id="calc-Earth"></div>
+            <div class="celestial-card__media">
+              <span class="celestial-card__media-placeholder">🌍</span>
+              <span class="celestial-card__media-label">Add Blender render here</span>
+            </div>
+            <div class="celestial-card__body">
+              <div class="celestial-card__header">
+                <div class="celestial-card__name">Earth</div>
+                <div class="celestial-card__type">Terrestrial Planet · 3rd from Sun</div>
+              </div>
+              <p class="celestial-card__desc">Our home planet — the only known world to harbor life. Earth's liquid water, protective magnetic field, and oxygen-rich atmosphere create the perfect conditions for biology to flourish. One revolution takes exactly 365.25 days.</p>
+              <ul class="celestial-card__facts">
+                <li><span>Orbital Period</span><span>365.25 days</span></li>
+                <li><span>Dist. from Sun</span><span>149.6 M km</span></li>
+                <li><span>Diameter</span><span>12,742 km</span></li>
+                <li><span>Moons</span><span>1 (The Moon)</span></li>
+              </ul>
+              <div class="celestial-card__calc-result" id="calc-Earth"></div>
+            </div>
           </div>
 
           <!-- MARS -->
           <div class="celestial-card reveal" data-planet="Mars" id="card-Mars">
-            <span class="celestial-card__icon">🔴</span>
-            <div class="celestial-card__name">Mars</div>
-            <div class="celestial-card__type">Terrestrial Planet · 4th from Sun</div>
-            <p class="celestial-card__desc">The Red Planet — named for its iron oxide surface — is home to the tallest volcano and the longest canyon in the solar system. Mars is the prime candidate for future human exploration, with evidence of ancient liquid water beneath its dusty plains.</p>
-            <ul class="celestial-card__facts">
-              <li><span>Orbital Period</span><span>686.97 Earth days</span></li>
-              <li><span>Distance from Sun</span><span>227.9 million km</span></li>
-              <li><span>Diameter</span><span>6,779 km</span></li>
-              <li><span>Moons</span><span>2 (Phobos, Deimos)</span></li>
-            </ul>
-            <div class="celestial-card__calc-result" id="calc-Mars"></div>
+            <div class="celestial-card__media">
+              <span class="celestial-card__media-placeholder">🔴</span>
+              <span class="celestial-card__media-label">Add Blender render here</span>
+            </div>
+            <div class="celestial-card__body">
+              <div class="celestial-card__header">
+                <div class="celestial-card__name">Mars</div>
+                <div class="celestial-card__type">Terrestrial Planet · 4th from Sun</div>
+              </div>
+              <p class="celestial-card__desc">The Red Planet — named for its iron oxide surface — is home to the tallest volcano and the longest canyon in the solar system. Mars is the prime candidate for future human exploration, with evidence of ancient liquid water beneath its dusty plains.</p>
+              <ul class="celestial-card__facts">
+                <li><span>Orbital Period</span><span>686.97 days</span></li>
+                <li><span>Dist. from Sun</span><span>227.9 M km</span></li>
+                <li><span>Diameter</span><span>6,779 km</span></li>
+                <li><span>Moons</span><span>2</span></li>
+              </ul>
+              <div class="celestial-card__calc-result" id="calc-Mars"></div>
+            </div>
           </div>
 
           <!-- JUPITER -->
           <div class="celestial-card reveal" data-planet="Jupiter" id="card-Jupiter">
-            <span class="celestial-card__icon">🟠</span>
-            <div class="celestial-card__name">Jupiter</div>
-            <div class="celestial-card__type">Gas Giant · 5th from Sun</div>
-            <p class="celestial-card__desc">The largest planet in the solar system, Jupiter is a swirling giant of hydrogen and helium. Its Great Red Spot — a storm larger than Earth — has been raging for centuries. Jupiter's immense gravity acts as a cosmic shield, deflecting many asteroids away from the inner planets.</p>
-            <ul class="celestial-card__facts">
-              <li><span>Orbital Period</span><span>4,332.59 Earth days</span></li>
-              <li><span>Distance from Sun</span><span>778.5 million km</span></li>
-              <li><span>Diameter</span><span>139,820 km</span></li>
-              <li><span>Moons</span><span>95 known</span></li>
-            </ul>
-            <div class="celestial-card__calc-result" id="calc-Jupiter"></div>
+            <div class="celestial-card__media">
+              <span class="celestial-card__media-placeholder">🟠</span>
+              <span class="celestial-card__media-label">Add Blender render here</span>
+            </div>
+            <div class="celestial-card__body">
+              <div class="celestial-card__header">
+                <div class="celestial-card__name">Jupiter</div>
+                <div class="celestial-card__type">Gas Giant · 5th from Sun</div>
+              </div>
+              <p class="celestial-card__desc">The largest planet in the solar system, Jupiter is a swirling giant of hydrogen and helium. Its Great Red Spot — a storm larger than Earth — has been raging for centuries. Jupiter's immense gravity acts as a cosmic shield, deflecting many asteroids away from the inner planets.</p>
+              <ul class="celestial-card__facts">
+                <li><span>Orbital Period</span><span>4,332.59 days</span></li>
+                <li><span>Dist. from Sun</span><span>778.5 M km</span></li>
+                <li><span>Diameter</span><span>139,820 km</span></li>
+                <li><span>Moons</span><span>95 known</span></li>
+              </ul>
+              <div class="celestial-card__calc-result" id="calc-Jupiter"></div>
+            </div>
           </div>
 
           <!-- SATURN -->
           <div class="celestial-card reveal" data-planet="Saturn" id="card-Saturn">
-            <span class="celestial-card__icon">🪐</span>
-            <div class="celestial-card__name">Saturn</div>
-            <div class="celestial-card__type">Gas Giant · 6th from Sun</div>
-            <p class="celestial-card__desc">Saturn is the jewel of the solar system — instantly recognizable by its magnificent ring system made of ice and rock. Despite being the second largest planet, Saturn is so low in density that it would float on water. Its rings span 282,000 km but are only about 1 km thick.</p>
-            <ul class="celestial-card__facts">
-              <li><span>Orbital Period</span><span>10,759.22 Earth days</span></li>
-              <li><span>Distance from Sun</span><span>1,432 million km</span></li>
-              <li><span>Diameter</span><span>116,460 km</span></li>
-              <li><span>Moons</span><span>146 known</span></li>
-            </ul>
-            <div class="celestial-card__calc-result" id="calc-Saturn"></div>
+            <div class="celestial-card__media">
+              <span class="celestial-card__media-placeholder">🪐</span>
+              <span class="celestial-card__media-label">Add Blender render here</span>
+            </div>
+            <div class="celestial-card__body">
+              <div class="celestial-card__header">
+                <div class="celestial-card__name">Saturn</div>
+                <div class="celestial-card__type">Gas Giant · 6th from Sun</div>
+              </div>
+              <p class="celestial-card__desc">Saturn is the jewel of the solar system — instantly recognizable by its magnificent ring system made of ice and rock. Despite being the second largest planet, Saturn is so low in density that it would float on water. Its rings span 282,000 km but are only about 1 km thick.</p>
+              <ul class="celestial-card__facts">
+                <li><span>Orbital Period</span><span>10,759 days</span></li>
+                <li><span>Dist. from Sun</span><span>1,432 M km</span></li>
+                <li><span>Diameter</span><span>116,460 km</span></li>
+                <li><span>Moons</span><span>146 known</span></li>
+              </ul>
+              <div class="celestial-card__calc-result" id="calc-Saturn"></div>
+            </div>
           </div>
 
           <!-- URANUS -->
           <div class="celestial-card reveal" data-planet="Uranus" id="card-Uranus">
-            <span class="celestial-card__icon">🔵</span>
-            <div class="celestial-card__name">Uranus</div>
-            <div class="celestial-card__type">Ice Giant · 7th from Sun</div>
-            <p class="celestial-card__desc">Uranus is the oddball of the solar system — it rotates on its side, with its axis tilted at 98 degrees, likely the result of a massive ancient collision. Its blue-green color comes from methane in its atmosphere, which absorbs red light and reflects blue-green wavelengths.</p>
-            <ul class="celestial-card__facts">
-              <li><span>Orbital Period</span><span>30,688.5 Earth days</span></li>
-              <li><span>Distance from Sun</span><span>2,867 million km</span></li>
-              <li><span>Diameter</span><span>50,724 km</span></li>
-              <li><span>Moons</span><span>28 known</span></li>
-            </ul>
-            <div class="celestial-card__calc-result" id="calc-Uranus"></div>
+            <div class="celestial-card__media">
+              <span class="celestial-card__media-placeholder">🔵</span>
+              <span class="celestial-card__media-label">Add Blender render here</span>
+            </div>
+            <div class="celestial-card__body">
+              <div class="celestial-card__header">
+                <div class="celestial-card__name">Uranus</div>
+                <div class="celestial-card__type">Ice Giant · 7th from Sun</div>
+              </div>
+              <p class="celestial-card__desc">Uranus is the oddball of the solar system — it rotates on its side, with its axis tilted at 98 degrees, likely the result of a massive ancient collision. Its blue-green color comes from methane in its atmosphere, which absorbs red light and reflects blue-green wavelengths.</p>
+              <ul class="celestial-card__facts">
+                <li><span>Orbital Period</span><span>30,688 days</span></li>
+                <li><span>Dist. from Sun</span><span>2,867 M km</span></li>
+                <li><span>Diameter</span><span>50,724 km</span></li>
+                <li><span>Moons</span><span>28 known</span></li>
+              </ul>
+              <div class="celestial-card__calc-result" id="calc-Uranus"></div>
+            </div>
           </div>
 
           <!-- NEPTUNE -->
           <div class="celestial-card reveal" data-planet="Neptune" id="card-Neptune">
-            <span class="celestial-card__icon">🌀</span>
-            <div class="celestial-card__name">Neptune</div>
-            <div class="celestial-card__type">Ice Giant · 8th from Sun</div>
-            <p class="celestial-card__desc">The farthest planet from the Sun, Neptune is a dark and frigid world with the strongest winds in the solar system — reaching speeds of 2,100 km/h. It takes 165 Earth years to complete a single orbit, meaning it has only completed one full trip around the Sun since its discovery in 1846.</p>
-            <ul class="celestial-card__facts">
-              <li><span>Orbital Period</span><span>60,190 Earth days</span></li>
-              <li><span>Distance from Sun</span><span>4,495 million km</span></li>
-              <li><span>Diameter</span><span>49,244 km</span></li>
-              <li><span>Moons</span><span>16 known</span></li>
-            </ul>
-            <div class="celestial-card__calc-result" id="calc-Neptune"></div>
+            <div class="celestial-card__media">
+              <span class="celestial-card__media-placeholder">🌀</span>
+              <span class="celestial-card__media-label">Add Blender render here</span>
+            </div>
+            <div class="celestial-card__body">
+              <div class="celestial-card__header">
+                <div class="celestial-card__name">Neptune</div>
+                <div class="celestial-card__type">Ice Giant · 8th from Sun</div>
+              </div>
+              <p class="celestial-card__desc">The farthest planet from the Sun, Neptune is a dark and frigid world with the strongest winds in the solar system — reaching speeds of 2,100 km/h. It takes 165 Earth years to complete a single orbit, meaning it has only completed one full trip around the Sun since its discovery in 1846.</p>
+              <ul class="celestial-card__facts">
+                <li><span>Orbital Period</span><span>60,190 days</span></li>
+                <li><span>Dist. from Sun</span><span>4,495 M km</span></li>
+                <li><span>Diameter</span><span>49,244 km</span></li>
+                <li><span>Moons</span><span>16 known</span></li>
+              </ul>
+              <div class="celestial-card__calc-result" id="calc-Neptune"></div>
+            </div>
           </div>
 
         </div>
@@ -610,51 +721,41 @@
       return parseFloat(n.toFixed(dec)).toLocaleString();
     }
 
-    document.getElementById('calc-run').addEventListener('click', function() {
-      var planet = document.getElementById('calc-planet').value;
-      var earthAge = parseFloat(document.getElementById('calc-age').value);
+    function makeStatHTML(label, value, unit) {
+      return '<div class="calc-stat">' +
+        '<span class="calc-stat__label">' + label + '</span>' +
+        '<span class="calc-stat__value">' + value + '</span>' +
+        '<span class="calc-stat__unit">' + unit + '</span>' +
+        '</div>';
+    }
 
+    document.getElementById('calc-run').addEventListener('click', function() {
+      var earthAge = parseFloat(document.getElementById('calc-age').value);
       if (!earthAge || earthAge <= 0) return;
 
-      var data = PLANETS[planet];
       var earthDaysLived = earthAge * 365.25;
-      var planetYears = earthDaysLived / data.period;
-      var revolutions = Math.floor(planetYears);
 
-      // Show main result cards
-      document.getElementById('res-age').textContent    = fmt(planetYears, 2);
-      document.getElementById('res-rev').textContent    = fmt(revolutions, 0);
-      document.getElementById('res-period').textContent = fmt(data.period, 2);
-      document.getElementById('res-dist').textContent   = fmt(data.dist, 1);
-      document.getElementById('calc-results').classList.add('visible');
+      Object.keys(PLANETS).forEach(function(name) {
+        var data = PLANETS[name];
+        var planetYears = earthDaysLived / data.period;
+        var revolutions = Math.floor(planetYears);
 
-      // Clear all previous highlights and inline results
-      document.querySelectorAll('.celestial-card').forEach(function(c) {
-        c.classList.remove('highlighted');
+        var box = document.getElementById('calc-' + name);
+        if (!box) return;
+
+        box.innerHTML =
+          '<div class="celestial-card__calc-result__title">Your stats · ' + earthAge + ' Earth year' + (earthAge !== 1 ? 's' : '') + '</div>' +
+          '<div class="celestial-card__calc-result__grid">' +
+            makeStatHTML('Age on Planet', fmt(planetYears, 2), 'planetary years') +
+            makeStatHTML('Revolutions', fmt(revolutions, 0), 'full orbits') +
+            makeStatHTML('Orbital Period', fmt(data.period, 2), 'Earth days') +
+            makeStatHTML('Distance from Sun', fmt(data.dist, 1), 'million km') +
+          '</div>';
+        box.classList.add('visible');
+
+        var card = document.getElementById('card-' + name);
+        if (card) card.classList.add('highlighted');
       });
-      document.querySelectorAll('.celestial-card__calc-result').forEach(function(r) {
-        r.classList.remove('visible');
-        r.innerHTML = '';
-      });
-
-      // Highlight chosen planet card and inject result
-      var card = document.getElementById('card-' + planet);
-      var resultBox = document.getElementById('calc-' + planet);
-      if (card && resultBox) {
-        card.classList.add('highlighted');
-        resultBox.innerHTML =
-          '<p>Your result for ' + earthAge + ' Earth year' + (earthAge !== 1 ? 's' : '') + '</p>' +
-          '<strong>Age: ' + fmt(planetYears, 2) + ' yrs &nbsp;·&nbsp; ' +
-          'Revolutions: ' + fmt(revolutions, 0) + ' &nbsp;·&nbsp; ' +
-          'Orbit: ' + fmt(data.period, 1) + ' days &nbsp;·&nbsp; ' +
-          'Distance: ' + fmt(data.dist, 1) + 'M km</strong>';
-        resultBox.classList.add('visible');
-
-        // Smooth scroll to the card
-        setTimeout(function() {
-          card.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }, 150);
-      }
     });
 
     // Allow Enter key to trigger calculation
