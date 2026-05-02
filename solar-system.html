@@ -20,6 +20,69 @@
       color: var(--text-mid); line-height: 1.9; max-width: 720px;
     }
 
+    /* ---- TOOLS USED ---- */
+    .tools-section {
+      background: linear-gradient(160deg, #fdf3e0 0%, #fde8f0 50%, #f5e6f8 100%);
+      padding: 5rem 4rem;
+      border-top: 1px solid #f0e8ee;
+    }
+    .tools-section__inner { max-width: 900px; margin: 0 auto; }
+
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.2rem;
+      margin-top: 2.5rem;
+    }
+    .tool-card {
+      background: rgba(255,255,255,0.75);
+      border: 1px solid rgba(219,184,212,0.4);
+      padding: 1.6rem 1.8rem;
+      position: relative;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .tool-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 28px rgba(180,120,160,0.12);
+    }
+    .tool-card__icon {
+      font-size: 2rem;
+      margin-bottom: 0.8rem;
+      display: block;
+    }
+    .tool-card__name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #4a3545;
+      margin-bottom: 0.25rem;
+    }
+    .tool-card__category {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 0.55rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #b07aa0;
+      margin-bottom: 0.7rem;
+    }
+    .tool-card__desc {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.92rem;
+      font-weight: 300;
+      font-style: italic;
+      color: #6b5a65;
+      line-height: 1.7;
+    }
+    .tool-card__accent {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 3px;
+    }
+    .tool-card:nth-child(1) .tool-card__accent { background: #c88b5a; }
+    .tool-card:nth-child(2) .tool-card__accent { background: #b07aa0; }
+    .tool-card:nth-child(3) .tool-card__accent { background: #4a90d9; }
+    .tool-card:nth-child(4) .tool-card__accent { background: #7de8e8; }
+
     /* ---- FINAL VIDEO ---- */
     .final-video-section {
       background: linear-gradient(160deg, var(--gold-pale) 0%, var(--purple-pale) 50%, var(--pink-whisper) 100%);
@@ -52,6 +115,41 @@
     }
     .video-placeholder iframe, .video-placeholder video {
       position: absolute; inset: 0; width: 100%; height: 100%; border: none;
+    }
+
+    /* ---- DOWNLOAD CAPTION ---- */
+    .download-caption {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 1rem;
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #b07aa0;
+      cursor: pointer;
+      border: 1px solid #dbb8d4;
+      padding: 0.5rem 1rem;
+      background: rgba(255,255,255,0.6);
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
+      text-decoration: none;
+      user-select: none;
+    }
+    .download-caption:hover {
+      background: #b07aa0;
+      color: #fff;
+      border-color: #b07aa0;
+    }
+    .download-caption svg {
+      width: 12px; height: 12px;
+      fill: currentColor;
+      flex-shrink: 0;
+    }
+
+    /* Caption inside celestial cards */
+    .celestial-card__download {
+      margin-top: 0.8rem;
     }
 
     /* ---- CALCULATOR ---- */
@@ -175,7 +273,6 @@
       margin-top: 2.5rem;
     }
 
-    /* Landscape card: media left, content right */
     .celestial-card {
       background: var(--white);
       box-shadow: 0 2px 20px rgba(180,120,160,0.08);
@@ -191,7 +288,6 @@
       box-shadow: 0 6px 30px rgba(180,120,160,0.15);
     }
 
-    /* Planet accent colors — now on left border */
     .celestial-card[data-planet="Sun"]     { border-left-color: #f5c842; }
     .celestial-card[data-planet="Mercury"] { border-left-color: #b0a8a0; }
     .celestial-card[data-planet="Venus"]   { border-left-color: #e8c878; }
@@ -202,7 +298,6 @@
     .celestial-card[data-planet="Uranus"]  { border-left-color: #7de8e8; }
     .celestial-card[data-planet="Neptune"] { border-left-color: #3f54ba; }
 
-    /* Left media area — placeholder for Blender render/video */
     .celestial-card__media {
       position: relative;
       overflow: hidden;
@@ -222,7 +317,6 @@
     .celestial-card[data-planet="Uranus"]  .celestial-card__media { background: linear-gradient(135deg, #e0f8f8, #b8eeee); }
     .celestial-card[data-planet="Neptune"] .celestial-card__media { background: linear-gradient(135deg, #e0e8f8, #b0c0e8); }
 
-    /* The media slot — drop your Blender image/video/gif here */
     .celestial-card__media img,
     .celestial-card__media video {
       position: absolute;
@@ -231,7 +325,6 @@
       height: 100%;
       object-fit: cover;
     }
-    /* Placeholder emoji shown until you add media */
     .celestial-card__media-placeholder {
       font-size: 4rem;
       opacity: 0.4;
@@ -251,7 +344,6 @@
       color: rgba(100,80,100,0.5);
     }
 
-    /* Right content area */
     .celestial-card__body {
       padding: 1.6rem 2rem;
       display: flex;
@@ -308,7 +400,6 @@
     .celestial-card__facts li span:first-child { color: #a07090; font-weight: 300; font-size: 0.55rem; letter-spacing: 0.12em; text-transform: uppercase; }
     .celestial-card__facts li span:last-child { font-weight: 400; color: #4a3545; }
 
-    /* Highlight ring when calculator matches */
     .celestial-card.highlighted {
       outline: 2px solid #b07aa0;
       outline-offset: 2px;
@@ -357,17 +448,156 @@
       color: #9a7090;
     }
 
+    /* ---- BLENDER STEPS ---- */
+    .blender-section {
+      background: #1a1220;
+      padding: 6rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .blender-section::before {
+      content: '';
+      position: absolute;
+      width: 600px; height: 600px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(176,122,160,0.12) 0%, transparent 70%);
+      top: -200px; right: -100px;
+      pointer-events: none;
+    }
+    .blender-section__inner { max-width: 900px; margin: 0 auto; position: relative; z-index: 1; }
+
+    .blender-section .section-label { color: #b07aa0; }
+    .blender-section .section-title { color: #f5eef0; }
+    .blender-section .section-title em { color: #c9a87a; }
+    .blender-section .section-text { color: rgba(245,238,240,0.6); }
+
+    .steps-list {
+      margin-top: 3rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .step-item {
+      display: grid;
+      grid-template-columns: 60px 1fr;
+      gap: 0 2rem;
+      position: relative;
+      padding-bottom: 2.5rem;
+    }
+    .step-item:last-child { padding-bottom: 0; }
+
+    /* Vertical connector line */
+    .step-item:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      left: 29px;
+      top: 52px;
+      bottom: 0;
+      width: 1px;
+      background: linear-gradient(to bottom, rgba(176,122,160,0.4), rgba(176,122,160,0.1));
+    }
+
+    .step-number {
+      width: 48px; height: 48px;
+      border: 1px solid rgba(176,122,160,0.4);
+      background: rgba(176,122,160,0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      color: #b07aa0;
+      flex-shrink: 0;
+      position: relative;
+      z-index: 1;
+    }
+    .step-item:nth-child(2) .step-number { border-color: rgba(201,168,122,0.4); color: #c9a87a; background: rgba(201,168,122,0.08); }
+    .step-item:nth-child(3) .step-number { border-color: rgba(125,232,232,0.3); color: #7de8e8; background: rgba(125,232,232,0.06); }
+    .step-item:nth-child(4) .step-number { border-color: rgba(74,144,217,0.4); color: #4a90d9; background: rgba(74,144,217,0.08); }
+    .step-item:nth-child(5) .step-number { border-color: rgba(200,139,90,0.4); color: #c88b5a; background: rgba(200,139,90,0.08); }
+    .step-item:nth-child(6) .step-number { border-color: rgba(245,200,66,0.4); color: #f5c842; background: rgba(245,200,66,0.06); }
+
+    .step-content {
+      padding-top: 0.6rem;
+    }
+    .step-content__title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #f0e8f0;
+      margin-bottom: 0.35rem;
+    }
+    .step-content__desc {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.95rem;
+      font-weight: 300;
+      font-style: italic;
+      color: rgba(245,238,240,0.55);
+      line-height: 1.75;
+    }
+    .step-content__tag {
+      display: inline-block;
+      margin-top: 0.6rem;
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 0.52rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(176,122,160,0.7);
+      border: 1px solid rgba(176,122,160,0.2);
+      padding: 0.2rem 0.55rem;
+    }
+
     @media (max-width: 900px) {
-      .solar-intro, .final-video-section, .calculator-section, .celestial-section { padding: 4rem 1.5rem; }
+      .solar-intro, .final-video-section, .calculator-section, .celestial-section, .tools-section { padding: 4rem 1.5rem; }
+      .blender-section { padding: 4rem 1.5rem; }
       .celestial-card { grid-template-columns: 200px 1fr; }
       .celestial-card__facts { grid-template-columns: repeat(2, 1fr); }
       .celestial-card__calc-result__grid { grid-template-columns: repeat(2, 1fr); }
+      .tools-grid { grid-template-columns: 1fr; }
+      .step-item { grid-template-columns: 48px 1fr; gap: 0 1.2rem; }
+      .step-image { margin-left: 0; }
     }
     @media (max-width: 640px) {
       .celestial-card { grid-template-columns: 1fr; }
       .celestial-card__media { height: 160px; }
       .celestial-card__facts { grid-template-columns: repeat(2, 1fr); }
       .calc-box { padding: 1.5rem; }
+      .tools-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ---- STEP IMAGE ---- */
+    .step-image {
+      margin-top: 1rem;
+      width: 100%;
+      border: 1px solid rgba(176,122,160,0.2);
+      overflow: hidden;
+      position: relative;
+      background: rgba(255,255,255,0.04);
+    }
+    /* Image slot — swap the placeholder SVG for a real <img> when ready */
+    .step-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    /* Placeholder shown until real image is added */
+    .step-image__placeholder {
+      width: 100%;
+      aspect-ratio: 16 / 7;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+    }
+    .step-image__placeholder-label {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 0.55rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(176,122,160,0.5);
     }
   </style>
 </head>
@@ -417,6 +647,52 @@
       </div>
     </section>
 
+    <!-- ======== TOOLS USED (NEW SECTION) ======== -->
+    <section class="tools-section" aria-label="Tools used in this project">
+      <div class="tools-section__inner">
+        <div class="reveal">
+          <p class="section-label">Behind the Project</p>
+          <h2 class="section-title">Tools <span class="em-gold">&amp; Software</span></h2>
+          <p class="section-text">Every render, animation, and interaction in this project was built using the following tools.</p>
+        </div>
+
+        <div class="tools-grid">
+          <!-- Tool 1 -->
+          <div class="tool-card reveal">
+            <span class="tool-card__icon">🧊</span>
+            <div class="tool-card__name">Blender</div>
+            <div class="tool-card__category">3D Modeling &amp; Animation</div>
+            <p class="tool-card__desc">Used for all 3D planet modeling, texturing, orbital animations, and final render output. Cycles renderer was used for physically-based lighting.</p>
+            <div class="tool-card__accent"></div>
+          </div>
+          <!-- Tool 2 -->
+          <div class="tool-card reveal">
+            <span class="tool-card__icon">🌐</span>
+            <div class="tool-card__name">HTML / CSS / JS</div>
+            <div class="tool-card__category">Web Development</div>
+            <p class="tool-card__desc">This interactive showcase page was hand-coded — the planet cards, orbital calculator, and all animations were built without any external frameworks.</p>
+            <div class="tool-card__accent"></div>
+          </div>
+          <!-- Tool 3 -->
+          <div class="tool-card reveal">
+            <span class="tool-card__icon">🖼️</span>
+            <div class="tool-card__name">Texture Library</div>
+            <div class="tool-card__category">Reference &amp; Assets</div>
+            <p class="tool-card__desc">High-resolution planetary surface maps sourced from a publicly available Solar System texture library were used as reference and base textures for every planet.</p>
+            <div class="tool-card__accent"></div>
+          </div>
+          <!-- Tool 4 -->
+          <div class="tool-card reveal">
+            <span class="tool-card__icon">✏️</span>
+            <div class="tool-card__name">VS Code</div>
+            <div class="tool-card__category">Code Editor</div>
+            <p class="tool-card__desc">All web code was written and organized in Visual Studio Code, using the Live Server extension to preview changes in real time during development.</p>
+            <div class="tool-card__accent"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- FINAL VIDEO -->
     <section class="final-video-section" aria-label="Final animation">
       <div class="final-video-section__inner">
@@ -435,6 +711,21 @@
           <p class="video-placeholder__label">Final Solar System Animation</p>
           <p class="video-placeholder__sub">Upload or embed your completed video here</p>
         </div>
+
+        <!--
+          DOWNLOAD BUTTON FOR FINAL VIDEO
+          Set the href to your actual video/file path, and the download attribute to the filename.
+          e.g. href="videos/solar-system-final.mp4" download="Solar-System-Final.mp4"
+        -->
+        <a class="download-caption"
+           href="videos/solar-system-final.mp4"
+           download="Solar-System-Final.mp4"
+           aria-label="Download final solar system animation">
+          <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M8 12l-4-4h2.5V2h3v6H12L8 12zm-5 2h10v1.5H3V14z"/>
+          </svg>
+          Download Final Animation
+        </a>
       </div>
     </section>
 
@@ -487,7 +778,6 @@
           <!-- SUN -->
           <div class="celestial-card reveal" data-planet="Sun">
             <div class="celestial-card__media">
-              <!-- Replace with: <img src="your-sun-render.png" alt="Sun"> or <video src="sun.mp4" autoplay loop muted></video> -->
               <span class="celestial-card__media-placeholder">☀️</span>
               <span class="celestial-card__media-label">Add Blender render here</span>
             </div>
@@ -503,13 +793,22 @@
                 <li><span>Dist. from Earth</span><span>149.6 M km</span></li>
                 <li><span>Age</span><span>~4.6 billion yrs</span></li>
               </ul>
+              <!-- Download caption for Sun render -->
+              <a class="download-caption celestial-card__download"
+                 href="renders/sun-render.png"
+                 download="Sun-Render.png"
+                 aria-label="Download Sun render">
+                <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path d="M8 12l-4-4h2.5V2h3v6H12L8 12zm-5 2h10v1.5H3V14z"/>
+                </svg>
+                Download Render
+              </a>
             </div>
           </div>
 
           <!-- MERCURY -->
           <div class="celestial-card reveal" data-planet="Mercury" id="card-Mercury">
             <div class="celestial-card__media">
-              <!-- Replace with: <img src="mercury.png" alt="Mercury"> -->
               <span class="celestial-card__media-placeholder">⚫</span>
               <span class="celestial-card__media-label">Add Blender render here</span>
             </div>
@@ -526,6 +825,15 @@
                 <li><span>Moons</span><span>0</span></li>
               </ul>
               <div class="celestial-card__calc-result" id="calc-Mercury"></div>
+              <a class="download-caption celestial-card__download"
+                 href="renders/mercury-render.png"
+                 download="Mercury-Render.png"
+                 aria-label="Download Mercury render">
+                <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path d="M8 12l-4-4h2.5V2h3v6H12L8 12zm-5 2h10v1.5H3V14z"/>
+                </svg>
+                Download Render
+              </a>
             </div>
           </div>
 
@@ -548,6 +856,15 @@
                 <li><span>Moons</span><span>0</span></li>
               </ul>
               <div class="celestial-card__calc-result" id="calc-Venus"></div>
+              <a class="download-caption celestial-card__download"
+                 href="renders/venus-render.png"
+                 download="Venus-Render.png"
+                 aria-label="Download Venus render">
+                <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path d="M8 12l-4-4h2.5V2h3v6H12L8 12zm-5 2h10v1.5H3V14z"/>
+                </svg>
+                Download Render
+              </a>
             </div>
           </div>
 
@@ -569,6 +886,15 @@
                 <li><span>Moons</span><span>1 (The Moon)</span></li>
               </ul>
               <div class="celestial-card__calc-result" id="calc-Earth"></div>
+              <a class="download-caption celestial-card__download"
+                 href="videos/earth.mp4"
+                 download="Earth-Animation.mp4"
+                 aria-label="Download Earth animation">
+                <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path d="M8 12l-4-4h2.5V2h3v6H12L8 12zm-5 2h10v1.5H3V14z"/>
+                </svg>
+                Download Animation
+              </a>
             </div>
           </div>
 
@@ -591,6 +917,15 @@
                 <li><span>Moons</span><span>2</span></li>
               </ul>
               <div class="celestial-card__calc-result" id="calc-Mars"></div>
+              <a class="download-caption celestial-card__download"
+                 href="renders/mars-render.png"
+                 download="Mars-Render.png"
+                 aria-label="Download Mars render">
+                <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path d="M8 12l-4-4h2.5V2h3v6H12L8 12zm-5 2h10v1.5H3V14z"/>
+                </svg>
+                Download Render
+              </a>
             </div>
           </div>
 
@@ -613,6 +948,15 @@
                 <li><span>Moons</span><span>95 known</span></li>
               </ul>
               <div class="celestial-card__calc-result" id="calc-Jupiter"></div>
+              <a class="download-caption celestial-card__download"
+                 href="renders/jupiter-render.png"
+                 download="Jupiter-Render.png"
+                 aria-label="Download Jupiter render">
+                <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path d="M8 12l-4-4h2.5V2h3v6H12L8 12zm-5 2h10v1.5H3V14z"/>
+                </svg>
+                Download Render
+              </a>
             </div>
           </div>
 
@@ -635,6 +979,15 @@
                 <li><span>Moons</span><span>146 known</span></li>
               </ul>
               <div class="celestial-card__calc-result" id="calc-Saturn"></div>
+              <a class="download-caption celestial-card__download"
+                 href="renders/saturn-render.png"
+                 download="Saturn-Render.png"
+                 aria-label="Download Saturn render">
+                <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path d="M8 12l-4-4h2.5V2h3v6H12L8 12zm-5 2h10v1.5H3V14z"/>
+                </svg>
+                Download Render
+              </a>
             </div>
           </div>
 
@@ -657,6 +1010,15 @@
                 <li><span>Moons</span><span>28 known</span></li>
               </ul>
               <div class="celestial-card__calc-result" id="calc-Uranus"></div>
+              <a class="download-caption celestial-card__download"
+                 href="renders/uranus-render.png"
+                 download="Uranus-Render.png"
+                 aria-label="Download Uranus render">
+                <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path d="M8 12l-4-4h2.5V2h3v6H12L8 12zm-5 2h10v1.5H3V14z"/>
+                </svg>
+                Download Render
+              </a>
             </div>
           </div>
 
@@ -679,6 +1041,257 @@
                 <li><span>Moons</span><span>16 known</span></li>
               </ul>
               <div class="celestial-card__calc-result" id="calc-Neptune"></div>
+              <a class="download-caption celestial-card__download"
+                 href="renders/neptune-render.png"
+                 download="Neptune-Render.png"
+                 aria-label="Download Neptune render">
+                <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path d="M8 12l-4-4h2.5V2h3v6H12L8 12zm-5 2h10v1.5H3V14z"/>
+                </svg>
+                Download Render
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ======== BLENDER STEPS (NEW SECTION) ======== -->
+    <section class="blender-section" aria-label="How to recreate this in Blender">
+      <div class="blender-section__inner">
+        <div class="reveal">
+          <p class="section-label">Process Guide</p>
+          <h2 class="section-title">How We Built It <em>in Blender</em></h2>
+          <p class="section-text" style="color:rgba(245,238,240,0.6);">A step-by-step walkthrough of how this solar system was modeled, textured, and animated.</p>
+        </div>
+
+        <div class="steps-list">
+
+          <!-- STEP 01 -->
+          <div class="step-item reveal">
+            <div class="step-number">01</div>
+            <div class="step-content">
+              <div class="step-content__title">Scene Setup &amp; Scale</div>
+              <p class="step-content__desc">Open Blender and set up your scene units. We used a simplified scale where 1 Blender unit = 1 million km to keep all planets manageable in the viewport. Set the render engine to Cycles and configure HDRI world lighting using a deep space environment map for ambient illumination.</p>
+              <span class="step-content__tag">Scene · Lighting · Units</span>
+              <!--
+                STEP IMAGE: Replace the placeholder below with your actual screenshot.
+                <img src="steps/step-01-scene-setup.png" alt="Blender scene setup and units configuration">
+              -->
+              <div class="step-image">
+                <div class="step-image__placeholder">
+                  <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <rect x="4" y="4" width="40" height="40" rx="2" stroke="rgba(176,122,160,0.35)" stroke-width="1.5" fill="none"/>
+                    <!-- viewport grid lines -->
+                    <line x1="4" y1="24" x2="44" y2="24" stroke="rgba(176,122,160,0.2)" stroke-width="1"/>
+                    <line x1="24" y1="4" x2="24" y2="44" stroke="rgba(176,122,160,0.2)" stroke-width="1"/>
+                    <!-- sun dot -->
+                    <circle cx="24" cy="24" r="5" fill="rgba(245,200,66,0.5)" stroke="rgba(245,200,66,0.8)" stroke-width="1"/>
+                    <!-- orbit rings -->
+                    <circle cx="24" cy="24" r="10" stroke="rgba(176,122,160,0.25)" stroke-width="1" fill="none" stroke-dasharray="2 2"/>
+                    <circle cx="24" cy="24" r="16" stroke="rgba(176,122,160,0.15)" stroke-width="1" fill="none" stroke-dasharray="2 3"/>
+                    <!-- planet dots -->
+                    <circle cx="34" cy="24" r="2" fill="rgba(74,144,217,0.7)"/>
+                    <circle cx="8"  cy="24" r="1.5" fill="rgba(201,168,122,0.7)"/>
+                  </svg>
+                  <span class="step-image__placeholder-label">Add your Blender screenshot here — step-01-scene-setup.png</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- STEP 02 -->
+          <div class="step-item reveal">
+            <div class="step-number">02</div>
+            <div class="step-content">
+              <div class="step-content__title">Planet Modeling</div>
+              <p class="step-content__desc">Add a UV Sphere for each planet (Shift+A → Mesh → UV Sphere). Set the segment count to 64×64 for smooth curvature. Scale each sphere proportionally based on real diameter ratios — for example, Jupiter should be roughly 11× the diameter of Earth. Name each object clearly in the Outliner.</p>
+              <span class="step-content__tag">Modeling · UV Sphere · Scale</span>
+              <!--
+                STEP IMAGE: Replace the placeholder below with your actual screenshot.
+                <img src="steps/step-02-planet-modeling.png" alt="UV Sphere planet modeling in Blender">
+              -->
+              <div class="step-image">
+                <div class="step-image__placeholder">
+                  <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <rect x="4" y="4" width="40" height="40" rx="2" stroke="rgba(176,122,160,0.35)" stroke-width="1.5" fill="none"/>
+                    <!-- big sphere (Jupiter) -->
+                    <circle cx="18" cy="26" r="10" stroke="rgba(200,139,90,0.6)" stroke-width="1.5" fill="rgba(200,139,90,0.1)"/>
+                    <!-- latitude lines -->
+                    <ellipse cx="18" cy="26" rx="10" ry="3.5" stroke="rgba(200,139,90,0.3)" stroke-width="1" fill="none"/>
+                    <ellipse cx="18" cy="26" rx="10" ry="7" stroke="rgba(200,139,90,0.2)" stroke-width="1" fill="none"/>
+                    <!-- small sphere (Earth) -->
+                    <circle cx="36" cy="20" r="5" stroke="rgba(74,144,217,0.6)" stroke-width="1.2" fill="rgba(74,144,217,0.1)"/>
+                    <ellipse cx="36" cy="20" rx="5" ry="1.8" stroke="rgba(74,144,217,0.3)" stroke-width="1" fill="none"/>
+                    <!-- wireframe hint -->
+                    <line x1="8"  y1="26" x2="28" y2="26" stroke="rgba(200,139,90,0.2)" stroke-width="0.8"/>
+                    <line x1="18" y1="16" x2="18" y2="36" stroke="rgba(200,139,90,0.2)" stroke-width="0.8"/>
+                  </svg>
+                  <span class="step-image__placeholder-label">Add your Blender screenshot here — step-02-planet-modeling.png</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- STEP 03 -->
+          <div class="step-item reveal">
+            <div class="step-number">03</div>
+            <div class="step-content">
+              <div class="step-content__title">Texturing with Shader Nodes</div>
+              <p class="step-content__desc">Apply a Principled BSDF material to each planet. Import your texture maps from the library and plug them into the Base Color, Roughness, and Normal inputs. For the Sun, use an Emission shader with an orange-white gradient to simulate its glow. Add a Point Light inside the Sun object for scene illumination.</p>
+              <span class="step-content__tag">Shading · Nodes · Textures</span>
+              <!--
+                STEP IMAGE: Replace the placeholder below with your actual screenshot.
+                <img src="steps/step-03-shader-nodes.png" alt="Shader node editor showing Principled BSDF setup">
+              -->
+              <div class="step-image">
+                <div class="step-image__placeholder">
+                  <svg width="64" height="40" viewBox="0 0 64 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <rect x="2" y="2" width="60" height="36" rx="2" stroke="rgba(176,122,160,0.35)" stroke-width="1.2" fill="none"/>
+                    <!-- node boxes -->
+                    <rect x="6"  y="10" width="14" height="20" rx="1" fill="rgba(125,232,232,0.08)" stroke="rgba(125,232,232,0.4)" stroke-width="1"/>
+                    <rect x="25" y="7"  width="14" height="26" rx="1" fill="rgba(176,122,160,0.08)" stroke="rgba(176,122,160,0.5)" stroke-width="1"/>
+                    <rect x="44" y="13" width="14" height="14" rx="1" fill="rgba(245,200,66,0.08)"  stroke="rgba(245,200,66,0.4)"  stroke-width="1"/>
+                    <!-- node labels -->
+                    <text x="9"  y="22" font-size="3.5" fill="rgba(125,232,232,0.7)" font-family="monospace">Tex</text>
+                    <text x="27" y="22" font-size="3.5" fill="rgba(176,122,160,0.8)" font-family="monospace">BSDF</text>
+                    <text x="46" y="22" font-size="3.5" fill="rgba(245,200,66,0.7)"  font-family="monospace">Out</text>
+                    <!-- connector lines -->
+                    <line x1="20" y1="20" x2="25" y2="20" stroke="rgba(125,232,232,0.5)" stroke-width="1"/>
+                    <line x1="39" y1="20" x2="44" y2="20" stroke="rgba(176,122,160,0.5)" stroke-width="1"/>
+                    <!-- socket dots -->
+                    <circle cx="20" cy="20" r="1.5" fill="rgba(125,232,232,0.7)"/>
+                    <circle cx="25" cy="20" r="1.5" fill="rgba(125,232,232,0.7)"/>
+                    <circle cx="39" cy="20" r="1.5" fill="rgba(176,122,160,0.7)"/>
+                    <circle cx="44" cy="20" r="1.5" fill="rgba(176,122,160,0.7)"/>
+                  </svg>
+                  <span class="step-image__placeholder-label">Add your Blender screenshot here — step-03-shader-nodes.png</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- STEP 04 -->
+          <div class="step-item reveal">
+            <div class="step-number">04</div>
+            <div class="step-content">
+              <div class="step-content__title">Orbital Paths &amp; Animation</div>
+              <p class="step-content__desc">Use Empty objects as orbit centers. Parent each planet to its corresponding Empty, then animate the Empty's Z-rotation from 0° to 360° across the timeline. Use the orbital period ratios to set relative keyframe counts — Mercury's orbit should complete roughly 4× faster than Earth's in your animation. Enable the Graph Editor to set linear interpolation on all rotation curves.</p>
+              <span class="step-content__tag">Animation · Keyframes · Empties</span>
+              <!--
+                STEP IMAGE: Replace the placeholder below with your actual screenshot.
+                <img src="steps/step-04-animation.png" alt="Blender timeline showing orbital keyframes">
+              -->
+              <div class="step-image">
+                <div class="step-image__placeholder">
+                  <svg width="64" height="40" viewBox="0 0 64 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <rect x="2" y="2" width="60" height="36" rx="2" stroke="rgba(176,122,160,0.35)" stroke-width="1.2" fill="none"/>
+                    <!-- timeline header -->
+                    <rect x="2" y="2" width="60" height="8" rx="2" fill="rgba(176,122,160,0.08)"/>
+                    <text x="5" y="8" font-size="3.5" fill="rgba(176,122,160,0.6)" font-family="monospace">Timeline</text>
+                    <!-- frame ruler ticks -->
+                    <line x1="10" y1="10" x2="10" y2="13" stroke="rgba(176,122,160,0.3)" stroke-width="0.8"/>
+                    <line x1="22" y1="10" x2="22" y2="13" stroke="rgba(176,122,160,0.3)" stroke-width="0.8"/>
+                    <line x1="34" y1="10" x2="34" y2="13" stroke="rgba(176,122,160,0.3)" stroke-width="0.8"/>
+                    <line x1="46" y1="10" x2="46" y2="13" stroke="rgba(176,122,160,0.3)" stroke-width="0.8"/>
+                    <line x1="58" y1="10" x2="58" y2="13" stroke="rgba(176,122,160,0.3)" stroke-width="0.8"/>
+                    <!-- track rows -->
+                    <rect x="2" y="14" width="60" height="5" fill="rgba(74,144,217,0.06)"/>
+                    <rect x="2" y="21" width="60" height="5" fill="rgba(200,139,90,0.06)"/>
+                    <rect x="2" y="28" width="60" height="5" fill="rgba(74,144,217,0.04)"/>
+                    <!-- keyframe diamonds -->
+                    <polygon points="10,16.5 12,18.5 10,20.5 8,18.5" fill="rgba(245,200,66,0.9)"/>
+                    <polygon points="34,16.5 36,18.5 34,20.5 32,18.5" fill="rgba(245,200,66,0.9)"/>
+                    <polygon points="58,16.5 60,18.5 58,20.5 56,18.5" fill="rgba(245,200,66,0.9)"/>
+                    <polygon points="10,23.5 12,25.5 10,27.5 8,25.5" fill="rgba(125,232,232,0.8)"/>
+                    <polygon points="22,23.5 24,25.5 22,27.5 20,25.5" fill="rgba(125,232,232,0.8)"/>
+                    <polygon points="46,23.5 48,25.5 46,27.5 44,25.5" fill="rgba(125,232,232,0.8)"/>
+                    <!-- motion curves -->
+                    <path d="M10 18.5 C18 18.5 26 18.5 34 18.5 C42 18.5 50 18.5 58 18.5" stroke="rgba(245,200,66,0.4)" stroke-width="0.8" fill="none"/>
+                    <path d="M10 25.5 C14 22 18 28 22 25.5 C26 23 32 28 46 25.5" stroke="rgba(125,232,232,0.4)" stroke-width="0.8" fill="none"/>
+                    <!-- playhead -->
+                    <line x1="30" y1="10" x2="30" y2="38" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+                    <polygon points="28,10 32,10 30,13" fill="rgba(255,255,255,0.4)"/>
+                  </svg>
+                  <span class="step-image__placeholder-label">Add your Blender screenshot here — step-04-animation.png</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- STEP 05 -->
+          <div class="step-item reveal">
+            <div class="step-number">05</div>
+            <div class="step-content">
+              <div class="step-content__title">Saturn's Ring System</div>
+              <p class="step-content__desc">Create a flat disc (Add → Mesh → Circle, then Extrude and scale inward to form a ring shape). Apply an alpha-transparent texture for the ice particle look using a Principled BSDF with the Transmission slider. Tilt the ring object at ~27° to match Saturn's axial tilt. Parent the ring to Saturn's planet object so it rotates together.</p>
+              <span class="step-content__tag">Modeling · Transparency · Rings</span>
+              <!--
+                STEP IMAGE: Replace the placeholder below with your actual screenshot.
+                <img src="steps/step-05-saturn-rings.png" alt="Saturn ring modeling and material setup in Blender">
+              -->
+              <div class="step-image">
+                <div class="step-image__placeholder">
+                  <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <rect x="4" y="4" width="40" height="40" rx="2" stroke="rgba(176,122,160,0.35)" stroke-width="1.5" fill="none"/>
+                    <!-- Saturn body -->
+                    <circle cx="24" cy="24" r="9" fill="rgba(212,184,150,0.18)" stroke="rgba(212,184,150,0.7)" stroke-width="1.5"/>
+                    <!-- ring ellipses -->
+                    <ellipse cx="24" cy="24" rx="18" ry="5" stroke="rgba(212,184,150,0.5)" stroke-width="1.2" fill="none"/>
+                    <ellipse cx="24" cy="24" rx="15" ry="4" stroke="rgba(212,184,150,0.35)" stroke-width="0.8" fill="none"/>
+                    <ellipse cx="24" cy="24" rx="21" ry="6" stroke="rgba(212,184,150,0.25)" stroke-width="0.8" fill="none"/>
+                    <!-- tilt indicator -->
+                    <line x1="24" y1="10" x2="27" y2="38" stroke="rgba(176,122,160,0.4)" stroke-width="0.8" stroke-dasharray="2 2"/>
+                    <text x="28" y="14" font-size="4" fill="rgba(176,122,160,0.6)" font-family="monospace">27°</text>
+                  </svg>
+                  <span class="step-image__placeholder-label">Add your Blender screenshot here — step-05-saturn-rings.png</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- STEP 06 -->
+          <div class="step-item reveal">
+            <div class="step-number">06</div>
+            <div class="step-content">
+              <div class="step-content__title">Camera, Rendering &amp; Export</div>
+              <p class="step-content__desc">Position your camera using a wide-angle lens (18–24mm) for the full system overview, or animate it for a dramatic flythrough. In Render Properties, set resolution to 1920×1080 and enable Motion Blur for realism. Render to an image sequence (PNG frames) rather than directly to video — this lets you recover from crashes. Assemble the final sequence in Blender's Video Sequence Editor to export the finished MP4.</p>
+              <span class="step-content__tag">Camera · Render · Export</span>
+              <!--
+                STEP IMAGE: Replace the placeholder below with your actual screenshot.
+                <img src="steps/step-06-render-export.png" alt="Blender render properties and camera setup">
+              -->
+              <div class="step-image">
+                <div class="step-image__placeholder">
+                  <svg width="64" height="40" viewBox="0 0 64 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <rect x="2" y="2" width="60" height="36" rx="2" stroke="rgba(176,122,160,0.35)" stroke-width="1.2" fill="none"/>
+                    <!-- render frame border -->
+                    <rect x="8" y="6" width="36" height="28" stroke="rgba(176,122,160,0.3)" stroke-width="1" fill="rgba(0,0,0,0.2)"/>
+                    <!-- stars in render preview -->
+                    <circle cx="12" cy="10" r="0.6" fill="white" opacity="0.6"/>
+                    <circle cx="20" cy="8"  r="0.6" fill="white" opacity="0.5"/>
+                    <circle cx="30" cy="12" r="0.6" fill="white" opacity="0.7"/>
+                    <circle cx="38" cy="9"  r="0.6" fill="white" opacity="0.4"/>
+                    <circle cx="15" cy="20" r="0.6" fill="white" opacity="0.5"/>
+                    <circle cx="40" cy="22" r="0.6" fill="white" opacity="0.6"/>
+                    <!-- sun glow -->
+                    <circle cx="26" cy="20" r="5" fill="rgba(245,200,66,0.15)"/>
+                    <circle cx="26" cy="20" r="3" fill="rgba(245,200,66,0.35)" stroke="rgba(245,200,66,0.7)" stroke-width="0.8"/>
+                    <!-- orbiting planets -->
+                    <circle cx="34" cy="20" r="1.5" fill="rgba(74,144,217,0.8)"/>
+                    <circle cx="18" cy="16" r="1" fill="rgba(193,68,14,0.8)"/>
+                    <!-- camera widget -->
+                    <rect x="48" y="14" width="12" height="9" rx="1" fill="rgba(176,122,160,0.1)" stroke="rgba(176,122,160,0.5)" stroke-width="1"/>
+                    <polygon points="60,15 64,12 64,26 60,23" fill="rgba(176,122,160,0.2)" stroke="rgba(176,122,160,0.4)" stroke-width="0.8"/>
+                    <text x="49" y="20.5" font-size="3" fill="rgba(176,122,160,0.8)" font-family="monospace">CAM</text>
+                    <!-- progress bar -->
+                    <rect x="8" y="36" width="36" height="2" rx="1" fill="rgba(176,122,160,0.15)"/>
+                    <rect x="8" y="36" width="24" height="2" rx="1" fill="rgba(176,122,160,0.6)"/>
+                  </svg>
+                  <span class="step-image__placeholder-label">Add your Blender screenshot here — step-06-render-export.png</span>
+                </div>
+              </div>
             </div>
           </div>
 
