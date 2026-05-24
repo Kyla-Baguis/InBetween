@@ -12,7 +12,6 @@
   <style>
     /* ---- ROTOSCOPE-SPECIFIC STYLES ---- */
 
-    /* Intro section */
     .roto-intro { background: var(--white); padding: 5rem 4rem; }
     .roto-intro__inner { max-width: 900px; margin: 0 auto; }
     .roto-intro__text {
@@ -55,7 +54,6 @@
       flex-direction: column;
       gap: 0;
     }
-    /* The white iframe box */
     .final-video-box {
       background: #fff;
       position: relative;
@@ -101,19 +99,17 @@
       text-align: center;
       margin-bottom: 3rem;
     }
-    /* 4-per-row grid */
     .weekly-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 2.5rem;
     }
-    /* Simple card: just thumbnail + label */
     .week-card {
       display: flex;
       flex-direction: column;
       gap: 0.8rem;
     }
-    /* The video/thumbnail box — taller */
+    /* Fixed height thumb so hqdefault (480x360 = 4:3) fills cleanly */
     .week-card__thumb {
       width: 100%;
       aspect-ratio: 4 / 3;
@@ -129,9 +125,11 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
+      object-position: center;
       display: block;
+      image-rendering: -webkit-optimize-contrast;
+      image-rendering: crisp-edges;
     }
-    /* Overlay with play icon */
     .week-card__play-overlay {
       position: absolute;
       inset: 0;
@@ -151,7 +149,6 @@
       display: flex; align-items: center; justify-content: center;
       font-size: 1.4rem;
     }
-    /* Empty state (no video yet) */
     .week-card__empty {
       position: absolute;
       inset: 0;
@@ -167,7 +164,6 @@
       font-family: 'Josefin Sans', sans-serif;
     }
     .week-card__empty svg { opacity: 0.35; }
-    /* Week label below */
     .week-card__label {
       font-family: 'Josefin Sans', sans-serif;
       font-size: 0.72rem;
@@ -177,73 +173,6 @@
       color: #888;
     }
     .week-card__label a {
-      text-decoration: underline;
-      color: inherit;
-      text-underline-offset: 3px;
-    }
-
-    /* ---- WEEKLY SUMMARIES ---- */
-    .weekly-summaries-section {
-      background: var(--white);
-      padding: 5rem 4rem 6rem;
-    }
-    .weekly-summaries__inner { max-width: 900px; margin: 0 auto; }
-    .weekly-summaries__header { text-align: center; margin-bottom: 3.5rem; }
-    .weekly-summaries__list {
-      display: flex;
-      flex-direction: column;
-      gap: 0;
-    }
-    .week-summary {
-      display: flex;
-      gap: 2.5rem;
-      align-items: flex-start;
-      padding: 2rem 0;
-      border-bottom: 1px solid #f0e8ee;
-      scroll-margin-top: 100px;
-      transition: background 0.3s;
-    }
-    .week-summary:first-child { border-top: 1px solid #f0e8ee; }
-    .week-summary:target {
-      background: linear-gradient(90deg, #fde8f030 0%, transparent 100%);
-      border-radius: 4px;
-    }
-    .week-summary__number {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 3rem;
-      font-weight: 600;
-      color: #dbb8d4;
-      line-height: 1;
-      min-width: 3rem;
-      flex-shrink: 0;
-      letter-spacing: -0.02em;
-    }
-    .week-summary__content { flex: 1; padding-top: 0.3rem; }
-    .week-summary__label {
-      font-family: 'Josefin Sans', sans-serif;
-      font-size: 0.72rem;
-      font-weight: 400;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: #b07aa0;
-      margin-bottom: 0.6rem;
-    }
-    .week-summary__text {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.05rem;
-      font-weight: 300;
-      font-style: italic;
-      color: #6b5a65;
-      line-height: 1.85;
-    }
-    @media (max-width: 600px) {
-      .weekly-summaries-section { padding: 4rem 1.5rem; }
-      .week-summary { gap: 1.2rem; }
-      .week-summary__number { font-size: 2rem; min-width: 2rem; }
-    }
-
-    /* ---- Week label links ---- */
-    .week-card__label a {
       color: inherit;
       text-decoration: underline;
       text-underline-offset: 3px;
@@ -252,7 +181,7 @@
     }
     .week-card__label a:hover { color: #b07aa0; }
 
-    /* Modal for full video playback */
+    /* Modal */
     .week-modal {
       display: none;
       position: fixed;
@@ -312,18 +241,30 @@
       transform: translateY(-4px);
       box-shadow: 0 12px 32px rgba(180,120,160,0.18);
     }
+    /* Logo image slot — replaces the SVG icon area */
     .tool-card__logo {
-      width: 64px;
-      height: 64px;
-      border-radius: 14px;
+      width: 80px;
+      height: 80px;
+      border-radius: 18px;
+      overflow: hidden;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 2rem;
+      flex-shrink: 0;
+      background: #f0e8f4;
+      border: 1px solid #e0d0e8;
     }
-    .tool-card__logo--ae { background: #1a0a2e; }
-    .tool-card__logo--capcut { background: #000; }
-    .tool-card__logo--canva { background: #7d2ae8; }
+    .tool-card__logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+    /* Fallback SVG logo (shown when no image provided) */
+    .tool-card__logo--ae { background: #1a0a2e; border-color: #1a0a2e; }
+    .tool-card__logo--capcut { background: #000; border-color: #000; }
+    .tool-card__logo--canva { background: #7d2ae8; border-color: #7d2ae8; }
+    .tool-card__logo svg { width: 40px; height: 40px; }
     .tool-card__name {
       font-family: 'Josefin Sans', sans-serif;
       font-size: 0.85rem;
@@ -344,57 +285,106 @@
     /* ---- STEPS SECTION ---- */
     .steps-section {
       background: linear-gradient(180deg, #fdf3f8 0%, #f8eef8 100%);
-      padding: 4rem 4rem;
+      padding: 5rem 4rem;
     }
-    .steps-section__inner { max-width: 1100px; margin: 0 auto; }
-    .steps-section__header { text-align: center; margin-bottom: 2.5rem; }
+    .steps-section__inner { max-width: 1200px; margin: 0 auto; }
+    .steps-section__header { text-align: center; margin-bottom: 3rem; }
+    /* 2-column layout so each card is bigger */
     .steps-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.2rem;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
     }
     .step-card {
       background: #fff;
       border: 1px solid #f0dcea;
-      border-radius: 10px;
-      padding: 1.4rem 1.4rem 1.3rem;
+      border-radius: 14px;
+      overflow: hidden;
       display: flex;
-      gap: 0.9rem;
-      align-items: flex-start;
+      flex-direction: column;
       transition: transform 0.2s, box-shadow 0.2s;
     }
     .step-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 24px rgba(180,120,160,0.13);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(180,120,160,0.15);
+    }
+    /* Image slot at top of each step card */
+    .step-card__image {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: linear-gradient(135deg, #f5e6f8 0%, #fde8f0 100%);
+      overflow: hidden;
+      position: relative;
+      flex-shrink: 0;
+    }
+    .step-card__image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    /* Placeholder shown when no image provided */
+    .step-card__image-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      color: #d0b0cc;
+    }
+    .step-card__image-placeholder svg {
+      width: 36px; height: 36px;
+      opacity: 0.5;
+    }
+    .step-card__image-placeholder span {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      opacity: 0.7;
+    }
+    /* Hide placeholder when real image is present */
+    .step-card__image img ~ .step-card__image-placeholder { display: none; }
+    /* Text body */
+    .step-card__body {
+      padding: 1.6rem 1.8rem 1.8rem;
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      flex: 1;
     }
     .step-card__num {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 1.8rem;
+      font-size: 2.2rem;
       font-weight: 600;
       color: #dbb8d4;
       line-height: 1;
-      min-width: 2rem;
+      min-width: 2.5rem;
       flex-shrink: 0;
       letter-spacing: -0.02em;
     }
-    .step-card__body { flex: 1; }
+    .step-card__text-content { flex: 1; }
     .step-card__title {
       font-family: 'Josefin Sans', sans-serif;
-      font-size: 0.65rem;
+      font-size: 0.68rem;
       font-weight: 400;
-      letter-spacing: 0.18em;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
       color: #b07aa0;
-      margin-bottom: 0.35rem;
+      margin-bottom: 0.45rem;
     }
     .step-card__text {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 0.92rem;
+      font-size: 1rem;
       font-weight: 300;
       font-style: italic;
       color: #6b5a65;
-      line-height: 1.7;
+      line-height: 1.75;
     }
+
+    /* Responsive */
     @media (max-width: 768px) {
       .tools-section { padding: 4rem 1.5rem; }
       .tools-grid { grid-template-columns: 1fr; gap: 1.2rem; }
@@ -404,7 +394,6 @@
     @media (min-width: 769px) and (max-width: 1024px) {
       .steps-grid { grid-template-columns: repeat(2, 1fr); }
     }
-
     @media (max-width: 900px) {
       .roto-intro { padding: 4rem 2rem; }
       .final-video-section__side { width: 70px; }
@@ -459,7 +448,7 @@
         <a href="index.html" class="back-btn" aria-label="Back to home">Back to Home</a>
         <p class="section-label" style="margin-bottom:1.5rem;">About the Project</p>
         <p class="roto-intro__text reveal">
-          Rotoscoping is the art of tracing over live-action footage, frame by frame, to create fluid and lifelike animation. This project challenged us to slow down, observe deeply, and find beauty in the smallest movement — the arc of an arm, the shift of weight in a step. Over twelve weeks, we documented every stage of the process. 
+          Rotoscoping is the art of tracing over live-action footage, frame by frame, to create fluid and lifelike animation. This project challenged us to slow down, observe deeply, and find beauty in the smallest movement — the arc of an arm, the shift of weight in a step. Over twelve weeks, we documented every stage of the process.
         </p>
       </div>
     </section>
@@ -473,9 +462,13 @@
         </div>
         <div class="tools-grid">
 
-          <!-- Adobe After Effects -->
+          <!-- Adobe After Effects
+               TO ADD LOGO: replace the <svg>...</svg> inside .tool-card__logo with:
+               <img src="path/to/aftereffects-logo.png" alt="Adobe After Effects logo" />
+          -->
           <div class="tool-card reveal">
             <div class="tool-card__logo tool-card__logo--ae">
+              <!-- REPLACE BELOW with <img src="your-ae-logo.png" alt="After Effects logo" /> -->
               <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <rect width="40" height="40" rx="8" fill="#1a0a2e"/>
                 <text x="5" y="28" font-family="Arial Black, sans-serif" font-size="18" font-weight="900" fill="#99b3ff">Ae</text>
@@ -485,9 +478,13 @@
             <p class="tool-card__desc">The primary tool for frame-by-frame rotoscoping — used to trace, animate, and composite every movement with precision and fluidity.</p>
           </div>
 
-          <!-- CapCut -->
+          <!-- CapCut
+               TO ADD LOGO: replace the <svg>...</svg> inside .tool-card__logo with:
+               <img src="path/to/capcut-logo.png" alt="CapCut logo" />
+          -->
           <div class="tool-card reveal">
             <div class="tool-card__logo tool-card__logo--capcut">
+              <!-- REPLACE BELOW with <img src="your-capcut-logo.png" alt="CapCut logo" /> -->
               <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <rect width="40" height="40" rx="8" fill="#000"/>
                 <circle cx="20" cy="20" r="10" fill="none" stroke="white" stroke-width="2.5"/>
@@ -498,9 +495,13 @@
             <p class="tool-card__desc">Used for quick video editing and trimming footage into manageable segments, as well as adding transitions and final polish to weekly progress clips.</p>
           </div>
 
-          <!-- Canva -->
+          <!-- Canva
+               TO ADD LOGO: replace the <svg>...</svg> inside .tool-card__logo with:
+               <img src="path/to/canva-logo.png" alt="Canva logo" />
+          -->
           <div class="tool-card reveal">
             <div class="tool-card__logo tool-card__logo--canva">
+              <!-- REPLACE BELOW with <img src="your-canva-logo.png" alt="Canva logo" /> -->
               <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <rect width="40" height="40" rx="8" fill="#7d2ae8"/>
                 <text x="7" y="28" font-family="Arial Black, sans-serif" font-size="20" font-weight="900" fill="white">C</text>
@@ -523,51 +524,114 @@
         </div>
         <div class="steps-grid">
 
+          <!-- Step 01
+               TO ADD IMAGE: replace src="" with your image path, e.g. src="images/step1.jpg"
+               The placeholder will automatically hide when a real src is provided.
+          -->
           <div class="step-card reveal">
-            <div class="step-card__num">01</div>
+            <div class="step-card__image">
+              <!-- ADD IMAGE: <img src="images/step1.jpg" alt="Choosing source footage" /> -->
+              <div class="step-card__image-placeholder">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+                <span>Add image for step 01</span>
+              </div>
+            </div>
             <div class="step-card__body">
-              <p class="step-card__title">Choose Your Source Footage</p>
-              <p class="step-card__text">Select a video clip with clear, well-lit movement. Short, deliberate actions like dancing or walking work best — even 5–10 seconds is plenty to start.</p>
+              <div class="step-card__num">01</div>
+              <div class="step-card__text-content">
+                <p class="step-card__title">Choose Your Source Footage</p>
+                <p class="step-card__text">Select a video clip with clear, well-lit movement. Short, deliberate actions like dancing or walking work best — even 5–10 seconds is plenty to start.</p>
+              </div>
             </div>
           </div>
 
+          <!-- Step 02 -->
           <div class="step-card reveal">
-            <div class="step-card__num">02</div>
+            <div class="step-card__image">
+              <!-- ADD IMAGE: <img src="images/step2.jpg" alt="Breaking footage into segments" /> -->
+              <div class="step-card__image-placeholder">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+                <span>Add image for step 02</span>
+              </div>
+            </div>
             <div class="step-card__body">
-              <p class="step-card__title">Break the Footage into Segments</p>
-              <p class="step-card__text">Cut your footage into short 5–10 second clips. This keeps the process manageable and helps maintain consistency in style across the whole animation.</p>
+              <div class="step-card__num">02</div>
+              <div class="step-card__text-content">
+                <p class="step-card__title">Break the Footage into Segments</p>
+                <p class="step-card__text">Cut your footage into short 5–10 second clips. This keeps the process manageable and helps maintain consistency in style across the whole animation.</p>
+              </div>
             </div>
           </div>
 
+          <!-- Step 03 -->
           <div class="step-card reveal">
-            <div class="step-card__num">03</div>
+            <div class="step-card__image">
+              <!-- ADD IMAGE: <img src="images/step3.jpg" alt="Tracing frame by frame" /> -->
+              <div class="step-card__image-placeholder">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+                <span>Add image for step 03</span>
+              </div>
+            </div>
             <div class="step-card__body">
-              <p class="step-card__title">Trace Frame by Frame</p>
-              <p class="step-card__text">Using After Effects, carefully trace the subject's outline on each frame. Focus on the essential lines that define the movement rather than every small detail.</p>
+              <div class="step-card__num">03</div>
+              <div class="step-card__text-content">
+                <p class="step-card__title">Trace Frame by Frame</p>
+                <p class="step-card__text">Using After Effects, carefully trace the subject's outline on each frame. Focus on the essential lines that define the movement rather than every small detail.</p>
+              </div>
             </div>
           </div>
 
+          <!-- Step 04 -->
           <div class="step-card reveal">
-            <div class="step-card__num">04</div>
+            <div class="step-card__image">
+              <!-- ADD IMAGE: <img src="images/step4.jpg" alt="Applying color and style" /> -->
+              <div class="step-card__image-placeholder">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+                <span>Add image for step 04</span>
+              </div>
+            </div>
             <div class="step-card__body">
-              <p class="step-card__title">Apply Color and Style</p>
-              <p class="step-card__text">Fill your outlines with color, gradients, or textures. Choose a consistent palette and visual style that carries through the entire piece.</p>
+              <div class="step-card__num">04</div>
+              <div class="step-card__text-content">
+                <p class="step-card__title">Apply Color and Style</p>
+                <p class="step-card__text">Fill your outlines with color, gradients, or textures. Choose a consistent palette and visual style that carries through the entire piece.</p>
+              </div>
             </div>
           </div>
 
+          <!-- Step 05 -->
           <div class="step-card reveal">
-            <div class="step-card__num">05</div>
+            <div class="step-card__image">
+              <!-- ADD IMAGE: <img src="images/step5.jpg" alt="Adding transitions and effects" /> -->
+              <div class="step-card__image-placeholder">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+                <span>Add image for step 05</span>
+              </div>
+            </div>
             <div class="step-card__body">
-              <p class="step-card__title">Add Transitions and Effects</p>
-              <p class="step-card__text">Smooth transitions between keyframes and add backgrounds or motion graphics. CapCut is great for assembling these finishing touches quickly.</p>
+              <div class="step-card__num">05</div>
+              <div class="step-card__text-content">
+                <p class="step-card__title">Add Transitions and Effects</p>
+                <p class="step-card__text">Smooth transitions between keyframes and add backgrounds or motion graphics. CapCut is great for assembling these finishing touches quickly.</p>
+              </div>
             </div>
           </div>
 
+          <!-- Step 06 -->
           <div class="step-card reveal">
-            <div class="step-card__num">06</div>
+            <div class="step-card__image">
+              <!-- ADD IMAGE: <img src="images/step6.jpg" alt="Export and review" /> -->
+              <div class="step-card__image-placeholder">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+                <span>Add image for step 06</span>
+              </div>
+            </div>
             <div class="step-card__body">
-              <p class="step-card__title">Export and Review</p>
-              <p class="step-card__text">Export your animation and watch it back in full. Fix any jumpy frames, then share your work — a testament to patience and careful observation.</p>
+              <div class="step-card__num">06</div>
+              <div class="step-card__text-content">
+                <p class="step-card__title">Export and Review</p>
+                <p class="step-card__text">Export your animation and watch it back in full. Fix any jumpy frames, then share your work — a testament to patience and careful observation.</p>
+              </div>
             </div>
           </div>
 
@@ -577,12 +641,9 @@
 
     <!-- FINAL VIDEO -->
     <section class="final-video-section" aria-label="Final animation">
-      <!-- Left vertical text -->
       <div class="final-video-section__side final-video-section__side--left" aria-hidden="true">
         <span>ROTOSCOPING</span>
       </div>
-
-      <!-- Center: white box only, no url bar -->
       <div class="final-video-section__center">
         <div class="final-video-box" id="final-video-box">
           <div class="final-video-box__placeholder" id="final-placeholder">
@@ -598,12 +659,50 @@
           ></iframe>
         </div>
       </div>
-
-      <!-- Right vertical text -->
       <div class="final-video-section__side final-video-section__side--right" aria-hidden="true">
         <span>ROTOSCOPING</span>
       </div>
     </section>
+
+    <!-- DISCLAIMER -->
+    <div class="disclaimer-bar" aria-label="Copyright disclaimer">
+      <p class="disclaimer-bar__text">
+        <span class="disclaimer-bar__icon" aria-hidden="true">&#9432;</span>
+        This project is created purely for <strong>educational and non-commercial purposes</strong> as part of a school requirement. All source footage, music, and media used belong to their respective copyright holders. No infringement is intended.
+      </p>
+    </div>
+    <style>
+      .disclaimer-bar {
+        background: #fdf6f9;
+        border-top: 1px solid #f0dcea;
+        border-bottom: 1px solid #f0dcea;
+        padding: 1rem 4rem;
+        text-align: center;
+      }
+      .disclaimer-bar__text {
+        font-family: 'Josefin Sans', sans-serif;
+        font-size: 0.7rem;
+        font-weight: 300;
+        letter-spacing: 0.1em;
+        color: #a08898;
+        line-height: 1.8;
+        max-width: 700px;
+        margin: 0 auto;
+      }
+      .disclaimer-bar__text strong {
+        font-weight: 400;
+        color: #b07aa0;
+      }
+      .disclaimer-bar__icon {
+        font-style: normal;
+        margin-right: 0.4em;
+        color: #dbb8d4;
+        font-size: 0.85rem;
+      }
+      @media (max-width: 600px) {
+        .disclaimer-bar { padding: 1rem 1.5rem; }
+      }
+    </style>
 
     <!-- WEEKLY PROGRESS -->
     <section class="weekly-section" aria-label="Weekly progress documentation">
@@ -616,229 +715,106 @@
         <div class="weekly-grid">
 
           <div class="week-card reveal">
-          <div class="week-card__thumb" data-yt-id="wRulGH7WCIE">
-            <img src="https://img.youtube.com/vi/wRulGH7WCIE/mqdefault.jpg" alt="Week 1 thumbnail" />
-            <div class="week-card__play-overlay">
-              <div class="week-card__play-icon">▶</div>
-            </div>
-          </div>
-          <p class="week-card__label"><a href="#week-summary-1">WEEK 1: PICKING THE VIDEO</a></p>
-        </div>
-
-          <!-- Week 2 -->
-          <div class="week-card reveal">
-            <div class="week-card__thumb" data-yt-id="FBeZIrrB-xQ">
-              <img src="https://img.youtube.com/vi/FBeZIrrB-xQ/mqdefault.jpg" alt="Week 2 thumbnail" />
+            <div class="week-card__thumb" data-yt-id="wRulGH7WCIE">
+              <img src="https://img.youtube.com/vi/wRulGH7WCIE/hqdefault.jpg" alt="Week 1 thumbnail" />
               <div class="week-card__play-overlay">
                 <div class="week-card__play-icon">▶</div>
               </div>
             </div>
-            <p class="week-card__label"><a href="#week-summary-2">WEEK 2: FIRST 10 SECONDS</a></p>
+            <p class="week-card__label">WEEK 1: PICKING THE VIDEO</p>
           </div>
 
-          <!-- Week 3 -->
+          <div class="week-card reveal">
+            <div class="week-card__thumb" data-yt-id="FBeZIrrB-xQ">
+              <img src="https://img.youtube.com/vi/FBeZIrrB-xQ/hqdefault.jpg" alt="Week 2 thumbnail" />
+              <div class="week-card__play-overlay">
+                <div class="week-card__play-icon">▶</div>
+              </div>
+            </div>
+            <p class="week-card__label">WEEK 2: FIRST 10 SECONDS</p>
+          </div>
+
           <div class="week-card reveal">
             <div class="week-card__thumb" data-yt-id="4Voapav22eA">
-              <img src="https://img.youtube.com/vi/4Voapav22eA/mqdefault.jpg" alt="Week 3 thumbnail" />
+              <img src="https://img.youtube.com/vi/4Voapav22eA/hqdefault.jpg" alt="Week 3 thumbnail" />
               <div class="week-card__play-overlay"><div class="week-card__play-icon">▶</div></div>
             </div>
-            <p class="week-card__label"><a href="#week-summary-3">WEEK 3:</a></p>
+            <p class="week-card__label">WEEK 3:</p>
           </div>
 
-          <!-- Week 4 -->
           <div class="week-card reveal">
             <div class="week-card__thumb" data-yt-id="uBhdd-htzmQ">
-              <img src="https://img.youtube.com/vi/uBhdd-htzmQ/mqdefault.jpg" alt="Week 4 thumbnail" />
+              <img src="https://img.youtube.com/vi/uBhdd-htzmQ/hqdefault.jpg" alt="Week 4 thumbnail" />
               <div class="week-card__play-overlay"><div class="week-card__play-icon">▶</div></div>
             </div>
-            <p class="week-card__label"><a href="#week-summary-4">WEEK 4:</a></p>
+            <p class="week-card__label">WEEK 4:</p>
           </div>
 
-          <!-- Week 5 -->
           <div class="week-card reveal">
             <div class="week-card__thumb" data-yt-id="KmVzoyZqkdg">
-              <img src="https://img.youtube.com/vi/KmVzoyZqkdg/mqdefault.jpg" alt="Week 5 thumbnail" />
+              <img src="https://img.youtube.com/vi/KmVzoyZqkdg/hqdefault.jpg" alt="Week 5 thumbnail" />
               <div class="week-card__play-overlay"><div class="week-card__play-icon">▶</div></div>
             </div>
-            <p class="week-card__label"><a href="#week-summary-5">WEEK 5:</a></p>
+            <p class="week-card__label">WEEK 5:</p>
           </div>
 
-          <!-- Week 6 -->
           <div class="week-card reveal">
             <div class="week-card__thumb" data-yt-id="NWY_nsRIIuk">
-              <img src="https://img.youtube.com/vi/NWY_nsRIIuk/mqdefault.jpg" alt="Week 6 thumbnail" />
+              <img src="https://img.youtube.com/vi/NWY_nsRIIuk/hqdefault.jpg" alt="Week 6 thumbnail" />
               <div class="week-card__play-overlay"><div class="week-card__play-icon">▶</div></div>
             </div>
-            <p class="week-card__label"><a href="#week-summary-6">WEEK 6:</a></p>
+            <p class="week-card__label">WEEK 6:</p>
           </div>
 
-          <!-- Week 7 --> 
           <div class="week-card reveal">
             <div class="week-card__thumb" data-yt-id="G6HqyOQuNPM">
-              <img src="https://img.youtube.com/vi/G6HqyOQuNPM/mqdefault.jpg" alt="Week 7 thumbnail" />
+              <img src="https://img.youtube.com/vi/G6HqyOQuNPM/hqdefault.jpg" alt="Week 7 thumbnail" />
               <div class="week-card__play-overlay"><div class="week-card__play-icon">▶</div></div>
             </div>
-            <p class="week-card__label"><a href="#week-summary-7">WEEK 7:</a></p>
+            <p class="week-card__label">WEEK 7:</p>
           </div>
 
-          <!-- Week 8 -->
           <div class="week-card reveal">
             <div class="week-card__thumb" data-yt-id="zU01oIw9EMg">
-              <img src="https://img.youtube.com/vi/zU01oIw9EMg/mqdefault.jpg" alt="Week 8 thumbnail" />
+              <img src="https://img.youtube.com/vi/zU01oIw9EMg/hqdefault.jpg" alt="Week 8 thumbnail" />
               <div class="week-card__play-overlay"><div class="week-card__play-icon">▶</div></div>
             </div>
-            <p class="week-card__label"><a href="#week-summary-8">WEEK 8:</a></p>
+            <p class="week-card__label">WEEK 8:</p>
           </div>
 
-          <!-- Week 9 -->
           <div class="week-card reveal">
-            <div class="week-card__thumb" data-yt-id="WEEK9_ID">
-              <img src="https://img.youtube.com/vi/WEEK9_ID/mqdefault.jpg" alt="Week 9 thumbnail" />
+            <div class="week-card__thumb" data-yt-id="zvPePj7Tdhk">
+              <img src="https://img.youtube.com/vi/zvPePj7Tdhk/hqdefault.jpg" alt="Week 9 thumbnail" />
               <div class="week-card__play-overlay"><div class="week-card__play-icon">▶</div></div>
             </div>
-            <p class="week-card__label"><a href="#week-summary-9">WEEK 9:</a></p>
+            <p class="week-card__label">WEEK 9:</p>
           </div>
 
-          <!-- Week 10 -->
           <div class="week-card reveal">
-            <div class="week-card__thumb" data-yt-id="WEEK10_ID">
-              <img src="https://img.youtube.com/vi/WEEK10_ID/mqdefault.jpg" alt="Week 10 thumbnail" />
+            <div class="week-card__thumb" data-yt-id="DbEB8s62GWk">
+              <img src="https://img.youtube.com/vi/DbEB8s62GWk/hqdefault.jpg" alt="Week 10 thumbnail" />
               <div class="week-card__play-overlay"><div class="week-card__play-icon">▶</div></div>
             </div>
-            <p class="week-card__label"><a href="#week-summary-10">WEEK 10:</a></p>
+            <p class="week-card__label">WEEK 10:</p>
           </div>
 
-          <!-- Week 11 -->
           <div class="week-card reveal">
             <div class="week-card__thumb" data-yt-id="WEEK11_ID">
-              <img src="https://img.youtube.com/vi/WEEK11_ID/mqdefault.jpg" alt="Week 11 thumbnail" />
+              <img src="https://img.youtube.com/vi/WEEK11_ID/hqdefault.jpg" alt="Week 11 thumbnail" />
               <div class="week-card__play-overlay"><div class="week-card__play-icon">▶</div></div>
             </div>
-            <p class="week-card__label"><a href="#week-summary-11">WEEK 11:</a></p>
+            <p class="week-card__label">WEEK 11:</p>
           </div>
 
-          <!-- Week 12 -->
           <div class="week-card reveal">
             <div class="week-card__thumb" data-yt-id="WEEK12_ID">
-              <img src="https://img.youtube.com/vi/WEEK12_ID/mqdefault.jpg" alt="Week 12 thumbnail" />
+              <img src="https://img.youtube.com/vi/WEEK12_ID/hqdefault.jpg" alt="Week 12 thumbnail" />
               <div class="week-card__play-overlay"><div class="week-card__play-icon">▶</div></div>
             </div>
-            <p class="week-card__label"><a href="#week-summary-12">WEEK 12:</a></p>
+            <p class="week-card__label">WEEK 12:</p>
           </div>
 
         </div><!-- /weekly-grid -->
-      </div>
-    </section>
-
-    <!-- WEEKLY SUMMARIES -->
-    <section class="weekly-summaries-section" aria-label="Weekly summaries">
-      <div class="weekly-summaries__inner">
-        <div class="weekly-summaries__header reveal">
-          <p class="section-label" style="justify-content:center;">Week by Week</p>
-          <h2 class="section-title">Progress <em>Journal</em></h2>
-        </div>
-
-        <div class="weekly-summaries__list">
-
-          <div class="week-summary reveal" id="week-summary-1">
-            <div class="week-summary__number">01</div>
-            <div class="week-summary__content">
-              <p class="week-summary__label">Week 1 — Picking the Video</p>
-              <p class="week-summary__text">During the first week, we looked for a suitable video to use for our rotoscope project and spent time choosing one that would work well. We also started working on our website by organizing ideas and doing the first parts of the work. Overall, the first week was focused on preparing and starting both projects.</p>
-            </div>
-          </div>
-
-          <div class="week-summary reveal" id="week-summary-2">
-            <div class="week-summary__number">02</div>
-            <div class="week-summary__content">
-              <p class="week-summary__label">Week 2 — First 10 Seconds</p>
-              <p class="week-summary__text">During the second week, I started cutting the clips into 5–10 second parts to make the rotoscoping process easier to manage. I also began working on the rotoscope itself, though it was still in a raw stage without designs or transitions yet. This week was mainly focused on organizing the clips and building the basic progress of the project.</p>
-            </div>
-          </div>
-
-          <!--
-          <div class="week-summary reveal" id="week-summary-3">
-            <div class="week-summary__number">03</div>
-            <div class="week-summary__content">
-              <p class="week-summary__label">Week 3 —</p>
-              <p class="week-summary__text">Write your summary for Week 3 here.</p>
-            </div>
-          </div>
-
-          <div class="week-summary reveal" id="week-summary-4">
-            <div class="week-summary__number">04</div>
-            <div class="week-summary__content">
-              <p class="week-summary__label">Week 4 —</p>
-              <p class="week-summary__text">Write your summary for Week 4 here.</p>
-            </div>
-          </div>
-
-          <div class="week-summary reveal" id="week-summary-5">
-            <div class="week-summary__number">05</div>
-            <div class="week-summary__content">
-              <p class="week-summary__label">Week 5 —</p>
-              <p class="week-summary__text">Write your summary for Week 5 here.</p>
-            </div>
-          </div>
-
-          <div class="week-summary reveal" id="week-summary-6">
-            <div class="week-summary__number">06</div>
-            <div class="week-summary__content">
-              <p class="week-summary__label">Week 6 —</p>
-              <p class="week-summary__text">Write your summary for Week 6 here.</p>
-            </div>
-          </div>
-
-          <div class="week-summary reveal" id="week-summary-7">
-            <div class="week-summary__number">07</div>
-            <div class="week-summary__content">
-              <p class="week-summary__label">Week 7 —</p>
-              <p class="week-summary__text">Write your summary for Week 7 here.</p>
-            </div>
-          </div>
-
-          <div class="week-summary reveal" id="week-summary-8">
-            <div class="week-summary__number">08</div>
-            <div class="week-summary__content">
-              <p class="week-summary__label">Week 8 —</p>
-              <p class="week-summary__text">Write your summary for Week 8 here.</p>
-            </div>
-          </div>
-
-          <div class="week-summary reveal" id="week-summary-9">
-            <div class="week-summary__number">09</div>
-            <div class="week-summary__content">
-              <p class="week-summary__label">Week 9 —</p>
-              <p class="week-summary__text">Write your summary for Week 9 here.</p>
-            </div>
-          </div>
-
-          <div class="week-summary reveal" id="week-summary-10">
-            <div class="week-summary__number">10</div>
-            <div class="week-summary__content">
-              <p class="week-summary__label">Week 10 —</p>
-              <p class="week-summary__text">Write your summary for Week 10 here.</p>
-            </div>
-          </div>
-
-          <div class="week-summary reveal" id="week-summary-11">
-            <div class="week-summary__number">11</div>
-            <div class="week-summary__content">
-              <p class="week-summary__label">Week 11 —</p>
-              <p class="week-summary__text">Write your summary for Week 11 here.</p>
-            </div>
-          </div>
-
-          <div class="week-summary reveal" id="week-summary-12">
-            <div class="week-summary__number">12</div>
-            <div class="week-summary__content">
-              <p class="week-summary__label">Week 12 —</p>
-              <p class="week-summary__text">Write your summary for Week 12 here.</p>
-            </div>
-          </div>
-          -->
-
-        </div>
       </div>
     </section>
 
@@ -851,8 +827,6 @@
         </div>
       </div>
     </div>
-
-
 
   </main>
 
@@ -873,7 +847,6 @@
   <script>
     'use strict';
 
-    /* ---- MODAL: click thumbnail to watch video ---- */
     var modal = document.getElementById('week-modal');
     var modalIframe = document.getElementById('modal-iframe');
 
@@ -889,13 +862,11 @@
     });
 
     document.querySelectorAll('.week-card__thumb').forEach(function(thumb) {
-  thumb.addEventListener('click', function() {
-    var id = thumb.getAttribute('data-yt-id');
-    if (!id || id.indexOf('_ID') !== -1) return;
-
-    modalIframe.src = 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0';
-    modal.classList.add('open');
-
+      thumb.addEventListener('click', function() {
+        var id = thumb.getAttribute('data-yt-id');
+        if (!id || id.indexOf('_ID') !== -1) return;
+        modalIframe.src = 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0';
+        modal.classList.add('open');
       });
     });
   </script>
