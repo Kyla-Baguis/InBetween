@@ -17,12 +17,12 @@
     .solar-intro__text {
       font-size: 1.05rem; font-family: var(--font-display);
       font-weight: 300; font-style: italic;
-      color: rgba(230, 200, 240, 0.75); line-height: 1.9; max-width: 720px;
+      color: rgba(230, 210, 255, 0.85); line-height: 1.9; max-width: 720px;
     }
 
     /* ---- TOOLS USED ---- */
     .tools-section {
-      background: linear-gradient(160deg, #0d0818 0%, #100a1a 50%, #0e0814 100%);
+      background: linear-gradient(160deg, #000 0%, #000 50%, #000 100%);
       padding: 5rem 4rem;
       border-top: 1px solid rgba(160, 80, 200, 0.2);
     }
@@ -70,7 +70,7 @@
       font-size: 0.92rem;
       font-weight: 300;
       font-style: italic;
-      color: rgba(200, 170, 220, 0.7);
+      color: rgba(215, 190, 240, 0.85);
       line-height: 1.7;
     }
     .tool-card__accent {
@@ -90,7 +90,7 @@
     .final-video-section__inner { max-width: 900px; margin: 0 auto; }
     .video-placeholder {
       width: 100%; aspect-ratio: 16 / 9;
-      background: linear-gradient(135deg, #0d0820 0%, #1a0a30 60%, #150820 100%);
+      background: #050505;
       display: flex; flex-direction: column;
       align-items: center; justify-content: center;
       gap: 1rem; border: 1px dashed rgba(180, 80, 220, 0.4);
@@ -160,7 +160,7 @@
     .calculator-section__inner { max-width: 900px; margin: 0 auto; }
 
     .calc-box {
-      background: linear-gradient(135deg, #0e0820 0%, #150a28 40%, #0c0618 100%);
+      background: #050505;
       border-radius: 2px;
       border: 1px solid rgba(160, 80, 200, 0.2);
       padding: 2.5rem 3rem;
@@ -194,7 +194,7 @@
       font-size: 1.1rem;
       font-weight: 300;
       color: #e0c0ff;
-      background: rgba(60, 10, 90, 0.4);
+      background: #0a0a0a;
       border: 1px solid rgba(160, 80, 200, 0.4);
       border-radius: 2px;
       padding: 0.6rem 0.9rem;
@@ -301,7 +301,7 @@
     .celestial-card__media {
       position: relative;
       overflow: hidden;
-      background: linear-gradient(135deg, #0e0820 0%, #180830 100%);
+      background: linear-gradient(135deg, #080808 0%, #0f0010 100%);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -564,7 +564,7 @@
       font-size: 0.95rem;
       font-weight: 300;
       font-style: italic;
-      color: rgba(210, 180, 240, 0.65);
+      color: rgba(220, 195, 250, 0.82);
       line-height: 1.75;
       margin-bottom: 1rem;
     }
@@ -639,7 +639,7 @@
 
     /* ---- BLENDER STEPS ---- */
     .blender-section {
-      background: #1a1220;
+      background: #000;
       padding: 6rem 4rem;
       position: relative;
       overflow: hidden;
@@ -648,11 +648,11 @@
       content: '';
       position: absolute;
       width: 600px; height: 600px; border-radius: 50%;
-      background: radial-gradient(circle, rgba(176,122,160,0.12) 0%, transparent 70%);
+      background: radial-gradient(circle, rgba(160,100,200,0.07) 0%, transparent 70%);
       top: -200px; right: -100px;
       pointer-events: none;
     }
-    .blender-section__inner { max-width: 900px; margin: 0 auto; position: relative; z-index: 1; }
+    .blender-section__inner { max-width: 1400px; margin: 0 auto; position: relative; z-index: 1; }
 
     .blender-section .section-label { color: #b07aa0; }
     .blender-section .section-title { color: #f5eef0; }
@@ -830,9 +830,9 @@
       gap: 1.5rem 2rem;
     }
     .step-card {
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(176,122,160,0.15);
-      padding: 1.5rem;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(200,140,230,0.18);
+      padding: 2rem;
       position: relative;
     }
     .step-card__number {
@@ -850,18 +850,18 @@
     .step-card:nth-child(6) .step-card__number { color: #f5c842; }
     .step-card__title {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 1.1rem;
+      font-size: 1.15rem;
       font-weight: 600;
-      color: #f0e8f0;
+      color: #ffffff;
       margin-bottom: 0.5rem;
     }
     .step-card__desc {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 0.88rem;
+      font-size: 0.9rem;
       font-weight: 300;
       font-style: italic;
-      color: rgba(245,238,240,0.5);
-      line-height: 1.7;
+      color: rgba(235, 220, 255, 0.75);
+      line-height: 1.75;
       margin-bottom: 0.6rem;
     }
     .step-card__tag {
@@ -870,8 +870,8 @@
       font-size: 0.5rem;
       letter-spacing: 0.18em;
       text-transform: uppercase;
-      color: rgba(176,122,160,0.65);
-      border: 1px solid rgba(176,122,160,0.2);
+      color: rgba(210, 160, 240, 0.8);
+      border: 1px solid rgba(200, 140, 230, 0.3);
       padding: 0.18rem 0.5rem;
     }
     .step-card__image {
@@ -905,6 +905,53 @@
     @media (max-width: 640px) {
       .steps-grid { grid-template-columns: 1fr; }
     }
+
+    /* ---- DARK OVERRIDES: navbar, hero, all sections ---- */
+    body { background: #000; }
+    .navbar {
+      background: #000 !important;
+      border-bottom: 1px solid rgba(200, 140, 230, 0.15) !important;
+    }
+    .navbar__logo, .navbar__links a { color: #e0d0f0 !important; }
+    .navbar__links a:hover, .navbar__links a.active { color: #cc88ee !important; }
+    .navbar__hamburger span { background: #e0d0f0 !important; }
+
+    .inner-hero, .inner-hero--solar {
+      background: #000 !important;
+    }
+    .inner-hero__tag { color: #cc88ee !important; }
+    .inner-hero__tag::before { background: #cc88ee !important; }
+    .inner-hero__title { color: #fff !important; }
+    .inner-hero__title em { color: #dd88ff !important; }
+    .inner-hero__subtitle { color: rgba(220, 200, 255, 0.7) !important; }
+    .inner-hero__deco--1,
+    .inner-hero__deco--2 { background: rgba(160, 80, 220, 0.08) !important; }
+
+    /* All section backgrounds → true black */
+    .solar-intro     { background: #000 !important; }
+    .tools-section   { background: #000 !important; border-top-color: rgba(200,140,230,0.12) !important; }
+    .calculator-section { background: #000 !important; border-top-color: rgba(200,140,230,0.1) !important; }
+    .celestial-section  { background: #000 !important; }
+    .final-video-section { background: #000 !important; }
+    .blender-section { background: #000 !important; }
+
+    /* Lighten solar-intro text */
+    .solar-intro__text { color: rgba(230, 210, 255, 0.8) !important; }
+
+    /* Lighten section-label / section-title / section-text globally */
+    .section-label { color: #cc88ee !important; }
+    .section-title { color: #fff !important; }
+    .section-title em, .section-title .em-gold { color: #dd88ff !important; }
+    .section-text { color: rgba(220, 200, 255, 0.7) !important; }
+
+    /* Back button */
+    .back-btn { color: #cc88ee !important; border-color: rgba(200,140,230,0.35) !important; }
+    .back-btn:hover { background: rgba(160,80,220,0.2) !important; }
+
+    /* Footer */
+    footer { background: #000 !important; border-top: 1px solid rgba(200,140,230,0.15) !important; }
+    .footer__logo, .footer__nav a, .footer__copy { color: rgba(200,170,230,0.7) !important; }
+    .footer__logo .accent { color: #dd88ff !important; }
   </style>
 </head>
 <body>
