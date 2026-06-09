@@ -280,8 +280,8 @@
       transition: transform 0.2s, box-shadow 0.2s;
       position: relative;
       display: grid;
-      grid-template-columns: 280px 1fr;
-      min-height: 200px;
+      grid-template-columns: 320px 1fr;
+      min-height: 240px;
     }
     .celestial-card:hover {
       transform: translateY(-2px);
@@ -301,21 +301,21 @@
     .celestial-card__media {
       position: relative;
       overflow: hidden;
-      background: linear-gradient(135deg, #080808 0%, #0f0010 100%);
+      background: #000;
       display: flex;
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
     }
-    .celestial-card[data-planet="Sun"]     .celestial-card__media { background: linear-gradient(135deg, #1a1200, #251800); }
-    .celestial-card[data-planet="Mercury"] .celestial-card__media { background: linear-gradient(135deg, #0f0e0e, #181615); }
-    .celestial-card[data-planet="Venus"]   .celestial-card__media { background: linear-gradient(135deg, #1a1400, #221800); }
-    .celestial-card[data-planet="Earth"]   .celestial-card__media { background: linear-gradient(135deg, #041018, #061420); }
-    .celestial-card[data-planet="Mars"]    .celestial-card__media { background: linear-gradient(135deg, #180600, #220a00); }
-    .celestial-card[data-planet="Jupiter"] .celestial-card__media { background: linear-gradient(135deg, #180e00, #201200); }
-    .celestial-card[data-planet="Saturn"]  .celestial-card__media { background: linear-gradient(135deg, #151005, #1c1508); }
-    .celestial-card[data-planet="Uranus"]  .celestial-card__media { background: linear-gradient(135deg, #001818, #001f1f); }
-    .celestial-card[data-planet="Neptune"] .celestial-card__media { background: linear-gradient(135deg, #000820, #000d30); }
+    .celestial-card[data-planet="Sun"]     .celestial-card__media { background: #080400; }
+    .celestial-card[data-planet="Mercury"] .celestial-card__media { background: #000; }
+    .celestial-card[data-planet="Venus"]   .celestial-card__media { background: #060400; }
+    .celestial-card[data-planet="Earth"]   .celestial-card__media { background: #000; }
+    .celestial-card[data-planet="Mars"]    .celestial-card__media { background: #060100; }
+    .celestial-card[data-planet="Jupiter"] .celestial-card__media { background: #050300; }
+    .celestial-card[data-planet="Saturn"]  .celestial-card__media { background: #050400; }
+    .celestial-card[data-planet="Uranus"]  .celestial-card__media { background: #000508; }
+    .celestial-card[data-planet="Neptune"] .celestial-card__media { background: #000208; }
 
     .celestial-card__media img,
     .celestial-card__media video {
@@ -395,7 +395,7 @@
 
     /* Sun — special glow, no spin stripe */
     .planet-sphere--sun {
-      width: 110px; height: 110px;
+      width: 150px; height: 150px;
       background: radial-gradient(circle at 40% 38%, #fff4b0 0%, #f5c842 30%, #e87820 70%, #c05010 100%);
       box-shadow: 0 0 40px 12px rgba(245,200,66,0.55), 0 0 80px 30px rgba(245,150,20,0.25);
       animation: sun-pulse 3s ease-in-out infinite, planet-float 6s ease-in-out infinite;
@@ -406,7 +406,7 @@
     }
 
     /* Mercury */
-    .planet-sphere--mercury { width: 70px; height: 70px; }
+    .planet-sphere--mercury { width: 130px; height: 130px; }
     .planet-sphere--mercury::before {
       background-image: repeating-linear-gradient(
         to right,
@@ -417,7 +417,7 @@
     }
 
     /* Venus */
-    .planet-sphere--venus { width: 80px; height: 80px; }
+    .planet-sphere--venus { width: 145px; height: 145px; }
     .planet-sphere--venus::before {
       background-image: repeating-linear-gradient(
         to right,
@@ -428,7 +428,7 @@
     }
 
     /* Mars */
-    .planet-sphere--mars { width: 74px; height: 74px; }
+    .planet-sphere--mars { width: 130px; height: 130px; }
     .planet-sphere--mars::before {
       background-image: repeating-linear-gradient(
         to right,
@@ -439,7 +439,7 @@
     }
 
     /* Jupiter */
-    .planet-sphere--jupiter { width: 105px; height: 105px; }
+    .planet-sphere--jupiter { width: 155px; height: 155px; }
     .planet-sphere--jupiter::before {
       background-image: repeating-linear-gradient(
         180deg,
@@ -466,12 +466,12 @@
     }
     .planet-sphere--saturn-inner {
       position: relative;
-      width: 88px;
-      height: 88px;
+      width: 130px;
+      height: 130px;
       flex-shrink: 0;
     }
     .planet-sphere--saturn-ball {
-      width: 88px; height: 88px;
+      width: 130px; height: 130px;
       border-radius: 50%;
       overflow: hidden;
       position: relative;
@@ -501,16 +501,16 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%) rotateX(72deg);
-      width: 150px;
-      height: 150px;
+      width: 220px;
+      height: 220px;
       border-radius: 50%;
-      border: 10px solid rgba(212,184,140,0.6);
-      box-shadow: 0 0 0 6px rgba(200,170,120,0.3), 0 0 0 11px rgba(190,160,110,0.18);
+      border: 14px solid rgba(212,184,140,0.6);
+      box-shadow: 0 0 0 8px rgba(200,170,120,0.3), 0 0 0 15px rgba(190,160,110,0.18);
       pointer-events: none;
     }
 
     /* Uranus */
-    .planet-sphere--uranus { width: 86px; height: 86px; }
+    .planet-sphere--uranus { width: 140px; height: 140px; }
     .planet-sphere--uranus::before {
       background-image: repeating-linear-gradient(
         180deg,
@@ -522,7 +522,7 @@
     }
 
     /* Neptune */
-    .planet-sphere--neptune { width: 84px; height: 84px; }
+    .planet-sphere--neptune { width: 138px; height: 138px; }
     .planet-sphere--neptune::before {
       background-image: repeating-linear-gradient(
         180deg,
