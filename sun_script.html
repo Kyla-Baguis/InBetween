@@ -6,7 +6,7 @@
   <title>Sun – Blender Script</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Josefin+Sans:wght@200;300;400&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet"/>
   <style>
     *{box-sizing:border-box;margin:0;padding:0}
     :root{
@@ -28,21 +28,41 @@
       flex-direction: column;
     }
 
-    /* ── NAV ── */
+    /* ── NAV (matches styles.css .navbar, dark-mode override) ── */
     nav {
       flex-shrink: 0;
       display: flex; align-items: center; justify-content: space-between;
-      padding: 0 3rem; height: 76px;
+      padding: 1.1rem 3rem;
       background: #000;
-      border-bottom: 1px solid rgba(200, 140, 230, 0.15);
+      border-bottom: 1px solid rgba(255, 179, 198, 0.25);
     }
-    .nav-logo{font-family:'Cormorant Garamond','Playfair Display',serif;font-size:1.6rem;font-weight:600;letter-spacing:0.02em;color:#e0d0f0;text-decoration:none;}
-    .nav-logo .accent-pink{color:#e0599f;}
-    .nav-logo .accent-gold{color:#e8c87a;}
-    .nav-links{display:flex;gap:2.2rem;list-style:none;}
-    .nav-links a{font-family:'Source Sans 3',sans-serif;font-size:0.78rem;color:#e0d0f0;text-decoration:none;letter-spacing:0.12em;text-transform:uppercase;transition:color 0.15s;}
+    .nav-logo{
+      font-family:'Cormorant Garamond',serif;
+      font-size:1.55rem;font-weight:300;
+      letter-spacing:0.18em;text-transform:uppercase;
+      color:#e0d0f0;text-decoration:none;
+    }
+    .nav-logo .accent-pink{color:#f28baa;}
+    .nav-logo .accent-gold{color:#e8c96a;}
+    .nav-links{display:flex;gap:2.2rem;align-items:center;list-style:none;}
+    .nav-links a{
+      font-family:'Josefin Sans','Source Sans 3',sans-serif;
+      font-size:0.68rem;font-weight:300;
+      letter-spacing:0.24em;text-transform:uppercase;
+      color:#e0d0f0;text-decoration:none;
+      position:relative;padding-bottom:3px;
+      transition:color 0.3s;
+    }
+    .nav-links a::after{
+      content:'';position:absolute;bottom:0;left:0;
+      width:0;height:1px;
+      background:linear-gradient(90deg,#f28baa,#c9a83c);
+      transition:width 0.3s;
+    }
     .nav-links a:hover{color:#cc88ee;}
+    .nav-links a:hover::after{width:100%;}
     .nav-links a.active{color:#cc88ee;}
+    .nav-links a.active::after{width:100%;}
 
     /* ── HERO: compact ── */
     .page-hero {
