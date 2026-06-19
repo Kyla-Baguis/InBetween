@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Uranus – Blender Script</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Josefin+Sans:wght@200;300;400&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet"/>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --bg:#09080f;--bg2:#110e22;--bg3:#16122e;
+      --gold:#c9a84c;--gold2:#e8c87a;
+      --purple:#7B5EA7;--purple2:#a07fd4;--purple3:#c9b3f0;
+      --text:#e8e4f0;--muted:#9b96b8;--dim:#4a4665;
+      --border:rgba(123,94,167,0.2);--borderl:rgba(123,94,167,0.45);
+    }
+
+    /* ── PAGE: exactly viewport height, nothing overflows ── */
+    html, body {
+      height: 100vh;
+      overflow: hidden;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Source Sans 3', sans-serif;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── NAV (matches styles.css .navbar, dark-mode override) ── */
+    nav {
+      flex-shrink: 0;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.1rem 3rem;
+      background: #000;
+      border-bottom: 1px solid rgba(255, 179, 198, 0.25);
+    }
+    .nav-logo{
+      font-family:'Cormorant Garamond',serif;
+      font-size:1.55rem;font-weight:300;
+      letter-spacing:0.18em;text-transform:uppercase;
+      color:#e0d0f0;text-decoration:none;
+    }
+    .nav-logo .accent-pink{color:#f28baa;}
+    .nav-logo .accent-gold{color:#e8c96a;}
+    .nav-links{display:flex;gap:2.2rem;align-items:center;list-style:none;}
+    .nav-links a{
+      font-family:'Josefin Sans','Source Sans 3',sans-serif;
+      font-size:0.68rem;font-weight:300;
+      letter-spacing:0.24em;text-transform:uppercase;
+      color:#e0d0f0;text-decoration:none;
+      position:relative;padding-bottom:3px;
+      transition:color 0.3s;
+    }
+    .nav-links a::after{
+      content:'';position:absolute;bottom:0;left:0;
+      width:0;height:1px;
+      background:linear-gradient(90deg,#f28baa,#c9a83c);
+      transition:width 0.3s;
+    }
+    .nav-links a:hover{color:#cc88ee;}
+    .nav-links a:hover::after{width:100%;}
+    .nav-links a.active{color:#cc88ee;}
+    .nav-links a.active::after{width:100%;}
+
+    /* ── HERO: compact ── */
+    .page-hero {
+      flex-shrink: 0;
+      padding: 0.7rem 2rem 0.6rem;
+      border-bottom: 0.5px solid var(--border);
+    }
+    .hero-eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:0.3rem;}
+    .hero-line{width:24px;height:2px;background:var(--gold);}
+    .hero-label{font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);}
+    .back-link{font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--gold);text-decoration:none;margin-right:1rem;}
+    .back-link:hover{color:var(--gold2);}
+    .hero-title{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:var(--text);line-height:1.15;}
+    .hero-title em{color:var(--purple2);font-style:italic;}
+    .hero-sub{font-size:12px;color:var(--muted);font-weight:300;line-height:1.5;margin-top:2px;}
+
+    /* ── MAIN GRID: fills remaining height ── */
+    .content {
+      flex: 1;
+      min-height: 0;           /* critical — lets flex child shrink */
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      padding: 14px 2rem;
+    }
+
+    /* ── LEFT: script panel ── */
+    .left-wrap{position:relative;padding-left:18px;display:flex;flex-direction:column;min-height:0;}
+    .accent-bar{position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--gold);border-radius:2px;}
+    .script-panel{background:var(--bg2);border:0.5px solid var(--borderl);border-radius:0 10px 10px 0;display:flex;flex-direction:column;flex:1;min-height:0;overflow:hidden;}
+    .code-header{flex-shrink:0;display:flex;align-items:center;justify-content:space-between;padding:9px 14px;background:var(--bg3);border-bottom:0.5px solid var(--border);}
+    .code-header-left{display:flex;align-items:center;gap:8px;}
+    .lang-dot{width:8px;height:8px;border-radius:50%;background:var(--purple);}
+    .filename{font-size:11px;color:var(--purple3);font-family:'Consolas',monospace;}
+    .btn-row{display:flex;gap:6px;}
+    .copy-btn{font-size:10px;padding:4px 11px;border-radius:4px;cursor:pointer;background:transparent;color:var(--purple3);border:0.5px solid var(--borderl);font-family:inherit;letter-spacing:0.06em;text-transform:uppercase;transition:background 0.15s;}
+    .copy-btn:hover{background:rgba(123,94,167,0.2);}
+    .dl-btn{font-size:10px;padding:4px 11px;border-radius:4px;cursor:pointer;background:var(--purple);color:#fff;border:none;font-family:inherit;text-decoration:none;letter-spacing:0.06em;text-transform:uppercase;transition:background 0.15s;}
+    .dl-btn:hover{background:var(--purple2);}
+
+    /* ── SCROLLABLE CODE ── */
+    .code-scroll{flex:1;overflow-y:auto;overflow-x:auto;min-height:0;}
+    .code-scroll::-webkit-scrollbar{width:5px;height:5px;}
+    .code-scroll::-webkit-scrollbar-track{background:var(--bg3);}
+    .code-scroll::-webkit-scrollbar-thumb{background:var(--purple);border-radius:3px;}
+    pre{padding:1rem 1.2rem;font-size:11.5px;line-height:1.7;font-family:'Consolas','Monaco',monospace;color:#ccc8ee;white-space:pre;}
+
+    /* ── RIGHT: 3 stacked panels ── */
+    .right-col{display:grid;grid-template-rows:2fr 1.2fr 1fr;gap:10px;min-height:0;}
+    .media-card{background:var(--bg2);border:0.5px solid var(--borderl);border-radius:10px;overflow:hidden;display:flex;flex-direction:column;min-height:0;}
+    .card-head{flex-shrink:0;padding:10px 14px 7px;}
+    .card-name{font-family:'Playfair Display',serif;font-size:0.95rem;font-weight:700;color:var(--text);}
+    .card-tag{font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:var(--purple2);margin-left:8px;font-family:'Source Sans 3',sans-serif;}
+    .card-divider{flex-shrink:0;height:0.5px;background:var(--border);margin:0 14px;}
+
+    /* video fills its card */
+    .video-wrap{flex:1;margin:8px 14px 12px;border-radius:6px;overflow:hidden;min-height:0;background:#000;}
+    .video-wrap video{width:100%;height:100%;object-fit:cover;display:block;}
+
+    /* texture row */
+    .texture-fill{flex:1;display:flex;align-items:center;gap:12px;padding:8px 14px 12px;min-height:0;}
+    .tex-thumb{width:56px;height:56px;border-radius:6px;object-fit:cover;border:0.5px solid var(--borderl);flex-shrink:0;}
+    .tex-info{font-size:11px;color:var(--muted);line-height:1.5;}
+    .tex-filename{font-size:10px;color:var(--purple3);font-family:monospace;margin-top:2px;}
+    .tex-dl{display:inline-block;margin-top:5px;font-size:9px;letter-spacing:0.08em;text-transform:uppercase;color:var(--purple3);border:0.5px solid var(--borderl);padding:2px 8px;text-decoration:none;border-radius:3px;transition:background 0.15s;}
+    .tex-dl:hover{background:rgba(123,94,167,0.2);}
+
+    /* fun fact */
+    .fact-fill{flex:1;padding:7px 14px 10px;display:flex;align-items:center;min-height:0;}
+    .fact-inner{padding:8px 12px;background:rgba(123,94,167,0.08);border:0.5px solid var(--border);border-radius:6px;width:100%;}
+    .fact-inner p{font-size:12px;color:var(--muted);line-height:1.55;font-style:italic;font-family:'Playfair Display',serif;}
+    .fact-inner strong{color:var(--purple3);font-style:normal;}
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">The <span class="accent-pink">In</span><span class="accent-gold">between</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="projects.html">Projects</a></li>
+    <li><a href="rotoscope.html">Rotoscope</a></li>
+    <li><a href="solar-system.html" class="active">Solar System</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+</nav>
+
+<div class="page-hero">
+  <div class="hero-eyebrow">
+    <a class="back-link" href="solar-system.html">← Back</a>
+    <div class="hero-line"></div>
+    <span class="hero-label">Python / Blender Script</span>
+  </div>
+  <h1 class="hero-title">Uranus – <em>Blender Script</em></h1>
+  <p class="hero-sub">The Python script used inside Blender to animate and configure Uranus's rotation, atmosphere, and surface shader.</p>
+</div>
+
+<div class="content">
+
+  <!-- LEFT: scrollable script -->
+  <div class="left-wrap">
+    <div class="accent-bar"></div>
+    <div class="script-panel">
+      <div class="code-header">
+        <div class="code-header-left">
+          <span class="lang-dot"></span>
+          <span class="filename">script_uranus.txt</span>
+        </div>
+        <div class="btn-row">
+          <button class="copy-btn" id="copyBtn">Copy</button>
+          <a class="dl-btn" href="script/script_uranus.txt" download="script_uranus.txt">↓ Download</a>
+        </div>
+      </div>
+      <div class="code-scroll">
+        <pre id="codeBlock">Loading script...</pre>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT: 3 panels -->
+  <div class="right-col">
+
+    <!-- Video -->
+    <div class="media-card">
+      <div class="card-head">
+        <span class="card-name">Uranus</span>
+        <span class="card-tag">Animation Preview</span>
+      </div>
+      <div class="card-divider"></div>
+      <div class="video-wrap">
+        <video src="videos/uranus.mp4" autoplay loop muted playsinline></video>
+      </div>
+    </div>
+
+    <!-- Texture -->
+    <div class="media-card">
+      <div class="card-head">
+        <span class="card-name">Surface Texture</span>
+        <span class="card-tag">Diffuse Map</span>
+      </div>
+      <div class="card-divider"></div>
+      <div class="texture-fill">
+        <img class="tex-thumb" src="textures/texture_uranus.jpg" alt="Uranus texture"/>
+        <div class="tex-info">
+          Uranus surface color map — applied via UV unwrap
+          <div class="tex-filename">texture_uranus.jpg</div>
+          <a class="tex-dl" href="textures/texture_uranus.jpg" download="texture_uranus.jpg">↓ Download</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Fun Fact -->
+    <div class="media-card">
+      <div class="card-head">
+        <span class="card-name">Fun Fact</span>
+        <span class="card-tag">About Uranus</span>
+      </div>
+      <div class="card-divider"></div>
+      <div class="fact-fill">
+        <div class="fact-inner">
+          <p>Uranus rotates on its side, with an axial tilt of about <strong>98 degrees</strong> — likely the result of a massive collision early in the solar system's history.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+(function () {
+  'use strict';
+  var codeBlock = document.getElementById('codeBlock');
+  var copyBtn   = document.getElementById('copyBtn');
+
+  fetch('script/script_uranus.txt')
+    .then(function(res) {
+      if (!res.ok) throw new Error('not found');
+      return res.text();
+    })
+    .then(function(text) {
+      codeBlock.textContent = text;
+    })
+    .catch(function() {
+      codeBlock.textContent = 'Could not load script/script_uranus.txt — make sure the file exists in your project folder.';
+    });
+
+  copyBtn.addEventListener('click', function () {
+    navigator.clipboard.writeText(codeBlock.innerText).then(function () {
+      copyBtn.textContent = 'Copied!';
+      setTimeout(function () { copyBtn.textContent = 'Copy'; }, 2000);
+    }).catch(function () {
+      copyBtn.textContent = 'Failed';
+      setTimeout(function () { copyBtn.textContent = 'Copy'; }, 2000);
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
