@@ -88,6 +88,7 @@
       padding: 5rem 4rem;
     }
     .final-video-section__inner { max-width: 900px; margin: 0 auto; }
+    .final-video-section .file-buttons { justify-content: center; margin-top: 1.2rem; }
     .video-placeholder {
       width: 100%; aspect-ratio: 16 / 9;
       background: #050505;
@@ -1207,31 +1208,22 @@
           <h2 class="section-title">The Final <span class="em-gold">Animation</span></h2>
           <p class="section-text">The finished Solar System simulation — planets in orbit, textures rendered, the cosmos brought to life.</p>
         </div>
-        <!--
-          TO EMBED YOUR VIDEO: Replace the div below with either:
-          Option A (YouTube): <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID" allowfullscreen></iframe>
-          Option B (local file): <video src="your-video.mp4" controls></video>
-        -->
-        <div class="video-placeholder reveal" role="img" aria-label="Final solar system animation placeholder">
-          <div class="video-placeholder__icon" aria-hidden="true">🪐</div>
-          <p class="video-placeholder__label">Final Solar System Animation</p>
-          <p class="video-placeholder__sub">Upload or embed your completed video here</p>
+        <div class="video-placeholder reveal" aria-label="Final solar system animation">
+          <iframe
+            src="https://www.youtube.com/embed/hOMoL9o06AE"
+            title="Final Solar System Animation"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen></iframe>
         </div>
 
-        <!--
-          DOWNLOAD BUTTON FOR FINAL VIDEO
-          Set the href to your actual video/file path, and the download attribute to the filename.
-          e.g. href="videos/solar-system-final.mp4" download="Solar-System-Final.mp4"
-        -->
-        <a class="download-caption"
-           href="script/SolarSystem.txt"
-           download="SolarSystem.txt"
-           aria-label="Download solar system script">
-          <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <path d="M8 12l-4-4h2.5V2h3v6H12L8 12zm-5 2h10v1.5H3V14z"/>
-          </svg>
-          Download Script
-        </a>
+        <div class="file-buttons">
+          <a class="file-btn"
+             href="solarsystem_script.html"
+             aria-label="View script and texture for the final solar system animation">
+            <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M2 3h12v1.5H2zm0 3h12v1.5H2zm0 3h8v1.5H2z"/></svg>
+            View Script &amp; Texture
+          </a>
+        </div>
       </div>
     </section>
 
