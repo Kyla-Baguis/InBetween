@@ -882,24 +882,13 @@
       overflow: hidden;
       background: rgba(255,255,255,0.03);
     }
-    .step-card__placeholder {
+    .step-card__image img {
       width: 100%;
       aspect-ratio: 16 / 7;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
+      object-fit: cover;
+      display: block;
     }
-    .step-card__placeholder-label {
-      font-family: 'Josefin Sans', sans-serif;
-      font-size: 0.48rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: rgba(176,122,160,0.4);
-      text-align: center;
-      padding: 0 0.5rem;
-    }
+
     @media (max-width: 900px) {
       .steps-grid { grid-template-columns: repeat(2, 1fr); }
     }
@@ -1065,19 +1054,7 @@
             <p class="step-card__desc">Open Blender and set up your scene units. We used a simplified scale where 1 Blender unit = 1 million km to keep all planets manageable. Set Cycles as renderer and configure HDRI world lighting using a deep space environment map.</p>
             <span class="step-card__tag">Scene · Lighting · Units</span>
             <div class="step-card__image">
-              <div class="step-card__placeholder">
-                <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                  <rect x="4" y="4" width="40" height="40" rx="2" stroke="rgba(176,122,160,0.35)" stroke-width="1.5" fill="none"/>
-                  <line x1="4" y1="24" x2="44" y2="24" stroke="rgba(176,122,160,0.2)" stroke-width="1"/>
-                  <line x1="24" y1="4" x2="24" y2="44" stroke="rgba(176,122,160,0.2)" stroke-width="1"/>
-                  <circle cx="24" cy="24" r="5" fill="rgba(245,200,66,0.5)" stroke="rgba(245,200,66,0.8)" stroke-width="1"/>
-                  <circle cx="24" cy="24" r="10" stroke="rgba(176,122,160,0.25)" stroke-width="1" fill="none" stroke-dasharray="2 2"/>
-                  <circle cx="24" cy="24" r="16" stroke="rgba(176,122,160,0.15)" stroke-width="1" fill="none" stroke-dasharray="2 3"/>
-                  <circle cx="34" cy="24" r="2" fill="rgba(74,144,217,0.7)"/>
-                  <circle cx="8"  cy="24" r="1.5" fill="rgba(201,168,122,0.7)"/>
-                </svg>
-                <span class="step-card__placeholder-label">step-01-scene-setup.png</span>
-              </div>
+              <img src="images/blender1.png" alt="Scene setup and scale step in Blender" loading="lazy"/>
             </div>
           </div>
 
@@ -1088,16 +1065,7 @@
             <p class="step-card__desc">Add a UV Sphere for each planet (Shift+A → Mesh → UV Sphere). Set segments to 64×64 for smooth curvature. Scale each sphere proportionally based on real diameter ratios — Jupiter should be ~11× the diameter of Earth.</p>
             <span class="step-card__tag">Modeling · UV Sphere · Scale</span>
             <div class="step-card__image">
-              <div class="step-card__placeholder">
-                <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                  <rect x="4" y="4" width="40" height="40" rx="2" stroke="rgba(176,122,160,0.35)" stroke-width="1.5" fill="none"/>
-                  <circle cx="18" cy="26" r="10" stroke="rgba(200,139,90,0.6)" stroke-width="1.5" fill="rgba(200,139,90,0.1)"/>
-                  <ellipse cx="18" cy="26" rx="10" ry="3.5" stroke="rgba(200,139,90,0.3)" stroke-width="1" fill="none"/>
-                  <circle cx="36" cy="20" r="5" stroke="rgba(74,144,217,0.6)" stroke-width="1.2" fill="rgba(74,144,217,0.1)"/>
-                  <ellipse cx="36" cy="20" rx="5" ry="1.8" stroke="rgba(74,144,217,0.3)" stroke-width="1" fill="none"/>
-                </svg>
-                <span class="step-card__placeholder-label">step-02-planet-modeling.png</span>
-              </div>
+              <img src="images/blender2.png" alt="Planet modeling step in Blender" loading="lazy"/>
             </div>
           </div>
 
@@ -1108,24 +1076,7 @@
             <p class="step-card__desc">Apply a Principled BSDF to each planet. Import texture maps and plug them into Base Color, Roughness, and Normal inputs. For the Sun, use an Emission shader with an orange-white gradient. Add a Point Light inside the Sun for scene illumination.</p>
             <span class="step-card__tag">Shading · Nodes · Textures</span>
             <div class="step-card__image">
-              <div class="step-card__placeholder">
-                <svg width="64" height="40" viewBox="0 0 64 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                  <rect x="2" y="2" width="60" height="36" rx="2" stroke="rgba(176,122,160,0.35)" stroke-width="1.2" fill="none"/>
-                  <rect x="6"  y="10" width="14" height="20" rx="1" fill="rgba(125,232,232,0.08)" stroke="rgba(125,232,232,0.4)" stroke-width="1"/>
-                  <rect x="25" y="7"  width="14" height="26" rx="1" fill="rgba(176,122,160,0.08)" stroke="rgba(176,122,160,0.5)" stroke-width="1"/>
-                  <rect x="44" y="13" width="14" height="14" rx="1" fill="rgba(245,200,66,0.08)"  stroke="rgba(245,200,66,0.4)"  stroke-width="1"/>
-                  <text x="9"  y="22" font-size="3.5" fill="rgba(125,232,232,0.7)" font-family="monospace">Tex</text>
-                  <text x="27" y="22" font-size="3.5" fill="rgba(176,122,160,0.8)" font-family="monospace">BSDF</text>
-                  <text x="46" y="22" font-size="3.5" fill="rgba(245,200,66,0.7)"  font-family="monospace">Out</text>
-                  <line x1="20" y1="20" x2="25" y2="20" stroke="rgba(125,232,232,0.5)" stroke-width="1"/>
-                  <line x1="39" y1="20" x2="44" y2="20" stroke="rgba(176,122,160,0.5)" stroke-width="1"/>
-                  <circle cx="20" cy="20" r="1.5" fill="rgba(125,232,232,0.7)"/>
-                  <circle cx="25" cy="20" r="1.5" fill="rgba(125,232,232,0.7)"/>
-                  <circle cx="39" cy="20" r="1.5" fill="rgba(176,122,160,0.7)"/>
-                  <circle cx="44" cy="20" r="1.5" fill="rgba(176,122,160,0.7)"/>
-                </svg>
-                <span class="step-card__placeholder-label">step-03-shader-nodes.png</span>
-              </div>
+              <img src="images/blender3.png" alt="Texturing with shader nodes step in Blender" loading="lazy"/>
             </div>
           </div>
 
@@ -1136,19 +1087,7 @@
             <p class="step-card__desc">Use Empty objects as orbit centers. Parent each planet to its Empty, then animate the Empty's Z-rotation from 0° to 360°. Use orbital period ratios for relative keyframe counts. Enable the Graph Editor to set linear interpolation on all rotation curves.</p>
             <span class="step-card__tag">Animation · Keyframes · Empties</span>
             <div class="step-card__image">
-              <div class="step-card__placeholder">
-                <svg width="64" height="40" viewBox="0 0 64 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                  <rect x="2" y="2" width="60" height="36" rx="2" stroke="rgba(176,122,160,0.35)" stroke-width="1.2" fill="none"/>
-                  <rect x="2" y="2" width="60" height="8" rx="2" fill="rgba(176,122,160,0.08)"/>
-                  <text x="5" y="8" font-size="3.5" fill="rgba(176,122,160,0.6)" font-family="monospace">Timeline</text>
-                  <rect x="2" y="14" width="60" height="5" fill="rgba(74,144,217,0.06)"/>
-                  <rect x="2" y="21" width="60" height="5" fill="rgba(200,139,90,0.06)"/>
-                  <polygon points="10,16.5 12,18.5 10,20.5 8,18.5" fill="rgba(245,200,66,0.9)"/>
-                  <polygon points="34,16.5 36,18.5 34,20.5 32,18.5" fill="rgba(245,200,66,0.9)"/>
-                  <polygon points="58,16.5 60,18.5 58,20.5 56,18.5" fill="rgba(245,200,66,0.9)"/>
-                </svg>
-                <span class="step-card__placeholder-label">step-04-animation.png</span>
-              </div>
+              <img src="images/blender4.png" alt="Orbital paths and animation step in Blender" loading="lazy"/>
             </div>
           </div>
 
@@ -1159,16 +1098,7 @@
             <p class="step-card__desc">Create a flat disc (Add → Mesh → Circle, Extrude and scale inward to form a ring). Apply an alpha-transparent texture for the ice particle look using Principled BSDF with Transmission. Tilt the ring ~27° to match Saturn's axial tilt, then parent it to the planet.</p>
             <span class="step-card__tag">Modeling · Transparency · Rings</span>
             <div class="step-card__image">
-              <div class="step-card__placeholder">
-                <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                  <rect x="4" y="4" width="40" height="40" rx="2" stroke="rgba(176,122,160,0.35)" stroke-width="1.5" fill="none"/>
-                  <circle cx="24" cy="24" r="9" fill="rgba(212,184,150,0.18)" stroke="rgba(212,184,150,0.7)" stroke-width="1.5"/>
-                  <ellipse cx="24" cy="24" rx="18" ry="5" stroke="rgba(212,184,150,0.5)" stroke-width="1.2" fill="none"/>
-                  <ellipse cx="24" cy="24" rx="15" ry="4" stroke="rgba(212,184,150,0.35)" stroke-width="0.8" fill="none"/>
-                  <text x="28" y="14" font-size="4" fill="rgba(176,122,160,0.6)" font-family="monospace">27°</text>
-                </svg>
-                <span class="step-card__placeholder-label">step-05-saturn-rings.png</span>
-              </div>
+              <img src="images/blender5.png" alt="Saturn's ring system step in Blender" loading="lazy"/>
             </div>
           </div>
 
@@ -1179,20 +1109,7 @@
             <p class="step-card__desc">Position your camera with a wide-angle lens (18–24mm) for the full system overview, or animate it for a dramatic flythrough. Set resolution to 1920×1080, enable Motion Blur, render to PNG frames, then assemble in Blender's Video Sequence Editor.</p>
             <span class="step-card__tag">Camera · Render · Export</span>
             <div class="step-card__image">
-              <div class="step-card__placeholder">
-                <svg width="64" height="40" viewBox="0 0 64 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                  <rect x="2" y="2" width="60" height="36" rx="2" stroke="rgba(176,122,160,0.35)" stroke-width="1.2" fill="none"/>
-                  <rect x="8" y="6" width="36" height="28" stroke="rgba(176,122,160,0.3)" stroke-width="1" fill="rgba(0,0,0,0.2)"/>
-                  <circle cx="26" cy="20" r="3" fill="rgba(245,200,66,0.35)" stroke="rgba(245,200,66,0.7)" stroke-width="0.8"/>
-                  <circle cx="34" cy="20" r="1.5" fill="rgba(74,144,217,0.8)"/>
-                  <rect x="48" y="14" width="12" height="9" rx="1" fill="rgba(176,122,160,0.1)" stroke="rgba(176,122,160,0.5)" stroke-width="1"/>
-                  <polygon points="60,15 64,12 64,26 60,23" fill="rgba(176,122,160,0.2)" stroke="rgba(176,122,160,0.4)" stroke-width="0.8"/>
-                  <text x="49" y="20.5" font-size="3" fill="rgba(176,122,160,0.8)" font-family="monospace">CAM</text>
-                  <rect x="8" y="36" width="36" height="2" rx="1" fill="rgba(176,122,160,0.15)"/>
-                  <rect x="8" y="36" width="24" height="2" rx="1" fill="rgba(176,122,160,0.6)"/>
-                </svg>
-                <span class="step-card__placeholder-label">step-06-render-export.png</span>
-              </div>
+              <img src="images/blender6.png" alt="Camera, rendering, and export step in Blender" loading="lazy"/>
             </div>
           </div>
 
