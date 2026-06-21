@@ -14,7 +14,7 @@ from bpy_extras import anim_utils
 
 TEXTURES = r"C:\Users\ClearBug\Downloads\textures"
 FPS = 24
-FRAMES = 250
+FRAMES = 150  # matches the spin duration exactly
 
 
 # ------------------------------------------------------------------ UTILITIES
@@ -61,7 +61,7 @@ def mat_diffuse(name, img_file, roughness=0.8, col=(0.5, 0.5, 0.5, 1)):
     N.clear()
     tc = N.new("ShaderNodeTexCoord")
     mp = N.new("ShaderNodeMapping")
-    mp.inputs["Rotation"].default_value[2] = math.radians(90)
+    # FIXED: Removed the 90-degree Z rotation that was tilting the texture sideways
     tx = N.new("ShaderNodeTexImage")
     i = tex(img_file)
     if i:
