@@ -169,11 +169,11 @@
       <div class="code-header">
         <div class="code-header-left">
           <span class="lang-dot"></span>
-          <span class="filename">script_earth.txt</span>
+          <span class="filename">script_earth.py</span>
         </div>
         <div class="btn-row">
           <button class="copy-btn" id="copyBtn">Copy</button>
-          <a class="dl-btn" href="script/script_earth.txt" download="script_earth.txt">↓ Download</a>
+          <a class="dl-btn" href="script/script_earth.py" download="script_earth.py">↓ Download</a>
         </div>
       </div>
       <div class="code-scroll">
@@ -237,7 +237,7 @@
   var codeBlock = document.getElementById('codeBlock');
   var copyBtn   = document.getElementById('copyBtn');
 
-  fetch('script/script_earth.txt')
+  fetch('script/script_earth.py')
     .then(function(res) {
       if (!res.ok) throw new Error('not found');
       return res.text();
