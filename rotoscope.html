@@ -47,7 +47,7 @@
       color: #2a1f28; line-height: 1.9; max-width: 720px;
     }
 
-    /* ---- FINAL VIDEO ---- */
+    /* ---- FINAL VIDEO (with synced reference) ---- */
     .final-video-section {
       background: linear-gradient(135deg, #fde8f0 0%, #f5e6f8 40%, #fdf3e0 100%);
       padding: 0;
@@ -76,11 +76,14 @@
     .final-video-section__side--left span { transform: rotate(180deg); }
     .final-video-section__center {
       flex: 1;
-      padding: 2.5rem 0;
-      display: flex;
-      flex-direction: column;
-      gap: 0;
+      padding: 2.5rem;
+      display: grid;
+      grid-template-columns: 1.6fr 1fr;
+      gap: 2rem;
+      align-items: start;
     }
+
+    /* Main big rotoscope video */
     .final-video-box {
       background: #fff;
       position: relative;
@@ -91,6 +94,7 @@
       justify-content: center;
       overflow: hidden;
       box-shadow: 0 8px 40px rgba(180,120,160,0.15);
+      border-radius: 10px;
     }
     .final-video-box iframe {
       position: absolute;
@@ -114,6 +118,94 @@
       color: #bbb;
       text-align: center;
       line-height: 1.4;
+    }
+
+    /* Right column: title, controls, reference video */
+    .roto-sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 1.4rem;
+    }
+    .roto-sidebar__title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.7rem;
+      font-weight: 600;
+      color: #1a0e18;
+      line-height: 1.3;
+      padding-bottom: 0.4rem;
+      border-bottom: 1px solid rgba(176,122,160,0.3);
+    }
+    .roto-controls {
+      display: flex;
+      gap: 0.6rem;
+    }
+    .roto-controls__btn {
+      flex: 1;
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #4a2f42;
+      background: #fff;
+      border: 1px solid #e0c4d8;
+      border-radius: 8px;
+      padding: 0.7rem 0.5rem;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
+    }
+    .roto-controls__btn:hover {
+      background: #b07aa0;
+      color: #fff;
+      border-color: #b07aa0;
+    }
+    .roto-controls__btn.is-active {
+      background: #b07aa0;
+      color: #fff;
+      border-color: #b07aa0;
+    }
+    .roto-sync-note {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      color: #8a6b80;
+      text-align: center;
+    }
+
+    .roto-reference {
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+    }
+    .roto-reference__label {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #1e1218;
+    }
+    .reference-video-box {
+      background: #fff;
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      box-shadow: 0 6px 24px rgba(180,120,160,0.15);
+      border-radius: 10px;
+    }
+    .reference-video-box iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    @media (max-width: 900px) {
+      .final-video-section__center {
+        grid-template-columns: 1fr;
+      }
     }
 
     /* ---- WEEKLY PROGRESS ---- */
@@ -642,25 +734,40 @@
       </div>
     </section>
 
-    <!-- FINAL VIDEO -->
-    <section class="final-video-section" aria-label="Final animation">
+    <!-- FINAL VIDEO + REFERENCE (synced) -->
+    <section class="final-video-section" aria-label="Final animation with reference comparison">
       <div class="final-video-section__side final-video-section__side--left" aria-hidden="true">
         <span>ROTOSCOPING</span>
       </div>
       <div class="final-video-section__center">
+
+        <!-- Big rotoscope video -->
         <div class="final-video-box" id="final-video-box">
           <div class="final-video-box__placeholder" id="final-placeholder">
             <p>FINAL VIDEO<br>PLACEHOLDER</p>
           </div>
-          <!-- REPLACE YOUR_VIDEO_ID below with your actual YouTube video ID -->
-          <iframe
-            id="final-iframe"
-            src="https://www.youtube.com/embed/jE4N9Ryi4eI?rel=0"
-            title="Final rotoscope animation"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
-          ></iframe>
+          <div id="roto-player"></div>
         </div>
+
+        <!-- Sidebar: title, controls, reference -->
+        <div class="roto-sidebar">
+          <h3 class="roto-sidebar__title">Catch Catch by YENA<br><em style="font-style:italic;">Rotoscope</em></h3>
+
+          <div class="roto-controls">
+            <button class="roto-controls__btn" id="roto-play">Play</button>
+            <button class="roto-controls__btn" id="roto-pause">Pause</button>
+            <button class="roto-controls__btn" id="roto-reset">Reset</button>
+          </div>
+          <p class="roto-sync-note">Both videos play in sync</p>
+
+          <div class="roto-reference">
+            <p class="roto-reference__label">Reference</p>
+            <div class="reference-video-box">
+              <div id="reference-player"></div>
+            </div>
+          </div>
+        </div>
+
       </div>
       <div class="final-video-section__side final-video-section__side--right" aria-hidden="true">
         <span>ROTOSCOPING</span>
@@ -863,6 +970,65 @@
         modalIframe.src = 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0';
         modal.classList.add('open');
       });
+    });
+  </script>
+
+  <!-- SYNCED ROTOSCOPE + REFERENCE VIDEO PLAYERS -->
+  <script src="https://www.youtube.com/iframe_api"></script>
+  <script>
+    'use strict';
+
+    var ROTO_VIDEO_ID = 'jE4N9Ryi4eI';      // Rotoscope final render
+    var REFERENCE_VIDEO_ID = 'K4Jfe6ubhiU';  // Reference choreography
+
+    var rotoPlayer, referencePlayer;
+    var playersReady = 0;
+
+    function onYouTubeIframeAPIReady() {
+      rotoPlayer = new YT.Player('roto-player', {
+        videoId: ROTO_VIDEO_ID,
+        playerVars: { rel: 0, playsinline: 1 },
+        events: { onReady: onPlayerReady }
+      });
+      referencePlayer = new YT.Player('reference-player', {
+        videoId: REFERENCE_VIDEO_ID,
+        playerVars: { rel: 0, playsinline: 1 },
+        events: { onReady: onPlayerReady }
+      });
+    }
+
+    function onPlayerReady() {
+      playersReady++;
+      if (playersReady === 2) {
+        var placeholder = document.getElementById('final-placeholder');
+        if (placeholder) placeholder.classList.add('hidden');
+      }
+    }
+
+    function bothReady() {
+      return rotoPlayer && referencePlayer &&
+        typeof rotoPlayer.playVideo === 'function' &&
+        typeof referencePlayer.playVideo === 'function';
+    }
+
+    document.getElementById('roto-play').addEventListener('click', function() {
+      if (!bothReady()) return;
+      rotoPlayer.playVideo();
+      referencePlayer.playVideo();
+    });
+
+    document.getElementById('roto-pause').addEventListener('click', function() {
+      if (!bothReady()) return;
+      rotoPlayer.pauseVideo();
+      referencePlayer.pauseVideo();
+    });
+
+    document.getElementById('roto-reset').addEventListener('click', function() {
+      if (!bothReady()) return;
+      rotoPlayer.seekTo(0, true);
+      referencePlayer.seekTo(0, true);
+      rotoPlayer.pauseVideo();
+      referencePlayer.pauseVideo();
     });
   </script>
 
