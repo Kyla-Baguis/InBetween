@@ -561,6 +561,36 @@
       .weekly-grid { grid-template-columns: 1fr; }
       .final-video-section__side { display: none; }
     }
+      .disclaimer-bar {
+        background: #fdf6f9;
+        border-top: 1px solid #f0dcea;
+        border-bottom: 1px solid #f0dcea;
+        padding: 1rem 4rem;
+        text-align: center;
+      }
+      .disclaimer-bar__text {
+        font-family: 'Josefin Sans', sans-serif;
+        font-size: 0.85rem;
+        font-weight: 400;
+        letter-spacing: 0.1em;
+        color: #4a3040;
+        line-height: 1.8;
+        max-width: 700px;
+        margin: 0 auto;
+      }
+      .disclaimer-bar__text strong {
+        font-weight: 400;
+        color: #b07aa0;
+      }
+      .disclaimer-bar__icon {
+        font-style: normal;
+        margin-right: 0.4em;
+        color: #dbb8d4;
+        font-size: 0.85rem;
+      }
+      @media (max-width: 600px) {
+        .disclaimer-bar { padding: 1rem 1.5rem; }
+      }
   </style>
 </head>
 <body>
@@ -817,38 +847,6 @@
         This project is created purely for <strong>educational and non-commercial purposes</strong> as part of a school requirement. All source footage, music, and media used belong to their respective copyright holders. No infringement is intended.
       </p>
     </div>
-    <style>
-      .disclaimer-bar {
-        background: #fdf6f9;
-        border-top: 1px solid #f0dcea;
-        border-bottom: 1px solid #f0dcea;
-        padding: 1rem 4rem;
-        text-align: center;
-      }
-      .disclaimer-bar__text {
-        font-family: 'Josefin Sans', sans-serif;
-        font-size: 0.85rem;
-        font-weight: 400;
-        letter-spacing: 0.1em;
-        color: #4a3040;
-        line-height: 1.8;
-        max-width: 700px;
-        margin: 0 auto;
-      }
-      .disclaimer-bar__text strong {
-        font-weight: 400;
-        color: #b07aa0;
-      }
-      .disclaimer-bar__icon {
-        font-style: normal;
-        margin-right: 0.4em;
-        color: #dbb8d4;
-        font-size: 0.85rem;
-      }
-      @media (max-width: 600px) {
-        .disclaimer-bar { padding: 1rem 1.5rem; }
-      }
-    </style>
 
     <!-- WEEKLY PROGRESS -->
     <section class="weekly-section" aria-label="Weekly progress documentation">
