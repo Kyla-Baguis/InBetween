@@ -1,18 +1,3 @@
-"""
-EARTH - Blender 5.1.1 compatible
-Texture from C:\\Users\\ClearBug\\Downloads\\textures
-
-Expected texture files:
-    earth_day.jpg
-    earth_night.jpg    (optional – city lights on dark side)
-    earth_clouds.jpg   (optional – cloud shell)
-
-HOW TO USE:
-    1. Open this file in Blender Text Editor (Scripting tab)
-    2. Press Run Script or Alt+P
-    3. Press NUMPAD 0 to view through camera, SPACE to play
-"""
-
 import bpy
 import math
 from bpy_extras import anim_utils

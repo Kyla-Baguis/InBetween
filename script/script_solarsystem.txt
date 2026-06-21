@@ -1,36 +1,3 @@
-"""
-FULL SOLAR SYSTEM - Blender 5.1.1 Python Script
-=================================================
-Creates: Sun, Mercury-Neptune, an asteroid belt (Mars/Jupiter gap),
-and the ISS orbiting Earth. Everything animates over 250 frames.
-
-HOW TO RUN:
-1. Open Blender 5.1.1
-2. Switch a workspace to the "Scripting" tab
-3. Open this file (or paste contents into a new text block)
-4. Click "Run Script" (Alt+P)
-5. Press Spacebar in the viewport to preview the animation
-
-Frame range is set to 1-250 (adjust SOLAR_SYSTEM_FRAMES below if needed).
-
-FIXES vs original:
-  • TEXTURE_DIR typo corrected: "textrure" → "textures"
-  • Earth texture lookup changed from "earth" → "earth.jpg" to match your
-    actual file name (the loader's extension-guessing already handled most
-    planets, but earth.jpg was stored as "earth.jpg" not "earth")
-  • All other planet texture names verified against the loader's fallback list
-  • SATURN REBUILT (per script_saturn.txt):
-      - Rings are now a seamless flat annulus mesh (radial quads), not a
-        torus/disk with visible spoke seams
-      - Ring UVs radiate from the inner edge outward so the ring texture
-        wraps correctly around the full 360°
-      - Ring tilt matched to Saturn's axial tilt (26.7°) instead of a
-        separate arbitrary tilt
-      - Ring now spins together with its own keyframed rotation (synced
-        to the planet's orbit controller, same as before, but driven by
-        the new mesh/material)
-"""
-
 import bpy
 import bmesh
 import math
