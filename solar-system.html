@@ -136,9 +136,9 @@
 
     .final-video-section {
       background: linear-gradient(160deg, #0a0612 0%, #110820 50%, #0c0615 100%);
-      padding: 5rem 1.5rem;
+      padding: 5rem 0;
     }
-    .final-video-section__inner { max-width: 1400px; margin: 0 auto; }
+    .final-video-section__inner { max-width: 100%; margin: 0 auto; }
     .final-video-section .file-buttons { justify-content: center; margin-top: 1.2rem; }
     .video-placeholder {
       width: 100%; aspect-ratio: 16 / 9;
@@ -1176,12 +1176,12 @@
     <!-- FINAL VIDEO -->
     <section class="final-video-section" aria-label="Final animation">
       <div class="final-video-section__inner">
-        <div class="reveal">
+        <div class="reveal" style="padding: 0 4rem;">
           <p class="section-label">Completed Work</p>
           <h2 class="section-title">The Final <span class="em-gold">Animation</span></h2>
           <p class="section-text">The finished Solar System simulation — planets in orbit, textures rendered, the cosmos brought to life.</p>
         </div>
-        <div class="video-placeholder reveal" aria-label="Final solar system animation">
+        <div class="video-placeholder reveal" style="margin-top:2rem;" aria-label="Final solar system animation">
           <iframe
             src="https://www.youtube.com/embed/hOMoL9o06AE"
             title="Final Solar System Animation"
