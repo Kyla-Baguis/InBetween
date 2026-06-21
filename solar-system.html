@@ -21,23 +21,33 @@
     }
 
     /* ---- HERO SPLIT LAYOUT ---- */
+    .inner-hero--split {
+      padding: 5rem 6rem;
+      min-height: 420px;
+      display: flex;
+      align-items: center;
+    }
     .inner-hero--split .inner-hero__split-layout {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 3rem;
+      grid-template-columns: 1.2fr 0.9fr;
+      gap: 8rem;
       align-items: center;
-      max-width: 1200px;
+      max-width: 1300px;
       margin: 0 auto;
       width: 100%;
     }
-    .inner-hero--split {
-      padding: 5rem 4rem;
+    .inner-hero__content {
+      padding-right: 2rem;
     }
     .inner-hero__about-card {
       background: rgba(255,255,255,0.06);
       border: 1px solid rgba(200,140,230,0.2);
-      padding: 2.2rem 2.4rem;
+      padding: 2.4rem 2.6rem;
       backdrop-filter: blur(4px);
+    }
+    @media (max-width: 1100px) {
+      .inner-hero--split { padding: 5rem 3rem; }
+      .inner-hero--split .inner-hero__split-layout { gap: 4rem; }
     }
     @media (max-width: 900px) {
       .inner-hero--split .inner-hero__split-layout {
@@ -45,6 +55,7 @@
         gap: 2rem;
       }
       .inner-hero--split { padding: 4rem 2rem; }
+      .inner-hero__content { padding-right: 0; }
     }
 
     /* ---- TOOLS USED ---- */
