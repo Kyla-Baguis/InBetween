@@ -169,11 +169,11 @@
       <div class="code-header">
         <div class="code-header-left">
           <span class="lang-dot"></span>
-          <span class="filename">script_mercury.txt</span>
+          <span class="filename">script_mercury.py</span>
         </div>
         <div class="btn-row">
           <button class="copy-btn" id="copyBtn">Copy</button>
-          <a class="dl-btn" href="script/script_mercury.txt" download="script_mercury.txt">↓ Download</a>
+          <a class="dl-btn" href="script/script_mercury.py" download="script_mercury.py">↓ Download</a>
         </div>
       </div>
       <div class="code-scroll">
@@ -237,7 +237,7 @@
   var codeBlock = document.getElementById('codeBlock');
   var copyBtn   = document.getElementById('copyBtn');
 
-  fetch('script/script_mercury.txt')
+  fetch('script/script_mercury.py')
     .then(function(res) {
       if (!res.ok) throw new Error('not found');
       return res.text();
@@ -246,7 +246,7 @@
       codeBlock.textContent = text;
     })
     .catch(function() {
-      codeBlock.textContent = 'Could not load script/script_mercury.txt — make sure the file exists in your project folder.';
+      codeBlock.textContent = 'Could not load script/script_mercury.py — make sure the file exists in your project folder.';
     });
 
   copyBtn.addEventListener('click', function () {
