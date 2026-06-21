@@ -142,6 +142,25 @@
     .stat-item:nth-child(3) .stat-item__number { color: var(--purple-rich); }
     .stat-item__label { font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--text-soft); }
 
+    /* ---- ACADEMIC NOTICE ---- */
+    .academic-notice {
+      padding: 1.4rem 2rem;
+      text-align: center;
+      background: var(--pink-whisper);
+      border-top: 1px solid var(--pink-light);
+      border-bottom: 1px solid var(--pink-light);
+    }
+    .academic-notice p {
+      font-size: 0.7rem;
+      font-weight: 300;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-soft);
+      max-width: 700px;
+      margin: 0 auto;
+      line-height: 1.8;
+    }
+
     /* ---- PROJECTS PREVIEW ---- */
     .projects { padding: 7rem 4rem; background: var(--pink-whisper); }
     .projects__header { max-width: 1100px; margin: 0 auto 4rem; text-align: center; }
@@ -193,13 +212,13 @@
       color: var(--text-mid); line-height: 1.85; margin-bottom: 1.2rem;
     }
     .project-card__link {
-      display: inline-flex; align-items: center; gap: 0.5rem;
-      font-size: 0.65rem; font-weight: 300; letter-spacing: 0.22em;
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      font-size: 0.95rem; font-weight: 400; letter-spacing: 0.1em;
       text-transform: uppercase; color: var(--pink-deep);
       transition: gap var(--transition), color var(--transition);
       font-family: var(--font-body);
     }
-    .project-card__link:hover { gap: 0.9rem; color: var(--purple-rich); }
+    .project-card__link:hover { gap: 1rem; color: var(--purple-rich); }
     .project-card--featured .project-card__placeholder { aspect-ratio: 4/3; }
 
     /* ---- PROCESS ---- */
@@ -322,44 +341,6 @@
     </div>
   </section>
 
-  <!-- DIVIDER -->
-  <div class="divider" aria-hidden="true">
-    <div class="divider__line"></div>
-    <span class="divider__gem">✦</span>
-    <div class="divider__line"></div>
-  </div>
-
-  <!-- ABOUT -->
-  <section class="about" id="about" aria-label="About section">
-    <div class="about__inner">
-      <div class="about__image-wrap reveal">
-        <div class="about__image-placeholder" role="img" aria-label="Decorative animation artwork">
-          <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <circle cx="100" cy="100" r="80" stroke="#c9607a" stroke-width="1"/>
-            <circle cx="100" cy="100" r="58" stroke="#c9a83c" stroke-width="1" stroke-dasharray="4 4"/>
-            <circle cx="100" cy="100" r="36" stroke="#8a65c8" stroke-width="1"/>
-            <circle cx="100" cy="100" r="16" fill="#c9607a" opacity="0.3"/>
-            <line x1="20" y1="100" x2="180" y2="100" stroke="#c9607a" stroke-width="1" opacity="0.4"/>
-            <line x1="100" y1="20" x2="100" y2="180" stroke="#c9607a" stroke-width="1" opacity="0.4"/>
-            <circle cx="158" cy="100" r="6" fill="#c9a83c" opacity="0.6"/>
-            <circle cx="100" cy="42" r="4" fill="#8a65c8" opacity="0.6"/>
-          </svg>
-        </div>
-      </div>
-      <div class="about__content reveal">
-        <p class="section-label">About the Project</p>
-        <h2 class="section-title">Lights. Action. <em>Animation.</em></h2>
-        <p class="section-text">
-          This is our creative space — a showcase of everything we've explored, built, and animated in our Multimedia subject. From tracing life into still frames to simulating the vastness of our solar system, every project here represents hours of imagination, technique, and passion.
-        </p>
-        <p class="section-text">
-          We are students diving deep into the art of digital animation. Our work this semester revolves around two major projects that push the boundaries of what we can create on screen.
-        </p>
-        <a href="projects.html" class="btn btn--outline" style="margin-top:1.5rem; display:inline-block;">View Our Work</a>
-      </div>
-    </div>
-  </section>
-
   <!-- STATS -->
   <section class="stats" aria-label="Project stats">
     <div class="stats__inner">
@@ -377,6 +358,11 @@
       </div>
     </div>
   </section>
+
+  <!-- ACADEMIC NOTICE -->
+  <div class="academic-notice" aria-label="Academic disclaimer">
+    <p>This website and all projects featured within it were created by students as part of a Multimedia Arts course requirement. Everything shown here — including the animations, scripts, and assets — is for academic and educational purposes only, and is not intended for commercial use.</p>
+  </div>
 
   <!-- PROJECTS PREVIEW -->
   <section class="projects" aria-label="Projects section">
@@ -449,47 +435,6 @@
       <span class="gallery-strip__item">Student Showcase</span>
     </div>
   </div>
-
-  <!-- PROCESS -->
-  <section class="process" aria-label="Our creative process">
-    <div class="process__inner">
-      <div class="process__header reveal">
-        <p class="section-label" style="justify-content:center;">How We Work</p>
-        <h2 class="section-title">Our Creative <em>Process</em></h2>
-      </div>
-      <div class="process__steps">
-        <div class="process-step reveal">
-          <div class="process-step__number">01</div>
-          <h3 class="process-step__title">Concept</h3>
-          <p class="process-step__desc">Every project begins with an idea — researching the subject, gathering references, and defining the visual direction.</p>
-        </div>
-        <div class="process-step reveal">
-          <div class="process-step__number">02</div>
-          <h3 class="process-step__title">Sketch</h3>
-          <p class="process-step__desc">Rough layouts, storyboards, and initial frames — getting the vision out of our heads and onto the screen.</p>
-        </div>
-        <div class="process-step reveal">
-          <div class="process-step__number">03</div>
-          <h3 class="process-step__title">Animate</h3>
-          <p class="process-step__desc">Frame by frame, week by week — bringing each element to life with patience, craft, and creative instinct.</p>
-        </div>
-        <div class="process-step reveal">
-          <div class="process-step__number">04</div>
-          <h3 class="process-step__title">Refine</h3>
-          <p class="process-step__desc">Reviewing, polishing, and reflecting — making sure every frame sings before the final export.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA -->
-  <section class="cta-section" aria-label="Contact call to action">
-    <div class="reveal">
-      <h2 class="cta-section__title">Let's <em>Connect</em></h2>
-      <p class="cta-section__text">Whether you're a fellow student, a teacher, or just someone who appreciates the art of animation — we'd love to hear from you.</p>
-      <a href="contact.html" class="btn btn--primary">Get in Touch</a>
-    </div>
-  </section>
 
   <!-- FOOTER -->
   <footer>
