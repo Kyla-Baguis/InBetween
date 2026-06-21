@@ -20,13 +20,40 @@
       color: rgba(230, 210, 255, 0.85); line-height: 1.9; max-width: 720px;
     }
 
+    /* ---- HERO SPLIT LAYOUT ---- */
+    .inner-hero--split .inner-hero__split-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    .inner-hero--split {
+      padding: 5rem 4rem;
+    }
+    .inner-hero__about-card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(200,140,230,0.2);
+      padding: 2.2rem 2.4rem;
+      backdrop-filter: blur(4px);
+    }
+    @media (max-width: 900px) {
+      .inner-hero--split .inner-hero__split-layout {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+      .inner-hero--split { padding: 4rem 2rem; }
+    }
+
     /* ---- TOOLS USED ---- */
     .tools-section {
       background: linear-gradient(160deg, #000 0%, #000 50%, #000 100%);
       padding: 5rem 4rem;
       border-top: 1px solid rgba(160, 80, 200, 0.2);
     }
-    .tools-section__inner { max-width: 900px; margin: 0 auto; }
+    .tools-section__inner { max-width: 1200px; margin: 0 auto; }
 
     .tools-grid {
       display: grid;
@@ -37,9 +64,13 @@
     .tool-card {
       background: rgba(30, 10, 50, 0.8);
       border: 1px solid rgba(160, 80, 200, 0.25);
-      padding: 1.6rem 1.8rem;
+      padding: 1.8rem 2rem;
       position: relative;
       transition: transform 0.2s, box-shadow 0.2s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
     }
     .tool-card:hover {
       transform: translateY(-3px);
@@ -48,6 +79,15 @@
     .tool-card__icon {
       font-size: 2rem;
       margin-bottom: 0.8rem;
+      display: block;
+    }
+    /* Image logo support */
+    .tool-card__logo {
+      width: 60px;
+      height: 60px;
+      object-fit: contain;
+      margin-bottom: 0.8rem;
+      border-radius: 12px;
       display: block;
     }
     .tool-card__name {
@@ -745,6 +785,7 @@
       .celestial-card__facts { grid-template-columns: repeat(2, 1fr); }
       .celestial-card__calc-result__grid { grid-template-columns: repeat(2, 1fr); }
       .tools-grid { grid-template-columns: repeat(2, 1fr); }
+      .tools-section__inner { max-width: 100%; }
       .step-image { margin-left: 0; }
     }
     @media (max-width: 640px) {
@@ -966,29 +1007,29 @@
 
   <main class="inner-page" aria-label="Solar System project page">
 
-    <!-- HERO -->
-    <div class="inner-hero inner-hero--solar">
+    <!-- HERO + ABOUT SIDE BY SIDE -->
+    <div class="inner-hero inner-hero--solar inner-hero--split">
       <div class="inner-hero__deco inner-hero__deco--1" aria-hidden="true"></div>
       <div class="inner-hero__deco inner-hero__deco--2" aria-hidden="true"></div>
-      <div class="inner-hero__content">
-        <p class="inner-hero__tag">Simulation Project</p>
-        <h1 class="inner-hero__title">Solar <em>System</em></h1>
-        <p class="inner-hero__subtitle">
-          An animated journey through our cosmic neighborhood — orbits, scales, and the quiet poetry of planets in motion.
-        </p>
+      <div class="inner-hero__split-layout">
+        <!-- Left: Hero content -->
+        <div class="inner-hero__content">
+          <a href="index.html" class="back-btn" aria-label="Back to home" style="margin-bottom:1.5rem;display:inline-block;">Back to Home</a>
+          <p class="inner-hero__tag">Simulation Project</p>
+          <h1 class="inner-hero__title">Solar <em>System</em></h1>
+          <p class="inner-hero__subtitle">
+            An animated journey through our cosmic neighborhood — orbits, scales, and the quiet poetry of planets in motion.
+          </p>
+        </div>
+        <!-- Right: About the Project card -->
+        <div class="inner-hero__about-card">
+          <p class="section-label" style="margin-bottom:1rem;">About the Project</p>
+          <p class="solar-intro__text">
+            Our Solar System project is an animated simulation that visualizes the eight planets orbiting the Sun — with attention to relative orbital speeds, planetary sizes, and the characteristic colors and textures of each world. The goal was to create something both scientifically informed and aesthetically captivating — a simulation that teaches while it delights.
+          </p>
+        </div>
       </div>
     </div>
-
-    <!-- INTRO -->
-    <section class="solar-intro" aria-label="Project introduction">
-      <div class="solar-intro__inner">
-        <a href="index.html" class="back-btn" aria-label="Back to home">Back to Home</a>
-        <p class="section-label" style="margin-bottom:1.5rem;">About the Project</p>
-        <p class="solar-intro__text reveal">
-          Our Solar System project is an animated simulation that visualizes the eight planets orbiting the Sun — with attention to relative orbital speeds, planetary sizes, and the characteristic colors and textures of each world. The goal was to create something both scientifically informed and aesthetically captivating — a simulation that teaches while it delights.
-        </p>
-      </div>
-    </section>
 
     <!-- ======== TOOLS USED (NEW SECTION) ======== -->
     <section class="tools-section" aria-label="Tools used in this project">
@@ -1002,6 +1043,7 @@
         <div class="tools-grid">
           <!-- Tool 1 -->
           <div class="tool-card reveal">
+            <!-- Replace the emoji below with: <img class="tool-card__logo" src="images/blender-logo.png" alt="Blender logo"> -->
             <span class="tool-card__icon">🧊</span>
             <div class="tool-card__name">Blender</div>
             <div class="tool-card__category">3D Modeling &amp; Animation</div>
@@ -1010,6 +1052,7 @@
           </div>
           <!-- Tool 2 -->
           <div class="tool-card reveal">
+            <!-- Replace the emoji below with: <img class="tool-card__logo" src="images/html-logo.png" alt="HTML logo"> -->
             <span class="tool-card__icon">🌐</span>
             <div class="tool-card__name">HTML / CSS / JS</div>
             <div class="tool-card__category">Web Development</div>
@@ -1018,6 +1061,7 @@
           </div>
           <!-- Tool 3 -->
           <div class="tool-card reveal">
+            <!-- Replace the emoji below with: <img class="tool-card__logo" src="images/texture-logo.png" alt="Texture Library logo"> -->
             <span class="tool-card__icon">🖼️</span>
             <div class="tool-card__name">Texture Library</div>
             <div class="tool-card__category">Reference &amp; Assets</div>
@@ -1026,6 +1070,7 @@
           </div>
           <!-- Tool 4 -->
           <div class="tool-card reveal">
+            <!-- Replace the emoji below with: <img class="tool-card__logo" src="images/vscode-logo.png" alt="VS Code logo"> -->
             <span class="tool-card__icon">✏️</span>
             <div class="tool-card__name">VS Code</div>
             <div class="tool-card__category">Code Editor</div>
